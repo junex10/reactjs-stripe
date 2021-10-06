@@ -1,0 +1,38 @@
+{
+    "config": {
+        "collection": "users",
+        "bcrypt": "password"
+    },
+    "seed": [
+        {
+            "email": "admin@master.com",
+            "password": "1234",
+            "profile": {
+                "role": "Administrador",
+                "access": [
+                    {
+                        "view": "all",
+                        "controlName": "all"
+                    }
+                ]
+            },
+            "online": false,
+            "apply": true
+        },
+        {
+            "email": "test@test.com",
+            "password": "1234",
+            "profile": {
+                "role": "Administrador",
+                "access": [
+                    {
+                        "view": "userProfile",
+                        "controlName": "all"
+                    }
+                ]
+            },
+            "online": false,
+            "apply": true
+        }
+    ]
+}

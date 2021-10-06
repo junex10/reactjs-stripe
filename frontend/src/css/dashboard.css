@@ -1,0 +1,5 @@
+.topbar .navbar-search input{
+    height: 40px !important;
+    position: relative;
+    top: 5px;
+}

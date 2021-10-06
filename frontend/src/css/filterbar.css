@@ -1,0 +1,36 @@
+.inner-page{
+    background: white !important;
+    padding: 0 !important;
+    padding-top: .75em !important;
+    padding-bottom: .75em !important;
+    border: 1px solid var(--black-gray);
+    border-left: none !important;
+    border-top: none !important;
+}
+.headerFilter{
+    border: 1px solid var(--black-gray);
+    border-top: none;
+    border-radius: 3px;
+    padding-bottom: 10px !important;
+}
+.item-filter{
+    padding-left: 10px;
+    padding-top: 10px;
+}
+.childrenFilters{
+    padding-top: 10px;
+    padding-left: 10px;
+    font-size: 14px;
+}
+.bodyFilter{
+    border: 1px solid var(--black-gray);
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+}
+.check{
+    cursor: pointer;
+}
+.image{
+    width: 100%;
+}

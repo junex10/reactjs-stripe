@@ -1,0 +1,15 @@
+{
+    "enviroments": {
+        "development": {
+            "url": "http://localhost:4000",
+            "port": 4000,
+            "settings": "appsettings.development.json"
+        },
+        "production": {
+            "url": "miweb.com",
+            "port": 4000,
+            "settings": "appsettings.json"
+        }
+    },
+    "actualEnviroment": "development"
+}

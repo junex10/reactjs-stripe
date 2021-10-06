@@ -1,0 +1,31 @@
+.headingModal {
+    font-size: 20px;
+    text-align: center;
+    color: black;
+}
+
+.divisorModal {
+    width: 90%;
+    display: block;
+    margin: 0 auto;
+}
+
+.bodyModal {
+    font-size: 17px;
+    color: black;
+}
+.bodyModal p{
+    margin-bottom: 4em;
+}
+
+.buttonOk {
+    font-weight: bold;
+    border-radius: 2em;
+    padding: 12px;
+}
+.closeModal{
+    position: relative;
+    left: 95%;
+    width: 1%;
+    cursor: pointer;
+}

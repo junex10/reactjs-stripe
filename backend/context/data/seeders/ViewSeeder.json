@@ -1,0 +1,15 @@
+{
+    "config": {
+        "collection": "views"
+    },
+    "seed": [
+        {
+            "name": "usersProfiles",
+            "apply": true
+        },
+        {
+            "name": "login",
+            "apply": true
+        }
+    ]
+}

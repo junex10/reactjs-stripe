@@ -1,0 +1,11 @@
+16/9/2021 -  An error while ocurred verifying users
+16/9/2021 -  An error while ocurred verifying users
+27/9/2021 9:29 - Collection mailprocesses exists
+27/9/2021 9:29 - Collection mailprocesses exists
+27/9/2021 9:37 - Collection TEST exists
+27/9/2021 9:46 - Collection TEST exists
+27/9/2021 9:47 - Collection TEST exists
+27/9/2021 9:47 - Collection TEST exists
+27/9/2021 9:47 - Collection TEST exists
+27/9/2021 9:48 - Collection TEST exists
+27/9/2021 9:49 - Collection TEST exists

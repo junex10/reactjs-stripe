@@ -1,0 +1,80 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Swagger Test",
+    "version": "1.0.0",
+    "title": "Swagger Test"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "test",
+      "description": "Testing base",
+      "externalDocs": {
+        "description": "Simple Test"
+      }
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/test": {
+      "get": {
+        "tags": [
+          "test"
+        ],
+        "summary": "Test",
+        "description": "Test",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Test"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          },
+          "401": {
+            "description": "Unathorized Access token"
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "JWT": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Test": {
+      "type": "object",
+      "properties" : {
+        "id": {
+          "type": "integer",
+          "format":"int64"
+        },
+        "message": {
+          "type": "string",
+          "example": "test"
+        }
+      }
+    }
+  }
+}
