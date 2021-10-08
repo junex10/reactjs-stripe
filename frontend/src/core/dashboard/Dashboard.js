@@ -6,8 +6,6 @@ import Navbar from '../shared/navbar/Navbar';
 
 import Profile from './profile/Profile';
 
-import Footer from '../shared/footer/Footer';
-
 import './../../css/dashboard.css';
 
 class Dashboard extends Component {
@@ -22,7 +20,6 @@ class Dashboard extends Component {
                                 <div id="content">
                                     <Navbar site="dashboard" />
                                     <Profile />
-                                    <Footer />
                                 </div>
                             </div>
                         </div>

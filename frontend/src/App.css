@@ -40,9 +40,17 @@
     position: relative;
     top: 55%;
 }
-.nav-item i, .nav-item span{
+
+.nav-item i, .nav-item span {
     color: white !important;
 }
-.side{
+
+.side {
     padding-left: 10px;
+}
+
+.btn {
+    border-radius: 3em !important;
+    padding-top: .75em !important;
+    padding-bottom: .75em !important;
 }

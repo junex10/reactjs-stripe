@@ -48,120 +48,12 @@ class DashboardNavbar extends Component {
                         </div>
                     </li>
                     <li className="nav-item dropdown no-arrow">
-                        <li className="dropdown">
-                            <a href={() => false}>
-                                <img className="mr-4 img-profile rounded-circle"
-                                    src={userSVG} width='30' alt='userImage' />
-                                <span>Douglas McGee</span>
-                                <i className="bi bi-chevron-down"></i>
-                            </a>
-                            <ul>
-                                <li><a href={() => false}>Drop Down 1</a></li>
-                            </ul>
-                        </li>
-                    </li>
-                    <div className="topbar-divider d-none d-sm-block"></div>
-                    <li className="nav-item dropdown no-arrow mx-1">
-                        <p className="nav-link dropdown-toggle" id="alertsDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i className="fas fa-bell fa-fw"></i>
-                            <span className="badge badge-danger badge-counter">3+</span>
-                        </p>
-                        <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                            aria-labelledby="alertsDropdown">
-                            <h6 className="dropdown-header">
-                                Alerts Center
-                            </h6>
-                            <p className="dropdown-item d-flex align-items-center">
-                                <div className="mr-3">
-                                    <div className="icon-circle bg-primary">
-                                        <i className="fas fa-file-alt text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="small text-gray-500">December 12, 2019</div>
-                                    <span className="font-weight-bold">A new monthly report is ready to download!</span>
-                                </div>
-                            </p>
-                            <p className="dropdown-item d-flex align-items-center">
-                                <div className="mr-3">
-                                    <div className="icon-circle bg-success">
-                                        <i className="fas fa-donate text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="small text-gray-500">December 7, 2019</div>
-                                    $290.29 has been deposited into your account!
-                                </div>
-                            </p>
-                            <p className="dropdown-item d-flex align-items-center">
-                                <div className="mr-3">
-                                    <div className="icon-circle bg-warning">
-                                        <i className="fas fa-exclamation-triangle text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="small text-gray-500">December 2, 2019</div>
-                                    Spending Alert: We've noticed unusually high spending for your account.
-                                </div>
-                            </p>
-                            <p className="dropdown-item text-center small text-gray-500">Show All Alerts</p>
-                        </div>
-                    </li>
-
-                    <li className="nav-item dropdown no-arrow mx-1">
-                        <p className="nav-link dropdown-toggle" id="messagesDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i className="fas fa-envelope fa-fw"></i>
-                            <span className="badge badge-danger badge-counter">7</span>
-                        </p>
-                        <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                            aria-labelledby="messagesDropdown">
-                            <h6 className="dropdown-header">
-                                Message Center
-                            </h6>
-                            <p className="dropdown-item d-flex align-items-center">
-                                <div className="dropdown-list-image mr-3">
-                                    <div className="status-indicator bg-success"></div>
-                                </div>
-                                <div className="font-weight-bold">
-                                    <div className="text-truncate">Hi there! I am wondering if you can help me with a
-                                        problem I've been having.</div>
-                                    <div className="small text-gray-500">Emily Fowler · 58m</div>
-                                </div>
-                            </p>
-                            <p className="dropdown-item d-flex align-items-center">
-                                <div className="dropdown-list-image mr-3">
-                                    <div className="status-indicator"></div>
-                                </div>
-                                <div>
-                                    <div className="text-truncate">I have the photos that you ordered last month, how
-                                        would you like them sent to you?</div>
-                                    <div className="small text-gray-500">Jae Chun · 1d</div>
-                                </div>
-                            </p>
-                            <p className="dropdown-item d-flex align-items-center">
-                                <div className="dropdown-list-image mr-3">
-                                    <div className="status-indicator bg-warning"></div>
-                                </div>
-                                <div>
-                                    <div className="text-truncate">Last month's report looks great, I am very happy with
-                                        the progress so far, keep up the good work!</div>
-                                    <div className="small text-gray-500">Morgan Alvarez · 2d</div>
-                                </div>
-                            </p>
-                            <p className="dropdown-item d-flex align-items-center">
-                                <div className="dropdown-list-image mr-3">
-                                    <div className="status-indicator bg-success"></div>
-                                </div>
-                                <div>
-                                    <div className="text-truncate">Am I a good boy? The reason I ask is because someone
-                                        told me that people say this to all dogs, even if they aren't good...</div>
-                                    <div className="small text-gray-500">Chicken the Dog · 2w</div>
-                                </div>
-                            </p>
-                            <p className="dropdown-item text-center small text-gray-500">Read More Messages</p>
-                        </div>
+                        {/*<li className="dropdown">
+                            <img className="mr-4 img-profile rounded-circle"
+                                src={userSVG} width='30' alt='userImage' />
+                            <span>Douglas McGee</span>
+                            <i className="bi bi-chevron-down"></i>
+                    </li>*/}
                     </li>
                 </ul>
 
