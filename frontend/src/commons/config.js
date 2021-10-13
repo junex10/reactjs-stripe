@@ -1,1 +1,16 @@
-export const domain = () => 'http://localhost:3000';
+import axios from 'axios';
+
+export const DOMAIN = 'http://localhost:4000';
+export const HTTP_OPTIONS = {
+    headers: {
+        'Accept': 'application/json',
+        'X-API-KEY': 'test'
+    }
+};
+export const HTTP_CONFIG = {
+    baseURL: DOMAIN,
+    timeout: 5000,
+    headers: HTTP_OPTIONS
+};
+export const api = 
+    axios.create(HTTP_CONFIG)

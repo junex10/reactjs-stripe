@@ -4,7 +4,7 @@ class BasicWindow extends Component {
     constructor(props) {
         super(props);
         this.title = props.title;
-        this.body = props.body;
+        this.body = props.children;
     }
     render() {
         return (

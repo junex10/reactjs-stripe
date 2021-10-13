@@ -8,9 +8,9 @@ class SideBar extends Component {
 
                 <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                     <div className="sidebar-brand-icon rotate-n-15">
-                        <i className="fas fa-laugh-wink"></i>
+                        <img width={100} src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/2560px-Stripe_Logo%2C_revised_2016.svg.png' alt='logo' />
                     </div>
-                    <div className="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                    <div className="sidebar-brand-text mx-3">Tienda stripe</div>
                 </a>
 
                 <hr className="sidebar-divider my-0" />
@@ -29,25 +29,17 @@ class SideBar extends Component {
 
                 <li className="nav-item mt-4 mb-4 side">
                     <Link to='/dashboard/user/profile'>
-                        <i className="fas fa-fw fa-cog"></i>
-                        <span>Perfil</span>
+                        <i className="fas fa-user"></i>
+                        <span className='ml-2'>Perfil</span>
                     </Link>
                 </li>
 
                 <li className="nav-item mb-4 side">
-                    <Link to='/dashboard/user/profile'>
-                        <i className="fas fa-fw fa-cog"></i>
-                        <span>Historial</span>
+                    <Link to='/dashboard/user/logs'>
+                        <i className="fas fa-clipboard-list"></i>
+                        <span className='ml-2'>Historial</span>
                     </Link>
                 </li>
-
-                <li className="nav-item mb-4 side">
-                    <Link to='/dashboard/user/profile'>
-                        <i className="fas fa-fw fa-wrench"></i>
-                        <span>Configuración</span>
-                    </Link>
-                </li>
-
                 <hr className="sidebar-divider" />
 
                 <div className="sidebar-heading">
@@ -55,9 +47,9 @@ class SideBar extends Component {
                 </div>
 
                 <li className="nav-item mt-4 side">
-                    <Link to='/dashboard/user/profile'>
-                        <i className="fas fa-fw fa-folder"></i>
-                        <span>Administración de cuenta</span>
+                    <Link to='/dashboard/admin'>
+                        <i className="fas fa-user-circle"></i>
+                        <span className='ml-2'>Administración de cuenta</span>
                     </Link>
                 </li>
             </ul>

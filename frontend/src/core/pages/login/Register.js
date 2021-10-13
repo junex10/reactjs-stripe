@@ -1,106 +1,41 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import * as yup from 'yup';
+import { Form, Formik } from 'formik';
+
 class Register extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            email: {
-                text: '',
-                activated: false
-            },
-            password: {
-                text: '',
-                activated: false
-            },
-            repeat_password: {
-                text: '',
-                activated: false
-            },
-            remember: false,
-            errors: {
-                haveErrors: true
-            }
-        };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-    validate = values => {
-        const errors = {
-            email: {
-                emailNotFound: null
-            },
-            password: {
-                passwordNotFound: null,
-                passwordNotEqual: null
-            },
-            haveErrors: false
-        };
-        if (values.email.activated) {
-            if (!values.email.text) errors.email.emailNotFound = 'Campo obligatorio';
-            else errors.email.emailNotFound = null;
+        this.initialValues = {
+            email: '',
+            password: '',
+            repeat_password: '',
+            remember: false
         }
-        if (values.password.activated) {
-            if (!values.password.text) errors.password.passwordNotFound = 'Campo obligatorio';
-            else errors.password.passwordNotFound = null;
+        this.validationSchema = yup.object({
+            email: yup.string()
+                .required('Campo obligatorio')
+                .email('Correo electrónico no válido'),
+            password: yup.string()
+                .required('Campo obligatorio')
+                .min(4, 'Se requiere mínimo 8 caracteres')
+                .matches(/^\S+$/, 'No se admite espacios en blanco')
+                .matches(/\.*[A-Z]/, 'Debe contener al menos una mayúscula')
+                .matches(/\.*[0-9]/, 'Debe contener al menos un número')
+                .max(10, 'Máximo 10 caracteres'),
+            repeat_password: yup.string()
+                .required('Campo obligatorio')
+                .oneOf([yup.ref('password'), null], "Contraseña debe ser igual"),
+            remember: yup.bool()
+        });
+    }
 
-            if (values.repeat_password.text !== values.password.text) errors.password.passwordNotEqual = 'Las contraseñas deben ser iguales';
-            else errors.password.passwordNotEqual = null;
-        }
-        if (values.repeat_password.activated) {
-            if (!values.repeat_password.text) errors.password.passwordNotFound = 'Campo obligatorio';
-            else errors.password.passwordNotFound = null;
-
-            if (values.repeat_password.text !== values.password.text) errors.password.passwordNotEqual = 'Las contraseñas deben ser iguales';
-            else errors.password.passwordNotEqual = null;
-        }
-        if (
-            (errors.email.emailNotFound == null) &&
-            (errors.password.passwordNotFound == null) &&
-            (errors.password.passwordNotEqual == null)
-        ) {
-            errors.haveErrors = false
-        } else {
-            errors.haveErrors = true;
-        }
-        return errors;
+    handleSubmit(form) {
+        console.log(form)
     }
-    handleChange(event) {
-        const id = event.target.id;
-        const actualData = event.target.value;
-        
-        switch (id) {
-            case 'email':
-                this.setState({ email: { text: actualData, activated: true} });
-            break;
-            case 'password':
-                this.setState({ password: { text: actualData, activated: true} });
-            break;
-            case 'repeat_password':
-                this.setState({ repeat_password: { text: actualData, activated: true} });
-            break;
-            default:
-            break;
-        }
-        setTimeout(() => {
-            const validatedForm = this.validate(this.state);
-            this.setState({ errors: validatedForm });
-        }, 1000);
-    }
-    
-    handleSubmit(event) {
-        if (this.state.errors.haveErrors) {
-            // Fetch
-            event.preventDefault();
-        }
-    }
-    rememberStatus = () => {
-        this.setState({ remember: (!this.state.remember) ? true : false })
-    }
-    
     render() {
-        const { errors } = this.state;
         return (
             <div className="container backgroundLogin">
                 <div className="row justify-content-center">
@@ -116,46 +51,60 @@ class Register extends Component {
                                                     Registrarse
                                                 </h1>
                                             </div>
-                                            <form className="user" action='/dashboard/user/profile' onSubmit={this.handleSubmit}>
-                                                <div className="form-group">
-                                                    <input type="email" onMouseLeave={this.handleChange} className="form-control form-control-user"
-                                                        id="email" aria-describedby="emailHelp"
-                                                        placeholder="Correo electrónico" required />
-                                                    {
-                                                        errors.email &&
-                                                        <div className='ml-2 mt-4 error'>
-                                                            <p style={{ color: 'red', fontSize: '14px' }}>{errors.email.emailNotFound}</p>
-                                                        </div>
+                                            <Formik initialValues={this.initialValues} validationSchema={this.validationSchema} onSubmit={this.handleSubmit}>
+                                                {
+                                                    formik => {
+                                                        const { errors, handleChange, touched } = formik;
+                                                        return (
+                                                            <Form>
+                                                                <div className="form-group">
+                                                                    <input type="email" onChange={handleChange} className="form-control form-control-user"
+                                                                        id="email" aria-describedby="emailHelp"
+                                                                        placeholder="Correo electrónico" />
+                                                                    {
+                                                                        errors.email && touched.email &&
+                                                                        <div className='ml-2 mt-4 error'>
+                                                                            <p style={{ color: 'red', fontSize: '14px' }}>{errors.email}</p>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                                <div className="form-group">
+                                                                    <input type="password" className="form-control form-control-user"
+                                                                        id="password" onChange={handleChange} placeholder="Contraseña" />
+                                                                    {
+                                                                        (errors.password && touched.password) &&
+                                                                        <div className='ml-2 mt-4 error'>
+                                                                            <p style={{ color: 'red', fontSize: '14px' }}>{errors.password}</p>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                                <div className="form-group">
+                                                                    <input type="password" className="form-control form-control-user"
+                                                                        id="repeat_password" onChange={handleChange} placeholder="Repetir Contraseña" />
+                                                                    {
+                                                                        (errors.repeat_password && touched.repeat_password) &&
+                                                                        <div className='ml-2 mt-4 error'>
+                                                                            <p style={{ color: 'red', fontSize: '14px' }}>{errors.repeat_password}</p>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                                <div className="form-group">
+                                                                    <div className="custom-control custom-checkbox small">
+                                                                        <input onChange={handleChange} type="checkbox" className="custom-control-input" id="remember" />
+                                                                        <label className="custom-control-label" htmlFor="remember">Recuerdame</label>
+                                                                    </div>
+                                                                </div>
+                                                                <button className="btn btn-success btn-user btn-block" disabled={!formik.isValid}>
+                                                                    Crear cuenta
+                                                                </button>
+                                                            </Form>
+                                                        );
                                                     }
-                                                </div>
-                                                <div className="form-group">
-                                                    <input type="password" className="form-control form-control-user"
-                                                        id="password" onMouseLeave={this.handleChange} placeholder="Contraseña" required />
-                                                </div>
-                                                <div className="form-group">
-                                                    <input type="password" className="form-control form-control-user"
-                                                        id="repeat_password" onMouseLeave={this.handleChange} placeholder="Repetir Contraseña" required />
-                                                    {
-                                                        errors.password &&
-                                                        <div className='ml-2 mt-4 error'>
-                                                            <p style={{ color: 'red', fontSize: '14px' }}>{errors.password.passwordNotFound}</p>
-                                                            <p style={{ color: 'red', fontSize: '14px' }}>{errors.password.passwordNotEqual}</p>
-                                                        </div>
-                                                    }
-                                                </div>
-                                                <div className="form-group">
-                                                    <div className="custom-control custom-checkbox small">
-                                                        <input onClick={this.rememberStatus} type="checkbox" className="custom-control-input" id="customCheck" />
-                                                        <label className="custom-control-label" htmlFor="customCheck">Recuerdame</label>
-                                                    </div>
-                                                </div>
-                                                <button className="btn btn-success btn-user btn-block" disabled={errors.haveErrors}>
-                                                    Crear cuenta
-                                                </button>
-                                                <hr />
-                                            </form>
+                                                }
+                                            </Formik>
+
                                             <div className="text-center">
-                                                <Link to='/login'><p className="small" style={{color: 'var(--azul)'}}>Tiene cuenta? Iniciar sesion</p></Link>
+                                                <Link to='/login'><p className="small" style={{ color: 'var(--azul)' }}>Tiene cuenta? Iniciar sesion</p></Link>
                                             </div>
                                         </div>
                                     </div>

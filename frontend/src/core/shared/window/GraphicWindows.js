@@ -4,7 +4,7 @@ class GraphicWindow extends Component {
     constructor(props){
         super(props);
         this.title = props.title;
-        this.graphic = props.graphic;
+        this.graphic = props.children;
     }
     render() {
         return (
