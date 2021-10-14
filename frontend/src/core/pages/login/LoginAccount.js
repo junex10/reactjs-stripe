@@ -24,7 +24,8 @@ class LoginAccount extends Component {
     }
 
     handleSubmit(form) {
-        console.log(form)
+        console.log(form);
+        window.location.href = '/dashboard/user/profile';
     }
     render() {
         return (
