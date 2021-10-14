@@ -1,5 +1,5 @@
 export interface Entity{
-    createdBy: number,
+    createdBy?: number,
     createDate?: Date,
     updatedBy?: number,
     updateDate?: Date,

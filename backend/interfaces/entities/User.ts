@@ -4,13 +4,19 @@ export interface User extends Entity{
     password: string,
     profile: Profile,
     apply?: boolean,
-    online: boolean
+    online: boolean,
+    cards?: Cards
 }
 export interface Profile{
     role: string,
-    access: Access
+    access: Access[]
 }
 export interface Access{
     view: string,
     controlName: string
+}
+export interface Cards{
+    keyCardNumber: string,
+    cvc: number,
+    expirationDate: string
 }

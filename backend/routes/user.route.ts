@@ -11,5 +11,6 @@ const user = express.Router();
 user.get('/getUsers', (req: Object, res: Object) => userController.GetUsers(req, res));
 user.get('/getUsers/:id', (req: Object, res: Object) => userController.GetUserById(req, res));
 user.post('/auth', (req: Object, res: Object) => userController.AuthUser(req, res));
+user.post('/registerUser', (req: Object, res: Object) => userController.RegisterUser(req, res))
 
 export { user };

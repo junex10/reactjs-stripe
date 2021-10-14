@@ -1,7 +1,3 @@
-import { Profile } from "../../interfaces/entities/User";
-
-import { GetUserByIdDTO } from './GetUsers.dto';
-
 export class AuthUsersDTO{
     email: string;
     password: string;
@@ -9,4 +5,9 @@ export class AuthUsersDTO{
 export class AuthUserSavedDTO{
     user: string;
     token: string;
+}
+export class RegisterUserDTO{
+    email: string;
+    password: string;
+    repeat_password: string;
 }

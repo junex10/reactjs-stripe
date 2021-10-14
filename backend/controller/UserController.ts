@@ -51,4 +51,17 @@ export class UserController implements IUserController {
             res.send({message: err.message})
         }
     }
+    public async RegisterUser(req, res): Promise<void> {
+        try {
+            await this.userBusiness.RegisterUser(req.body)
+            .then(x => {
+                res.status(200);
+                res.send(x);
+            })
+        }
+        catch(err) {
+            res.status(err.status);
+            res.send({message: err.message});
+        }
+    }
 }

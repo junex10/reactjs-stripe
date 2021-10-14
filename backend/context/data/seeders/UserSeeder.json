@@ -17,6 +17,18 @@
                 ]
             },
             "online": false,
+            "cards": [
+                {
+                    "keyCardNumber": "4242424242424242",
+                    "cvc": "222",
+                    "expirationDate": "15/10/2021"
+                },
+                {
+                    "keyCardNumber": "5555555555554444",
+                    "cvc": "222",
+                    "expirationDate": "15/10/2021"
+                }
+            ],
             "apply": true
         },
         {
@@ -32,6 +44,18 @@
                 ]
             },
             "online": false,
+            "cards": [
+                {
+                    "keyCardNumber": "5200828282828210",
+                    "cvc": "222",
+                    "expirationDate": "15/10/2021"
+                },
+                {
+                    "keyCardNumber": "6011111111111117",
+                    "cvc": "222",
+                    "expirationDate": "15/10/2021"
+                }
+            ],
             "apply": true
         }
     ]

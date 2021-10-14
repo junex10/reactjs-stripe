@@ -2,10 +2,16 @@ import Users from './../context/schemas/UsersSchema';
 
 import { IUserBLL } from "../interfaces/BLL/IUserBLL";
 
-import { GetUsersDTO, GetUserByIdDTO } from "../dtos/resources/getUsers.dto";
-import { AuthUsersDTO, AuthUserSavedDTO } from "../dtos/resources/AuthUsers.dto";
+import {
+    GetUsersDTO, 
+    GetUserByIdDTO,
+    AuthUsersDTO,
+    AuthUserSavedDTO,
+    RegisterUserDTO
+} from './../dtos/dtos.module';
 
 import { JWTAuthManager } from "../auth/JWTAuthManager";
+import { User } from '../interfaces/entities/User';
 
 import * as bcrypt from 'bcrypt';
 
@@ -90,6 +96,56 @@ export class UserBLL implements IUserBLL {
                     resolve(data);
                 })
                 .catch(y => reject({ status: 500, message: 'No se encontró al usuario' }))
+        });
+    }
+    public async RegisterUser(data: RegisterUserDTO): Promise<RegisterUserDTO> {
+        return await new Promise((resolve, reject) => {
+            if (data.password !== data.repeat_password) {
+                reject({ status: 500, message: 'La contraseña no es igual' })
+            } else {
+                Users.schema
+                    .find({ email: data.email })
+                    .then(founded => {
+                        if (founded.length > 0) reject({ status: 500, message: 'El usuario ya existe' })
+                        else {
+                            let newData: RegisterUserDTO;
+                            const newUser: User = {
+                                email: data.email,
+                                password: data.password,
+                                profile: {
+                                    role: "Usuario",
+                                    access: [
+                                        {
+                                            view: "userProfile",
+                                            controlName: "all"
+                                        },
+                                        {
+                                            view: "userLogs",
+                                            controlName: "all"
+                                        },
+                                        {
+                                            view: "userAccount",
+                                            controlName: "all"
+                                        }
+                                    ]
+                                },
+                                online: false
+                            };
+                            Users.schema
+                                .collection
+                                .insertOne(newUser)
+                                .then((x: any) => {
+                                    newData = {
+                                        email: data.email,
+                                        password: data.password,
+                                        repeat_password: data.repeat_password
+                                    };
+                                    resolve(newData);
+                                })
+                                .catch(y => reject({ status: 500, message: 'No se pudo registrar el usuario' }))
+                        }
+                    })
+            }
         });
     }
 }
