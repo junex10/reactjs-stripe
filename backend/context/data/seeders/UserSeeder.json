@@ -29,6 +29,12 @@
                     "expirationDate": "15/10/2021"
                 }
             ],
+            "person": {
+                "name": "Jose",
+                "lastname": "Herrada",
+                "phone": "4128966754",
+                "areaCode": "+58"
+            },
             "apply": true
         },
         {
@@ -56,6 +62,12 @@
                     "expirationDate": "15/10/2021"
                 }
             ],
+            "person": {
+                "name": "Alejandro",
+                "lastname": "Camacho",
+                "phone": "4128966754",
+                "areaCode": "+58"
+            },
             "apply": true
         }
     ]

@@ -5,7 +5,8 @@ export interface User extends Entity{
     profile: Profile,
     apply?: boolean,
     online: boolean,
-    cards?: Cards
+    cards?: Cards,
+    person?: Person
 }
 export interface Profile{
     role: string,
@@ -19,4 +20,10 @@ export interface Cards{
     keyCardNumber: string,
     cvc: number,
     expirationDate: string
+}
+export interface Person{
+    name: string;
+    lastname: string;
+    phone?: string;
+    areaCode?: string;
 }

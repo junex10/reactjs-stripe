@@ -64,4 +64,56 @@ export class UserController implements IUserController {
             res.send({message: err.message});
         }
     }
+    public async UpdatePhone(req, res): Promise<void> {
+        try {
+            await this.userBusiness.UpdatePhone(req.body)
+            .then(x => {
+                res.status(200);
+                res.send(x);
+            })
+        }
+        catch(err) {
+            res.status(err.status);
+            res.send({message: err.message});
+        }
+    }
+    public async UpdateNames(req, res): Promise<void> {
+        try {
+            await this.userBusiness.UpdateNames(req.body)
+            .then(x => {
+                res.status(200);
+                res.send(x);
+            })
+        }
+        catch(err) {
+            res.status(err.status);
+            res.send({message: err.message});
+        }
+    }
+    public async UpdateEmail(req, res): Promise<void> {
+        try {
+            await this.userBusiness.UpdateEmail(req.body)
+            .then(x => {
+                res.status(200);
+                res.send(x);
+            })
+        }
+        catch(err) {
+            res.status(err.status);
+            res.send({message: err.message});
+        }
+    }
+    public async UpdatePassword(req, res): Promise<void> {
+        try {
+            await this.userBusiness.UpdatePassword(req.body)
+            .then(x => {
+                res.status(200);
+                res.send(x);
+            })
+        }
+        catch(err) {
+            res.status(err.status);
+            res.send({message: err.message});
+        }
+    }
 }

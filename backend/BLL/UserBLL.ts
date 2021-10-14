@@ -1,19 +1,26 @@
+import * as bcrypt from 'bcrypt';
+
 import Users from './../context/schemas/UsersSchema';
 
 import { IUserBLL } from "../interfaces/BLL/IUserBLL";
 
 import {
-    GetUsersDTO, 
+    GetUsersDTO,
     GetUserByIdDTO,
     AuthUsersDTO,
     AuthUserSavedDTO,
-    RegisterUserDTO
+    RegisterUserDTO,
+    EditUserEmailDTO,
+    EditUserPasswordDTO,
+    UpdatePhoneDTO,
+    UpdateNamesDTO
 } from './../dtos/dtos.module';
 
 import { JWTAuthManager } from "../auth/JWTAuthManager";
 import { User } from '../interfaces/entities/User';
+import { currentUserCreated } from '../commons/config';
 
-import * as bcrypt from 'bcrypt';
+import { BcryptEnum } from './../commons/enum/index.enum';
 
 export class UserBLL implements IUserBLL {
 
@@ -24,33 +31,33 @@ export class UserBLL implements IUserBLL {
         return await new Promise((resolve, reject) => {
             let dataFinded: GetUserByIdDTO;
             Users.schema.find({ email: data.email })
-            .then((val: any) => {
-                bcrypt.compare(data.password, val[0].password)
-                .then(async (compare: boolean) => {
-                    if (compare) {
-                        dataFinded = {
-                            email: val[0].email,
-                            profile: val[0].profile,
-                            id: val[0].id
-                        };
-                        new JWTAuthManager().buildToken(dataFinded)
-                            .then((value: AuthUserSavedDTO) => {
-                                resolve(value);
-                            });
-                    } else {
-                        reject({
-                            status: 500,
-                            message: 'No se encontró al usuario y/o la clave es inválida'
+                .then((val: any) => {
+                    bcrypt.compare(data.password, val[0].password)
+                        .then(async (compare: boolean) => {
+                            if (compare) {
+                                dataFinded = {
+                                    email: val[0].email,
+                                    profile: val[0].profile,
+                                    id: val[0].id
+                                };
+                                new JWTAuthManager().buildToken(dataFinded)
+                                    .then((value: AuthUserSavedDTO) => {
+                                        resolve(value);
+                                    });
+                            } else {
+                                reject({
+                                    status: 500,
+                                    message: 'No se encontró al usuario y/o la clave es inválida'
+                                });
+                            }
                         });
-                    }
+                })
+                .catch(() => {
+                    reject({
+                        status: 500,
+                        message: 'No se encontró al usuario'
+                    });
                 });
-            })
-            .catch(() => {
-                reject({
-                    status: 500,
-                    message: 'No se encontró al usuario'
-                });
-            });
         });
     }
     public async GetUsers(): Promise<GetUsersDTO[]> {
@@ -114,20 +121,7 @@ export class UserBLL implements IUserBLL {
                                 password: data.password,
                                 profile: {
                                     role: "Usuario",
-                                    access: [
-                                        {
-                                            view: "userProfile",
-                                            controlName: "all"
-                                        },
-                                        {
-                                            view: "userLogs",
-                                            controlName: "all"
-                                        },
-                                        {
-                                            view: "userAccount",
-                                            controlName: "all"
-                                        }
-                                    ]
+                                    access: currentUserCreated
                                 },
                                 online: false
                             };
@@ -147,5 +141,92 @@ export class UserBLL implements IUserBLL {
                     })
             }
         });
+    }
+    public async UpdatePhone(data: UpdatePhoneDTO): Promise<UpdatePhoneDTO> {
+        return await new Promise((resolve, reject) => {
+            Users.schema
+                .findOne({ email: data.email })
+                .then(async val => {
+                    await Users.schema
+                        .findOneAndUpdate({ email: val.email }, {
+                            person: {
+                                areaCode: data.areaCode,
+                                phone: data.phone,
+                                name: val.person.name,
+                                lastname: val.person.lastname
+                            }
+                        })
+                    const changedPhone: UpdatePhoneDTO = {
+                        phone: data.phone,
+                        areaCode: data.areaCode,
+                        email: data.email
+                    };
+                    resolve(changedPhone);
+                })
+                .catch(y => reject({ status: 500, message: 'No se pudo cambiar el número de teléfono' }));
+        });
+    }
+    public async UpdateNames(data: UpdateNamesDTO): Promise<UpdateNamesDTO> {
+        return await new Promise((resolve, reject) => {
+            Users.schema
+                .findOne({ email: data.email })
+                .then(async val => {
+                    await Users.schema
+                        .findOneAndUpdate({ email: data.email }, {
+                            person: {
+                                areaCode: val.person.areaCode,
+                                phone: val.person.phone,
+                                name: data.name,
+                                lastname: data.lastname
+                            }
+                        })
+                    const changedNames: UpdateNamesDTO = {
+                        email: data.email,
+                        name: data.name,
+                        lastname: data.lastname
+                    };
+                    resolve(changedNames);
+                })
+                .catch(y => reject({ status: 500, message: 'No se pudo cambiar los nombres' }));
+        });
+    }
+    public async UpdateEmail(data: EditUserEmailDTO): Promise<EditUserEmailDTO> {
+        return await new Promise((resolve, reject) => {
+            Users.schema
+                .findOneAndUpdate({ email: data.email }, {
+                    email: data.newEmail
+                })
+                .then(x => {
+                    if (x !== null) {
+                        const changedEmail: EditUserEmailDTO = {
+                            email: data.email,
+                            newEmail: data.newEmail
+                        };
+                        resolve(changedEmail);
+                    } else reject({ status: 400, message: 'No se pudo encontrar el correo electrónico' });
+                })
+                .catch(y => reject({ status: 500, message: 'No se pudo cambiar el correo electrónico' }));
+        })
+    }
+    public async UpdatePassword(data: EditUserPasswordDTO): Promise<Object> {
+        return await new Promise(async (resolve, reject) => {
+            var passwordBcrypt: string = '';
+            await bcrypt.hash(data.newPassword, BcryptEnum.saltRound)
+            .then((passwordHash: string) => {
+                passwordBcrypt = passwordHash
+            });
+            Users.schema
+                .findOneAndUpdate({ email: data.email }, {
+                    password: passwordBcrypt
+                })
+                .then(x => {
+                    if (x !== null) {
+                        resolve({
+                            message: 'Contraseña cambiada correctamente'
+                        });
+                    } else reject({ status: 400, message: 'No se pudo encontrar el correo electrónico' });
+                })
+                .catch(y => reject({ status: 500, message: 'No se pudo cambiar la contraseña' }));
+        })
     }
 }

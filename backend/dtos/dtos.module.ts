@@ -6,9 +6,15 @@ export {
 export { 
     AuthUsersDTO,
     AuthUserSavedDTO,
-    RegisterUserDTO
+    RegisterUserDTO,
+    EditUserEmailDTO,
+    EditUserPasswordDTO
 } from './resources/AuthUsers.dto';
 export {
     GetUsersDTO,
     GetUserByIdDTO
 } from './resources/GetUsers.dto';
+export { 
+    UpdatePhoneDTO, 
+    UpdateNamesDTO,
+} from './resources/UpdatePerson.dto';

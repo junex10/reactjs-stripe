@@ -11,3 +11,11 @@ export class RegisterUserDTO{
     password: string;
     repeat_password: string;
 }
+export class EditUserEmailDTO{
+    email: string;
+    newEmail: string;
+}
+export class EditUserPasswordDTO{
+    email: string;
+    newPassword: string;
+}
