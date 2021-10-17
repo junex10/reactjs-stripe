@@ -4,6 +4,7 @@ import { Utility } from '../../utilitys/Utility';
 import Users from './../schemas/UsersSchema';
 import Views from './../schemas/ViewsSchema';
 import MailProcess from './../schemas/MailProcessSchema';
+import Shopping from './../schemas/ShoppingSchema';
 
 import { ISchema } from '../../interfaces/ISchema';
 
@@ -17,6 +18,7 @@ export class DBContext {
     users: any;
     views: any;
     mailProcess: any;
+    shopping: any;
 
     utility: any;
 
@@ -25,12 +27,14 @@ export class DBContext {
     constructor(
         private Users: ISchema,
         private Views: ISchema,
-        private MailProcess: ISchema
+        private MailProcess: ISchema,
+        private Shopping: ISchema
     ) {
 
         this.users = Object.values(Users);
         this.views = Object.values(Views);
         this.mailProcess = Object.values(MailProcess);
+        this.shopping = Object.values(Shopping);
 
         this.utility = new Utility();
     }
@@ -94,7 +98,7 @@ export class DBContext {
                         .catch(err => reject(err))
                 });
             } else {
-                connection.createCollection(config.collection)
+                await connection.createCollection(config.collection)
                     .then(x => {
                         const message = `Collection ${config.collection} was created`;
                         console.log(message);
@@ -109,8 +113,8 @@ export class DBContext {
             }
         });
     }
-    private async Collection() {
-        await this.Create(this.users[0], this.users[1].config, 'email', this.users[1].seed)
+    private Collection() {
+        this.Create(this.users[0], this.users[1].config, 'email', this.users[1].seed)
             .then(x => {
                 console.log(x);
                 Files.binnacleLog(`${x}`);
@@ -122,7 +126,7 @@ export class DBContext {
                 Files.binnacleLog(message);
             });
 
-        await this.Create(this.views[0], this.views[1].config, 'name', this.views[1].seed)
+        this.Create(this.views[0], this.views[1].config, 'name', this.views[1].seed)
             .then(x => {
                 console.log(x);
                 Files.binnacleLog(`${x}`);
@@ -133,7 +137,18 @@ export class DBContext {
                 Files.errorLog(message);
                 Files.binnacleLog(message);
             });
-        await this.Create(this.mailProcess[0], this.mailProcess[1].config, null, this.mailProcess[1].seed)
+        this.Create(this.mailProcess[0], this.mailProcess[1].config, null, this.mailProcess[1].seed)
+            .then(x => {
+                console.log(x);
+                Files.binnacleLog(`${x}`);
+            })
+            .catch(err => {
+                const message = `An error while ocurred verifying, ${err}`;
+                console.log(message);
+                Files.errorLog(message);
+                Files.binnacleLog(message);
+            });
+        this.Create(this.shopping[0], this.shopping[1].config, null, this.shopping[1].seed)
             .then(x => {
                 console.log(x);
                 Files.binnacleLog(`${x}`);
@@ -150,6 +165,7 @@ export class DBContext {
 const initializedContext = new DBContext(
     Users,
     Views,
-    MailProcess
+    MailProcess,
+    Shopping
 );
 export { initializedContext };
