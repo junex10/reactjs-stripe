@@ -4,7 +4,7 @@ import * as seeder from './../data/seeders/ShoppingSeeder.json';
 import { Shopping, Promotion } from './../../interfaces/entities/Index';
 
 const ShoppingSchema = new Schema<Shopping>({
-    product: { type: String, required: true},
+    product: { type: String, required: true, unique: true },
     price: { type: Number, required: true },
     stock: { type: Number, required: true },
     promotion: new Schema<Promotion>({

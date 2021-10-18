@@ -18,3 +18,7 @@ export {
     UpdatePhoneDTO, 
     UpdateNamesDTO,
 } from './resources/UpdatePerson.dto';
+export {
+    GetStock,
+    RegisterStock
+} from './resources/GetShopping.dto';

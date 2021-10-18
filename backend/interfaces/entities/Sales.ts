@@ -4,5 +4,8 @@ export interface Sales extends Entity{
 }
 export interface SaleInfo {
     product: string,
-    
+    price: number,
+    many: number,
+    category: string,
+    image?: string
 }
