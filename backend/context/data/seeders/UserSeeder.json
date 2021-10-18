@@ -12,7 +12,9 @@
                 "access": [
                     {
                         "view": "all",
-                        "controlName": "all"
+                        "controlName": {
+                            "all": true
+                        }
                     }
                 ]
             },
@@ -41,11 +43,13 @@
             "email": "test@test.com",
             "password": "1234",
             "profile": {
-                "role": "Administrador",
+                "role": "Usuario",
                 "access": [
                     {
                         "view": "userProfile",
-                        "controlName": "all"
+                        "controlName": {
+                            "all": true
+                        }
                     }
                 ]
             },

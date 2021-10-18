@@ -1,5 +1,6 @@
 import { IUserBLL } from "../interfaces/BLL/IUserBLL";
 import { IUserController } from "../interfaces/controller/IUserController"
+import { JWTAuthManager } from "../auth/JWTAuthManager";
 
 export class UserController implements IUserController {
 
@@ -52,7 +53,11 @@ export class UserController implements IUserController {
         }
     }
     public async RegisterUser(req, res): Promise<void> {
-        try {
+        this.Auth(req.headers.authorization)
+        /*.then(auth => {
+            console.log(auth)
+        })*/
+        /*try {
             await this.userBusiness.RegisterUser(req.body)
             .then(x => {
                 res.status(200);
@@ -62,7 +67,7 @@ export class UserController implements IUserController {
         catch(err) {
             res.status(err.status);
             res.send({message: err.message});
-        }
+        }*/
     }
     public async UpdatePhone(req, res): Promise<void> {
         try {
@@ -115,5 +120,10 @@ export class UserController implements IUserController {
             res.status(err.status);
             res.send({message: err.message});
         }
+    }
+    private Auth(token: string): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            new JWTAuthManager().authToken(token, 'dsdsa')
+        });
     }
 }
