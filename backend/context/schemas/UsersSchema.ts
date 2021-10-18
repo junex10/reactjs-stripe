@@ -10,7 +10,7 @@ const Users = new Schema<User>({
         role: { type: String },
         access: [new Schema<Access>({
             view: { type: String },
-            controlName: { type: String }
+            controlName: { type: Object }
         }, { _id : false })]
     }, { _id : false }), required: true },
     online: { type: Boolean },

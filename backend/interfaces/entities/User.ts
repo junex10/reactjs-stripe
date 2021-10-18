@@ -14,7 +14,7 @@ export interface Profile{
 }
 export interface Access{
     view: string,
-    controlName: string
+    controlName: Object
 }
 export interface Cards{
     keyCardNumber: string,
