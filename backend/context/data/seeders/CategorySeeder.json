@@ -1,0 +1,27 @@
+{
+    "config": {
+        "collection": "category"
+    },
+    "seed": [
+        {
+            "name": "Sin filtros",
+            "apply": true
+        },
+        {
+            "name": "Vehiculos",
+            "apply": true
+        },
+        {
+            "name": "Computadoras",
+            "apply": true
+        },
+        {
+            "name": "Arte",
+            "apply": true
+        },
+        {
+            "name": "Telefonos",
+            "apply": true
+        }
+    ]
+}

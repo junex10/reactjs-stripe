@@ -12,7 +12,9 @@ const ShoppingSchema = new Schema<Shopping>({
         balance: { type: Number, required: true },
         starDate: { type: Date, required: true },
         endDate: { type: Date, required: true }
-    }, { _id: false })
+    }, { _id: false }),
+    category: { type: String, required: true},
+    image: { type: String}
 }, { collection: seeder.config.collection})
 .add(EntitySchema.EntitySchema);
 
