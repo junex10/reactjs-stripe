@@ -43,7 +43,13 @@
                 "role": "Usuario",
                 "access": [
                     {
-                        "view": "userProfile"
+                        "view": "profile"
+                    },
+                    {
+                        "view": "logs"
+                    },
+                    {
+                        "view": "account"
                     }
                 ]
             },

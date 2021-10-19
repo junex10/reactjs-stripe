@@ -1,6 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 import { Utility } from './../utilitys/Utility';
-import { currentUserCreated } from './../commons/config';
+import { ACCESS } from './../commons/config';
 import { IAPPSettings } from '../interfaces/IAPPSettings';
 
 export class JWTAuthManager {

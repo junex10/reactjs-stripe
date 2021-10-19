@@ -18,7 +18,7 @@ import {
 
 import { JWTAuthManager } from "../auth/JWTAuthManager";
 import { User } from '../interfaces/entities/User';
-import { currentUserCreated } from '../commons/config';
+import { ACCESS } from '../commons/config';
 
 import { BcryptEnum } from './../commons/enum/index.enum';
 
@@ -118,12 +118,13 @@ export class UserBLL implements IUserBLL {
                             let hashPassword: string = '';
                             await bcrypt.hash(data.password, BcryptEnum.saltRound)
                             .then((passwordHashed: string) => hashPassword = passwordHashed);
+                            const userAccess = ACCESS.find(val => val.name == 'Usuario').views;
                             const newUser: User = {
                                 email: data.email,
                                 password: hashPassword,
                                 profile: {
                                     role: "Usuario",
-                                    access: currentUserCreated
+                                    access: userAccess
                                 },
                                 online: false
                             };
@@ -132,7 +133,7 @@ export class UserBLL implements IUserBLL {
                                 .insertOne(newUser)
                                 .then((x: any) => {
                                     resolve({
-                                        message: 'Contraseña cambiada correctamente'
+                                        message: 'Usuario registrado sastifactoriamente'
                                     });
                                 })
                                 .catch(y => reject({ status: 500, message: 'No se pudo registrar el usuario' }))
