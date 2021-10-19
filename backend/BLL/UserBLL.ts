@@ -112,7 +112,7 @@ export class UserBLL implements IUserBLL {
             } else {
                 Users.schema
                     .find({ email: data.email })
-                    .then(founded => {
+                    .then(async founded => {
                         if (founded.length > 0) reject({ status: 500, message: 'El usuario ya existe' })
                         else {
                             let hashPassword: string = '';
