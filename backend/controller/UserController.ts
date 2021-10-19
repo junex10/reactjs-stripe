@@ -53,11 +53,11 @@ export class UserController implements IUserController {
         }
     }
     public async RegisterUser(req, res): Promise<void> {
-        this.Auth(req.headers.authorization)
-        /*.then(auth => {
+        /*this.Auth(req.headers.authorization)
+        .then(auth => {
             console.log(auth)
         })*/
-        /*try {
+        try {
             await this.userBusiness.RegisterUser(req.body)
             .then(x => {
                 res.status(200);
@@ -67,7 +67,7 @@ export class UserController implements IUserController {
         catch(err) {
             res.status(err.status);
             res.send({message: err.message});
-        }*/
+        }
     }
     public async UpdatePhone(req, res): Promise<void> {
         try {

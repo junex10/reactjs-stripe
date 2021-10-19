@@ -105,7 +105,7 @@ export class UserBLL implements IUserBLL {
                 .catch(y => reject({ status: 500, message: 'No se encontró al usuario' }))
         });
     }
-    public async RegisterUser(data: RegisterUserDTO): Promise<RegisterUserDTO> {
+    public async RegisterUser(data: RegisterUserDTO): Promise<Object> {
         return await new Promise((resolve, reject) => {
             if (data.password !== data.repeat_password) {
                 reject({ status: 500, message: 'La contraseña no es igual' })
@@ -115,10 +115,12 @@ export class UserBLL implements IUserBLL {
                     .then(founded => {
                         if (founded.length > 0) reject({ status: 500, message: 'El usuario ya existe' })
                         else {
-                            let newData: RegisterUserDTO;
+                            let hashPassword: string = '';
+                            await bcrypt.hash(data.password, BcryptEnum.saltRound)
+                            .then((passwordHashed: string) => hashPassword = passwordHashed);
                             const newUser: User = {
                                 email: data.email,
-                                password: data.password,
+                                password: hashPassword,
                                 profile: {
                                     role: "Usuario",
                                     access: currentUserCreated
@@ -129,12 +131,9 @@ export class UserBLL implements IUserBLL {
                                 .collection
                                 .insertOne(newUser)
                                 .then((x: any) => {
-                                    newData = {
-                                        email: data.email,
-                                        password: data.password,
-                                        repeat_password: data.repeat_password
-                                    };
-                                    resolve(newData);
+                                    resolve({
+                                        message: 'Contraseña cambiada correctamente'
+                                    });
                                 })
                                 .catch(y => reject({ status: 500, message: 'No se pudo registrar el usuario' }))
                         }

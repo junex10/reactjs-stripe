@@ -14,7 +14,7 @@ export interface IUserBLL {
     GetUsers(): Promise<GetUsersDTO[]>;
     GetUserById(id: string): Promise<GetUserByIdDTO>;
     AuthUser(data: AuthUsersDTO): Promise<AuthUserSavedDTO>;
-    RegisterUser(data: RegisterUserDTO): Promise<RegisterUserDTO>;
+    RegisterUser(data: RegisterUserDTO): Promise<Object>;
     UpdatePhone(data: UpdatePhoneDTO): Promise<UpdatePhoneDTO>;
     UpdateNames(data: UpdateNamesDTO): Promise<UpdateNamesDTO>;
     UpdateEmail(data: EditUserEmailDTO): Promise<EditUserEmailDTO>;
