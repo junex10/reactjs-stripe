@@ -2,29 +2,21 @@ import { Utility } from "../utilitys/Utility";
 
 export let enviroment: string = Utility.Enviroment.actualEnviroment;
 
+/* 
+
+*/
+
 export const currentUserCreated = [
     {
-        view: "all",
-        controlName: {
-            all: true
-        }
+        view: "all"
     },
     {
-        view: "userProfile",
-        controlName: {
-            all: true
-        }
+        view: "userProfile"
     },
     {
-        view: "userLogs",
-        controlName: {
-            all: true
-        }
+        view: "userLogs"
     },
     {
-        view: "userAccount",
-        controlName: {
-            all: true
-        }
+        view: "userAccount"
     }
 ];

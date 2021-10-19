@@ -11,10 +11,7 @@
                 "role": "Administrador",
                 "access": [
                     {
-                        "view": "all",
-                        "controlName": {
-                            "all": true
-                        }
+                        "view": "all"
                     }
                 ]
             },
@@ -46,10 +43,7 @@
                 "role": "Usuario",
                 "access": [
                     {
-                        "view": "userProfile",
-                        "controlName": {
-                            "all": true
-                        }
+                        "view": "userProfile"
                     }
                 ]
             },

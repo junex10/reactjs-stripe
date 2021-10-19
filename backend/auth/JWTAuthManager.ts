@@ -41,7 +41,7 @@ export class JWTAuthManager {
                 access.map((val: any) => {
                     console.log(val, control)
                     if (val.view === 'all') way = true; // Admin
-                    else if(val.controlName === control) way = true; // Any other user
+                    else if(val.view === control) way = true; // Any other user
                 })
                 return way
             })

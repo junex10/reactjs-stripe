@@ -13,8 +13,7 @@ export interface Profile{
     access: Access[]
 }
 export interface Access{
-    view: string,
-    controlName: Object
+    view: string
 }
 export interface Cards{
     keyCardNumber: string,

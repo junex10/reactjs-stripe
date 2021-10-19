@@ -123,7 +123,7 @@ export class UserController implements IUserController {
     }
     private Auth(token: string): Promise<boolean> {
         return new Promise((resolve, reject) => {
-            new JWTAuthManager().authToken(token, 'dsdsa')
+            new JWTAuthManager().authToken(token, 'userProfile')
         });
     }
 }

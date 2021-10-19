@@ -9,8 +9,7 @@ const Users = new Schema<User>({
     profile: { type: new Schema<Profile>({
         role: { type: String },
         access: [new Schema<Access>({
-            view: { type: String },
-            controlName: { type: Object }
+            view: { type: String }
         }, { _id : false })]
     }, { _id : false }), required: true },
     online: { type: Boolean },
