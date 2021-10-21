@@ -48,7 +48,7 @@ export class JWTAuthManager {
                         
                         way == true ? resolve(way) : reject({ status: 403, message: 'Restricted action' });
                     } else {
-                        reject({ status: 403, message: 'Restricted action' });
+                        reject({ status: 403, message: 'Required authorization token' });
                     }
                 });
         });
