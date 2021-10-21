@@ -42,7 +42,7 @@ export class JWTAuthManager {
                     userData.permits.keys.map((val: any) => {
                         if (val.name === configAccess.module) val.control.find(x => x === configAccess.control ? way = true : way = false);
                     });
-                }
+                } else way = true;
                 return way;
             })
     }
