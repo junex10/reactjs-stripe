@@ -1,4 +1,5 @@
 import { Utility } from "../utilitys/Utility";
+import { JWTAuthManager } from "../auth/JWTAuthManager";
 
 export let enviroment: string = Utility.Enviroment.actualEnviroment;
 export const ACCESS = [
@@ -56,3 +57,4 @@ export const ACCESS_KEY = [
         ]
     }
 ];
+export const JWTAUTH = new JWTAuthManager();

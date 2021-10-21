@@ -134,7 +134,6 @@ export class UserBLL implements IUserBLL {
                                 },
                                 online: false
                             };
-                            console.log(ACCESS_KEY[1].keys)
                             Users.schema
                                 .collection
                                 .insertOne(newUser)
