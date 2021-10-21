@@ -1,6 +1,5 @@
 import * as jwt from 'jsonwebtoken';
 import { Utility } from './../utilitys/Utility';
-import { ACCESS_KEY } from './../commons/config';
 import { IAPPSettings } from '../interfaces/IAPPSettings';
 
 export class JWTAuthManager {
@@ -29,7 +28,7 @@ export class JWTAuthManager {
                 });
         });
     }
-    public authToken(tokenJWT: string, control?: string) {
+    public authToken(tokenJWT: string, configAccess: any) {
         new Utility().AppSettingsJson()
             .then((x: IAPPSettings) => {
                 const tokenFormat = tokenJWT.replace('Bearer ', '');
@@ -39,18 +38,12 @@ export class JWTAuthManager {
 
                 let way = false;
 
-                ACCESS_KEY.map(val => {
-                    if (val.name == role) {
-                        const keys = val.keys;
-                        console.log(val);
-                    }
-                });
-                /*access.map((val: any) => {
-                    console.log(val, control)
-                    if (val.view === 'all') way = true; // Admin
-                    else if(val.view === control) way = true; // Any other user
-                })
-                return way*/
+                if (role !== 'Administrador') {
+                    userData.permits.keys.map((val: any) => {
+                        if (val.name === configAccess.module) val.control.find(x => x === configAccess.control ? way = true : way = false);
+                    });
+                }
+                return way;
             })
     }
     private buildTokenBasedUser(data) {

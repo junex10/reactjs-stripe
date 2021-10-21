@@ -98,6 +98,12 @@
                             "accountPassword",
                             "creditCard"
                         ]
+                    },
+                    {
+                        "name": "user",
+                        "control": [
+                            "registerUser"
+                        ]
                     }
                 ]
             },

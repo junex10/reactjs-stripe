@@ -38,6 +38,7 @@ export class UserBLL implements IUserBLL {
                                 dataFinded = {
                                     email: val[0].email,
                                     profile: val[0].profile,
+                                    permits: val[0].permits,
                                     id: val[0].id
                                 };
                                 new JWTAuthManager().buildToken(dataFinded)
@@ -98,7 +99,8 @@ export class UserBLL implements IUserBLL {
                         id: val._id,
                         email: val.email,
                         password: val.password,
-                        profile: val.profile
+                        profile: val.profile,
+                        permits: val.permits
                     };
                     resolve(data);
                 })

@@ -1,4 +1,4 @@
-import { Profile } from "../../interfaces/entities/User";
+import { Permits, Profile } from "../../interfaces/entities/User";
 
 export class GetUsersDTO{
     email: string;
@@ -10,5 +10,6 @@ export class GetUserByIdDTO{
     email: string;
     password?: string;
     id?: string;
-    profile: Profile
+    profile: Profile;
+    permits: Permits;
 }
