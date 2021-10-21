@@ -32,20 +32,24 @@ export class JWTAuthManager {
         return new Promise((resolve, reject) => {
             new Utility().AppSettingsJson()
                 .then((x: IAPPSettings) => {
-                    const tokenFormat = tokenJWT.replace('Bearer ', '');
-                    const key = x.Jwt.Key;
-                    const userData = jwt.verify(tokenFormat, key);
-                    const role = userData.profile.role;
-
-                    let way = false;
-
-                    if (role !== 'Administrador') {
-                        userData.permits.keys.map((val: any) => {
-                            if (val.name === configAccess.module) val.control.find(x => x === configAccess.control ? way = true : way = false);
-                        });
-                    } else way = true;
-                    
-                    way == true ? resolve(way) : reject({ status: 403, message: 'Restricted action' });
+                    if (tokenJWT !== undefined) {
+                        const tokenFormat = tokenJWT.replace('Bearer ', '');
+                        const key = x.Jwt.Key;
+                        const userData = jwt.verify(tokenFormat, key);
+                        const role = userData.profile.role;
+    
+                        let way = false;
+    
+                        if (role !== 'Administrador') {
+                            userData.permits.keys.map((val: any) => {
+                                if (val.name === configAccess.module) val.control.find(x => x === configAccess.control ? way = true : way = false);
+                            });
+                        } else way = true;
+                        
+                        way == true ? resolve(way) : reject({ status: 403, message: 'Restricted action' });
+                    } else {
+                        reject({ status: 403, message: 'Restricted action' });
+                    }
                 });
         });
     }
