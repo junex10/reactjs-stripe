@@ -7,4 +7,5 @@ export interface IUserController {
     UpdateNames(req, res): Promise<void>;
     UpdateEmail(req, res): Promise<void>;
     UpdatePassword(req, res): Promise<void>;
+    UpdateCreditCard(req, res): Promise<void>;
 }

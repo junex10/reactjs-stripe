@@ -17,6 +17,7 @@ export {
 export { 
     UpdatePhoneDTO, 
     UpdateNamesDTO,
+    UpdateCreditCard
 } from './resources/UpdatePerson.dto';
 export {
     GetStock,

@@ -14,7 +14,7 @@ const Users = new Schema<User>({
     }, { _id : false }), required: true },
     online: { type: Boolean },
     cards: [new Schema<Cards>({
-        keyCardNumber: { type: String, required: true, unique: true},
+        creditCardNumber: { type: String, required: true, unique: true},
         cvc: { type: Number, required: true },
         expirationDate: { type: String, required: true }
     }, { _id: false })],

@@ -8,3 +8,10 @@ export class UpdatePhoneDTO{
     phone: string;
     areaCode: string;
 }
+export class UpdateCreditCard{
+    email: string;
+    creditCardNumber: string;
+    newCreditCard: string;
+    cvc: number;
+    expirationDate: string;
+}

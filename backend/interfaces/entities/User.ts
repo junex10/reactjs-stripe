@@ -5,7 +5,7 @@ export interface User extends Entity{
     profile: Profile,
     apply?: boolean,
     online: boolean,
-    cards?: Cards,
+    cards?: Cards[],
     person?: Person,
     permits: Permits
 }
@@ -17,7 +17,7 @@ export interface Access{
     view: string
 }
 export interface Cards{
-    keyCardNumber: string,
+    creditCardNumber: string,
     cvc: number,
     expirationDate: string
 }

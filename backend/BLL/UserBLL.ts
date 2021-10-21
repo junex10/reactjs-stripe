@@ -13,7 +13,8 @@ import {
     EditUserEmailDTO,
     EditUserPasswordDTO,
     UpdatePhoneDTO,
-    UpdateNamesDTO
+    UpdateNamesDTO,
+    UpdateCreditCard
 } from './../dtos/dtos.module';
 
 import { JWTAuthManager } from "../auth/JWTAuthManager";
@@ -234,5 +235,44 @@ export class UserBLL implements IUserBLL {
                 })
                 .catch(y => reject({ status: 500, message: 'No se pudo cambiar la contraseña' }));
         })
+    }
+    public async UpdateCreditCard(data: UpdateCreditCard): Promise<Object> {
+        return await new Promise((resolve, reject) => {
+            Users.schema
+                .findOne({ email: data.email })
+                .then(userData => {
+                    if (userData === null) reject({ status: 400, message: 'No se encontró al usuario' })
+                    else {
+                        const cards = userData.cards;
+                        const changeCard = {
+                            creditCardNumber: data.newCreditCard,
+                            cvc: data.cvc,
+                            expirationDate: data.expirationDate
+                        };
+                        let autoIncrement = 0;
+                        cards.find((value, index) => {
+                            if (value.creditCardNumber === data.creditCardNumber){
+                                cards.splice(index, 1);
+                                autoIncrement++;
+                            }
+                        });
+                        cards.push(changeCard);
+
+                        if (autoIncrement === 1) {
+                            Users.schema
+                                .updateOne({ email: data.email }, {
+                                    cards: cards
+                                })
+                                .then(() => {
+                                    resolve({ message: 'Tarjeta de crédito actualizada' })
+                                })
+                                .catch(y => reject({ status: 500, message: 'No se pudo actualizar la tarjeta de crédito' }));
+                        } else {
+                            reject({ status: 400, message: 'No se encontró la tarjeta de crédito' })
+                        }
+                    }
+                })
+                .catch(y => reject({ status: 400, message: 'No se encontró al usuario' }));
+        });
     }
 }
