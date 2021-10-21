@@ -74,56 +74,89 @@ export class UserController implements IUserController {
             });
     }
     public async UpdatePhone(req, res): Promise<void> {
-        try {
-            await this.userBusiness.UpdatePhone(req.body)
-                .then(x => {
-                    res.status(200);
-                    res.send(x);
-                })
-        }
-        catch (err) {
-            res.status(err.status);
-            res.send({ message: err.message });
-        }
+        await JWTAUTH
+            .authToken(req.headers.authorization, { module: 'profile', control: 'phone' })
+            .then(async () => {
+                try {
+                    await this.userBusiness.UpdatePhone(req.body)
+                        .then(x => {
+                            res.status(200);
+                            res.send(x);
+                        })
+                }
+                catch (err) {
+                    res.status(err.status);
+                    res.send({ message: err.message });
+                }
+            })
+            .catch(err => {
+                res.status(err.status);
+                res.send({ message: err.message });
+            });
     }
     public async UpdateNames(req, res): Promise<void> {
-        try {
-            await this.userBusiness.UpdateNames(req.body)
-                .then(x => {
-                    res.status(200);
-                    res.send(x);
-                })
-        }
-        catch (err) {
-            res.status(err.status);
-            res.send({ message: err.message });
-        }
+        await JWTAUTH
+            .authToken(req.headers.authorization, { module: 'profile', control: 'names' })
+            .then(async () => {
+                try {
+                    await this.userBusiness.UpdateNames(req.body)
+                        .then(x => {
+                            res.status(200);
+                            res.send(x);
+                        })
+                }
+                catch (err) {
+                    res.status(err.status);
+                    res.send({ message: err.message });
+                }
+            })
+            .catch(err => {
+                res.status(err.status);
+                res.send({ message: err.message });
+            });
     }
     public async UpdateEmail(req, res): Promise<void> {
-        try {
-            await this.userBusiness.UpdateEmail(req.body)
-                .then(x => {
-                    res.status(200);
-                    res.send(x);
-                })
-        }
-        catch (err) {
-            res.status(err.status);
-            res.send({ message: err.message });
-        }
+        await JWTAUTH
+            .authToken(req.headers.authorization, { module: 'account', control: 'accountEmail' })
+            .then(async () => {
+                try {
+                    await this.userBusiness.UpdateEmail(req.body)
+                        .then(x => {
+                            res.status(200);
+                            res.send(x);
+                        })
+                }
+                catch (err) {
+                    res.status(err.status);
+                    res.send({ message: err.message });
+                }
+            })
+            .catch(err => {
+                res.status(err.status);
+                res.send({ message: err.message });
+            });
     }
     public async UpdatePassword(req, res): Promise<void> {
-        try {
-            await this.userBusiness.UpdatePassword(req.body)
-                .then(x => {
-                    res.status(200);
-                    res.send(x);
-                })
-        }
-        catch (err) {
-            res.status(err.status);
-            res.send({ message: err.message });
-        }
+        await JWTAUTH
+            .authToken(req.headers.authorization, { module: 'account', control: 'accountPassword' })
+            .then(async () => {
+                try {
+                    await this.userBusiness.UpdatePassword(req.body)
+                        .then(x => {
+                            res.status(200);
+                            res.send(x);
+                        })
+                }
+                catch (err) {
+                    res.status(err.status);
+                    res.send({ message: err.message });
+                }
+            })
+            .catch(err => {
+                res.status(err.status);
+                res.send({ message: err.message });
+            });
+
     }
 
 }
