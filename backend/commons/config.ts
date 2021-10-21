@@ -25,3 +25,34 @@ export const ACCESS = [
         ]
     }
 ];
+export const ACCESS_KEY = [
+    {
+        name: 'Administrador',
+        keys: [
+            {
+                name: 'all',
+                control: ['all']
+            }
+        ]
+    },
+    {
+        name: 'Usuario',
+        keys: [
+            {
+                name: 'profile',
+                control: [
+                    'phone',
+                    'names'
+                ]
+            },
+            {
+                name: 'account',
+                control: [
+                    'accountEmail',
+                    'accountPassword',
+                    'creditCard'
+                ]
+            }
+        ]
+    }
+];

@@ -53,7 +53,7 @@ export class UserController implements IUserController {
         }
     }
     public async RegisterUser(req, res): Promise<void> {
-        /*this.Auth(req.headers.authorization)
+        /*this.Auth(req.headers.authorization, 'registerUser')
         .then(auth => {
             console.log(auth)
         })*/
@@ -121,9 +121,9 @@ export class UserController implements IUserController {
             res.send({message: err.message});
         }
     }
-    private Auth(token: string): Promise<boolean> {
+    private Auth(token: string, key: string): Promise<boolean> {
         return new Promise((resolve, reject) => {
-            new JWTAuthManager().authToken(token, 'userProfile')
+            new JWTAuthManager().authToken(token, key)
         });
     }
 }

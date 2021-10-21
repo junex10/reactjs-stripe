@@ -6,7 +6,8 @@ export interface User extends Entity{
     apply?: boolean,
     online: boolean,
     cards?: Cards,
-    person?: Person
+    person?: Person,
+    permits: Permits
 }
 export interface Profile{
     role: string,
@@ -25,4 +26,15 @@ export interface Person{
     lastname: string;
     phone?: string;
     areaCode?: string;
+}
+export interface Permits{
+    name: string,
+    keys?: PermitsKeys[]
+}
+export interface PermitsKeys{
+    name: string,
+    control: ControlKeys
+}
+export interface ControlKeys{
+    [index: number]: string;
 }

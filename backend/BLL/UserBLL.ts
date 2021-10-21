@@ -18,7 +18,7 @@ import {
 
 import { JWTAuthManager } from "../auth/JWTAuthManager";
 import { User } from '../interfaces/entities/User';
-import { ACCESS } from '../commons/config';
+import { ACCESS, ACCESS_KEY } from '../commons/config';
 
 import { BcryptEnum } from './../commons/enum/index.enum';
 
@@ -126,8 +126,13 @@ export class UserBLL implements IUserBLL {
                                     role: "Usuario",
                                     access: userAccess
                                 },
+                                permits: {
+                                    name: 'Usuario',
+                                    keys: ACCESS_KEY[1].keys
+                                },
                                 online: false
                             };
+                            console.log(ACCESS_KEY[1].keys)
                             Users.schema
                                 .collection
                                 .insertOne(newUser)

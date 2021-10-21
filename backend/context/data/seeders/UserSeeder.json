@@ -34,6 +34,15 @@
                 "phone": "4128966754",
                 "areaCode": "+58"
             },
+            "permits": {
+                "name": "Administrador",
+                "keys": [
+                    {
+                        "name": "all",
+                        "control": ["all"]
+                    }
+                ]
+            },
             "apply": true
         },
         {
@@ -71,6 +80,26 @@
                 "lastname": "Camacho",
                 "phone": "4128966754",
                 "areaCode": "+58"
+            },
+            "permits": {
+                "name": "Usuario",
+                "keys": [
+                    {
+                        "name": "profile",
+                        "control": [
+                            "phone",
+                            "names"
+                        ]
+                    },
+                    {
+                        "name": "account",
+                        "control": [
+                            "accountEmail",
+                            "accountPassword",
+                            "creditCard"
+                        ]
+                    }
+                ]
             },
             "apply": true
         }

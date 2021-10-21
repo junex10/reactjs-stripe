@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import EntitySchema from './EntitySchema';
 import * as seeder from './../data/seeders/UserSeeder.json';
-import { Access, Profile, User, Cards, Person } from './../../interfaces/entities/User';
+import { Access, Profile, User, Cards, Person, Permits, PermitsKeys } from './../../interfaces/entities/User';
 
 const Users = new Schema<User>({
     email: { type: String, required: true, unique: true},
@@ -23,7 +23,14 @@ const Users = new Schema<User>({
         lastname: { type: String, required: true},
         phone: { type: String },
         areaCode: { type: String }
-    }, { _id: false })}
+    }, { _id: false })},
+    permits: new Schema<Permits>({
+        name: { type: String, required: true, unique: true },
+        keys: [new Schema<PermitsKeys>({
+            name: { type: String },
+            control: { type: [] }
+        }, { _id: false })]
+    }, { _id: false })
 })
 .add(EntitySchema.EntitySchema);
 const schema = model<User>(seeder.config.collection, Users);

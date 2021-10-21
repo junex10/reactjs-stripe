@@ -1,6 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 import { Utility } from './../utilitys/Utility';
-import { ACCESS } from './../commons/config';
+import { ACCESS_KEY } from './../commons/config';
 import { IAPPSettings } from '../interfaces/IAPPSettings';
 
 export class JWTAuthManager {
@@ -35,15 +35,22 @@ export class JWTAuthManager {
                 const tokenFormat = tokenJWT.replace('Bearer ', '');
                 const key = x.Jwt.Key;
                 const userData = jwt.verify(tokenFormat, key);
-                const access = userData.profile.access;
+                const role = userData.profile.role;
 
                 let way = false;
-                access.map((val: any) => {
+
+                ACCESS_KEY.map(val => {
+                    if (val.name == role) {
+                        const keys = val.keys;
+                        console.log(val);
+                    }
+                });
+                /*access.map((val: any) => {
                     console.log(val, control)
                     if (val.view === 'all') way = true; // Admin
                     else if(val.view === control) way = true; // Any other user
                 })
-                return way
+                return way*/
             })
     }
     private buildTokenBasedUser(data) {
