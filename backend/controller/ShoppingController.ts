@@ -73,7 +73,7 @@ export class ShoppingController implements IShoppingController {
             .authToken(req.headers.authorization, { module: 'store', control: 'deleteStock' })
             .then(async () => {
                 try {
-                    await this.shoppingBusiness.DeleteStock(req.body)
+                    await this.shoppingBusiness.DeleteStock(req.params.productId)
                         .then(x => {
                             res.status(200);
                             res.send(x);

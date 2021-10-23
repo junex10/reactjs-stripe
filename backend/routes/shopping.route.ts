@@ -11,6 +11,6 @@ const shopping = express.Router();
 shopping.get('/getStock/:product?', (req: Object, res: Object) => shoppingController.GetStock(req, res));
 shopping.post('/registerStock', (req: Object, res: Object) => shoppingController.RegisterStock(req, res));
 shopping.put('/updateStock', (req: Object, res: Object) => shoppingController.UpdateStock(req, res));
-shopping.delete('/deleteStock', (req: Object, res: Object) => shoppingController.DeleteStock(req, res));
+shopping.delete('/deleteStock/:productId?', (req: Object, res: Object) => shoppingController.DeleteStock(req, res));
 
 export { shopping };

@@ -4,8 +4,7 @@ import { IShoppingBLL } from "../interfaces/BLL/IShoppingBLL";
 import {
     GetStock,
     RegisterStock,
-    UpdateStock,
-    DeleteStock
+    UpdateStock
 } from '../dtos/dtos.module';
 
 export class ShoppingBLL implements IShoppingBLL {
@@ -75,24 +74,49 @@ export class ShoppingBLL implements IShoppingBLL {
     public UpdateStock(data: UpdateStock): Promise<Object> {
         return new Promise((resolve, reject) => {
             Shopping.schema
-                .updateOne({ _id: data.id }, {
-                    product: data.product,
-                    price: data.price,
-                    stock: data.stock,
-                    category: data.category,
-                    image: (data.image === undefined) ? "" : data.image
+                .findOne({ _id: data.id })
+                .then(d => {
+                    if (d !== null) {
+                        Shopping.schema
+                        .updateOne({ _id: data.id }, {
+                            product: (data.product === undefined) ? d.product : data.product,
+                            price: (data.price === undefined) ? d.price : data.price,
+                            stock: (data.stock === undefined) ? d.stock : data.stock,
+                            category: (data.category === undefined) ? d.category : data.category,
+                            image: (data.image === undefined) ? d.image : data.image
+                        })
+                        .then(() => {
+                            resolve({
+                                message: 'Producto actualizado!'
+                            })
+                        })
+                        .catch(y => reject({ status: 500, message: 'No se pudo actualizar el producto' }))
+                    } else reject({ status: 400, message: 'No se pudo encontrar el producto' })
                 })
-                .then(() => {
-                    resolve({
-                        message: 'Producto actualizado!'
-                    })
-                })
-                .catch(y => reject({ status: 500, message: 'No se pudo actualizar el producto' }))
+                .catch(y => reject({ status: 400, message: 'No se pudo encontrar el producto' }))
         });
     }
-    public DeleteStock(data: DeleteStock): Promise<Object> {
+    public DeleteStock(productId: string): Promise<Object> {
         return new Promise((resolve, reject) => {
+            if (productId === undefined) {
+                Shopping.schema
+                    .deleteMany()
+                    .then(() => resolve({ message: 'Productos eliminados!'}))
+                    .catch(y => reject({ status: 400, message: 'No se pudo eliminar los productos' }))
+            } else {
+                Shopping.schema
+                    .findOne({ _id: productId })
+                    .then(d => {
+                        if (d !== null) {
+                            Shopping.schema
+                                .deleteOne({ _id: productId})
+                                .then(() => resolve({ message: 'Producto eliminado'}))
+                                .catch(y => reject({ status: 500, message: 'No se pudo eliminar el producto' }))
 
+                        } else reject({ status: 400, message: 'No se pudo encontrar el producto' })
+                    })
+                    .catch(y => reject({ status: 400, message: 'No se pudo encontrar el producto' }))
+            }
         });
     }
 }

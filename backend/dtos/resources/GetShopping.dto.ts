@@ -19,6 +19,3 @@ export class UpdateStock {
     category: string;
     image?: string;
 }
-export class DeleteStock {
-    id: string;
-}
