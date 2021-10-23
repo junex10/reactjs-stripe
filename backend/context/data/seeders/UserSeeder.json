@@ -104,6 +104,81 @@
                 ]
             },
             "apply": true
+        },
+        {
+            "email": "gerente@gerente.com",
+            "password": "1234",
+            "profile": {
+                "role": "Usuario",
+                "access": [
+                    {
+                        "view": "profile"
+                    },
+                    {
+                        "view": "logs"
+                    },
+                    {
+                        "view": "account"
+                    }
+                ]
+            },
+            "online": false,
+            "cards": [
+                {
+                    "creditCardNumber": "5200828282828210",
+                    "cvc": "222",
+                    "expirationDate": "15/10/2021"
+                },
+                {
+                    "creditCardNumber": "6011111111111117",
+                    "cvc": "222",
+                    "expirationDate": "15/10/2021"
+                }
+            ],
+            "person": {
+                "name": "Alex",
+                "lastname": "Maturin",
+                "phone": "4128966754",
+                "areaCode": "+58",
+                "active": true
+            },
+            "permits": {
+                "name": "Gerente",
+                "keys": [
+                    {
+                        "name": "profile",
+                        "control": [
+                            "phone",
+                            "names"
+                        ]
+                    },
+                    {
+                        "name": "account",
+                        "control": [
+                            "accountEmail",
+                            "accountPassword",
+                            "creditCard"
+                        ]
+                    },
+                    {
+                        "name": "user",
+                        "control": [
+                            "registerUser",
+                            "updateUser",
+                            "deleteUser"
+                        ]
+                    },
+                    {
+                        "name": "store",
+                        "control": [
+                            "registerStock",
+                            "updateStock",
+                            "deleteStock"
+                        ]
+                    }
+                ]
+            },
+            "apply": true
         }
     ]
 }
