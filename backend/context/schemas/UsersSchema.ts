@@ -22,7 +22,8 @@ const Users = new Schema<User>({
         name: { type: String, required: true},
         lastname: { type: String, required: true},
         phone: { type: String },
-        areaCode: { type: String }
+        areaCode: { type: String },
+        active: { type: Boolean, required: true, default: true }
     }, { _id: false })},
     permits: new Schema<Permits>({
         name: { type: String, required: true, unique: true },

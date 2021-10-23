@@ -32,7 +32,8 @@
                 "name": "Jose",
                 "lastname": "Herrada",
                 "phone": "4128966754",
-                "areaCode": "+58"
+                "areaCode": "+58",
+                "active": true
             },
             "permits": {
                 "name": "Administrador",
@@ -79,7 +80,8 @@
                 "name": "Alejandro",
                 "lastname": "Camacho",
                 "phone": "4128966754",
-                "areaCode": "+58"
+                "areaCode": "+58",
+                "active": true
             },
             "permits": {
                 "name": "Usuario",

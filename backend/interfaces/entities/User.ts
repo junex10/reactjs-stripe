@@ -26,6 +26,7 @@ export interface Person{
     lastname: string;
     phone?: string;
     areaCode?: string;
+    active: boolean;
 }
 export interface Permits{
     name: string,

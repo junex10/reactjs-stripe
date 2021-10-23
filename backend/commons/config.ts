@@ -55,6 +55,34 @@ export const ACCESS_KEY = [
                 ]
             }
         ]
+    },
+    {
+        name: 'Gerente',
+        keys: [
+            {
+                name: 'profile',
+                control: [
+                    'phone',
+                    'names'
+                ]
+            },
+            {
+                name: 'account',
+                control: [
+                    'accountEmail',
+                    'accountPassword',
+                    'creditCard'
+                ]
+            },
+            {
+                name: 'user',
+                control: [
+                    'registerUser',
+                    'updateUser',
+                    'deleteUser'
+                ]
+            }
+        ]
     }
 ];
 export const JWTAUTH = new JWTAuthManager();

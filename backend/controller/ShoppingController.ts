@@ -1,5 +1,6 @@
 import { IShoppingBLL } from "../interfaces/BLL/IShoppingBLL";
-import { IShoppingController } from "../interfaces/controller/IShoppingController"
+import { IShoppingController } from "../interfaces/controller/IShoppingController";
+import { JWTAUTH } from "../commons/config";
 
 export class ShoppingController implements IShoppingController {
     private readonly shoppingBusiness: IShoppingBLL;
