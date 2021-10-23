@@ -81,6 +81,14 @@ export const ACCESS_KEY = [
                     'updateUser',
                     'deleteUser'
                 ]
+            },
+            {
+                name: 'store',
+                control: [
+                    'registerStock',
+                    'updateStock',
+                    'deleteStock'
+                ]
             }
         ]
     }

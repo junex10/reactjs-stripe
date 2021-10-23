@@ -1,11 +1,8 @@
-import { Promotion } from "../../interfaces/entities/Shopping";
-
 export class GetStock {
     product: string;
     stock: number;
     category: string;
     image?: string;
-    promotion?: Promotion;
 }
 export class RegisterStock {
     product: string;
@@ -13,4 +10,15 @@ export class RegisterStock {
     stock: number;
     category: string;
     image?: string
+}
+export class UpdateStock {
+    id: string;
+    product: string;
+    price: number;
+    stock: number;
+    category: string;
+    image?: string;
+}
+export class DeleteStock {
+    id: string;
 }

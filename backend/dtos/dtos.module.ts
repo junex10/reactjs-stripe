@@ -21,5 +21,7 @@ export {
 } from './resources/UpdatePerson.dto';
 export {
     GetStock,
-    RegisterStock
+    RegisterStock,
+    UpdateStock,
+    DeleteStock
 } from './resources/GetShopping.dto';

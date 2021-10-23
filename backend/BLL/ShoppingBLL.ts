@@ -3,7 +3,9 @@ import { IShoppingBLL } from "../interfaces/BLL/IShoppingBLL";
 
 import {
     GetStock,
-    RegisterStock
+    RegisterStock,
+    UpdateStock,
+    DeleteStock
 } from '../dtos/dtos.module';
 
 export class ShoppingBLL implements IShoppingBLL {
@@ -22,8 +24,7 @@ export class ShoppingBLL implements IShoppingBLL {
                                 product: val.product,
                                 stock: val.stock,
                                 category: val.category,
-                                image: (val.image !== undefined) ? val.image : null,
-                                promotion: (val.promotion !== undefined) ? val.promotion : null
+                                image: (val.image !== undefined) ? val.image : null
                             })
                         });
                         resolve(stock);
@@ -38,8 +39,7 @@ export class ShoppingBLL implements IShoppingBLL {
                             product: product.product,
                             stock: product.stock,
                             category: product.category,
-                            image: (product.image !== undefined) ? product.image : null,
-                            promotion: (product.promotion !== undefined) ? product.promotion : null
+                            image: (product.image !== undefined) ? product.image : null
                         };
                         resolve(stock);
                     })
@@ -70,6 +70,29 @@ export class ShoppingBLL implements IShoppingBLL {
                     }
                 })
                 .catch(y => reject({ status: 500, message: 'No se pudo verificar el producto' }));
+        });
+    }
+    public UpdateStock(data: UpdateStock): Promise<Object> {
+        return new Promise((resolve, reject) => {
+            Shopping.schema
+                .updateOne({ _id: data.id }, {
+                    product: data.product,
+                    price: data.price,
+                    stock: data.stock,
+                    category: data.category,
+                    image: (data.image === undefined) ? "" : data.image
+                })
+                .then(() => {
+                    resolve({
+                        message: 'Producto actualizado!'
+                    })
+                })
+                .catch(y => reject({ status: 500, message: 'No se pudo actualizar el producto' }))
+        });
+    }
+    public DeleteStock(data: DeleteStock): Promise<Object> {
+        return new Promise((resolve, reject) => {
+
         });
     }
 }
