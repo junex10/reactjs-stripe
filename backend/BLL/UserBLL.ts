@@ -280,11 +280,12 @@ export class UserBLL implements IUserBLL {
                 .catch(y => reject({ status: 400, message: 'No se encontró al usuario' }));
         });
     }
-    public async NewUser(data: RegisterUserDTO): Promise<Object> {
+    public async NewUser(data: RegisterUserDTO): Promise<AuthUserSavedDTO> {
         return await new Promise((resolve, reject) => {
             if (data.password !== data.repeat_password) {
                 reject({ status: 400, message: 'La contraseña no es igual' })
             } else {
+                let dataFinded: GetUserByIdDTO;
                 Users.schema
                     .find({ email: data.email })
                     .then(async founded => {
@@ -315,9 +316,20 @@ export class UserBLL implements IUserBLL {
                                     .collection
                                     .insertOne(newUser)
                                     .then((x: any) => {
-                                        resolve({
-                                            message: 'Usuario registrado sastifactoriamente'
-                                        });
+                                        Users.schema
+                                            .findOne({ email: data.email })
+                                            .then((z: any) => {
+                                                dataFinded = {
+                                                    email: z.email,
+                                                    profile: z.profile,
+                                                    permits: z.permits,
+                                                    id: z.id
+                                                };
+                                                new JWTAuthManager().buildToken(dataFinded)
+                                                    .then((value: AuthUserSavedDTO) => {
+                                                        resolve(value);
+                                                    });
+                                            })                                        
                                     })
                                     .catch(y => reject({ status: 400, message: 'No se pudo registrar el usuario' }))
                             }
