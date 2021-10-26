@@ -178,5 +178,17 @@ export class UserController implements IUserController {
             res.send({ message: err.message });
         });
     }
-
+    public async NewUser(req, res): Promise<void> {
+        try {
+            await this.userBusiness.NewUser(req.body)
+                .then(x => {
+                    res.status(200);
+                    res.send(x);
+                })
+        }
+        catch (err) {
+            res.status(err.status);
+            res.send({ message: err.message });
+        }
+    }
 }

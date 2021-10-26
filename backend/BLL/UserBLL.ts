@@ -280,4 +280,50 @@ export class UserBLL implements IUserBLL {
                 .catch(y => reject({ status: 400, message: 'No se encontró al usuario' }));
         });
     }
+    public async NewUser(data: RegisterUserDTO): Promise<Object> {
+        return await new Promise((resolve, reject) => {
+            if (data.password !== data.repeat_password) {
+                reject({ status: 400, message: 'La contraseña no es igual' })
+            } else {
+                Users.schema
+                    .find({ email: data.email })
+                    .then(async founded => {
+                        if (founded.length > 0) reject({ status: 400, message: 'El usuario ya existe' })
+                        else {
+                            let hashPassword: string = '';
+                            const userProfile = (data.userType !== undefined) ? data.userType : 'Usuario';
+                            await bcrypt.hash(data.password, BcryptEnum.saltRound)
+                            .then((passwordHashed: string) => hashPassword = passwordHashed);
+                            const userAccess = ACCESS.find(val => val.name == userProfile);
+                            const userKeys = ACCESS_KEY.find(val => val.name == userProfile);
+                            if (userAccess === undefined || userKeys === undefined) reject({ status: 400, message: 'No se existe el perfil de usuario '})
+                            else {
+                                const newUser: User = {
+                                    email: data.email,
+                                    password: hashPassword,
+                                    profile: {
+                                        role: userProfile,
+                                        access: userAccess.views
+                                    },
+                                    permits: {
+                                        name: 'Usuario',
+                                        keys: userKeys.keys
+                                    },
+                                    online: false
+                                };
+                                Users.schema
+                                    .collection
+                                    .insertOne(newUser)
+                                    .then((x: any) => {
+                                        resolve({
+                                            message: 'Usuario registrado sastifactoriamente'
+                                        });
+                                    })
+                                    .catch(y => reject({ status: 400, message: 'No se pudo registrar el usuario' }))
+                            }
+                        }
+                    })
+            }
+        });
+    }
 }
