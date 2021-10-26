@@ -4,7 +4,7 @@ export const DOMAIN = 'http://localhost:4000';
 export const HTTP_OPTIONS = {
     headers: {
         'Accept': 'application/json',
-        'X-API-KEY': 'test'
+        'authorization': window.sessionStorage.getItem('user')
     }
 };
 export const HTTP_CONFIG = {
