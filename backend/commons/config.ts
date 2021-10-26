@@ -24,6 +24,23 @@ export const ACCESS = [
                 view: 'account'
             },
         ]
+    },
+    {
+        name: 'Gerente',
+        views: [
+            {
+                view: 'profile'
+            },
+            {
+                view: 'logs'
+            },
+            {
+                view: 'account'
+            },
+            {
+                view: 'manager'
+            }
+        ]
     }
 ];
 export const ACCESS_KEY = [

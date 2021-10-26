@@ -10,6 +10,7 @@ export class RegisterUserDTO{
     email: string;
     password: string;
     repeat_password: string;
+    userType?: string;
 }
 export class EditUserEmailDTO{
     email: string;
