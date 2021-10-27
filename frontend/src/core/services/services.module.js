@@ -1,3 +1,4 @@
 export { 
-    authUser 
+    authUser,
+    newUser
 } from './login.service'

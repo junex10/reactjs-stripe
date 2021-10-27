@@ -35,7 +35,7 @@ class LoginAccount extends Component {
         authUser(form.email, form.password)
             .then(value => {
                 this.setState({ authSuccess: true });
-                window.sessionStorage.setItem('userSession', value.data);
+                window.sessionStorage.setItem('userSession', JSON.stringify(value.data));
             })
             .catch(err => this.setState({ authError: true }))
     }
