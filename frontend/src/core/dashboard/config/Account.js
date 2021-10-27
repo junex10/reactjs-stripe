@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import { Typography } from '@mui/material';
+import { withRouter } from 'react-router';
 
 import {
     EmailEdit,
     PasswordEdit
-} from './../forms.module'
+} from './../forms.module';
+
+import { authSection, auth } from './../../auth/AuthUser.auth';
 
 class Account extends Component {
     constructor(props) {
         super(props);
+        const actions = auth.permits.keys[1];
 
         this.state = {
             emailEdit: false,
-            passwordEdit: false
+            passwordEdit: false,
+            actions: {
+                email: (actions.control.find(val => val === 'accountEmail') ? true : false),
+                password: (actions.control.find(val => val === 'accountPassword') ? true : false)
+                
+            }
         }
+        if (!authSection('account')) this.props.history.push('/dashboard/user/profile')
     }
     render() {
         return (
@@ -47,36 +57,44 @@ class Account extends Component {
                     </div>
                 </SweetAlert>
                 <div className='row'>
-                    <div className='col-12 mb-4'>
-                        <div className='row'>
-                            <div className='col-12 col-sm-12 col-lg-3 col-md-3'>
-                                Correo electrónico para inicio de sesión
+                    {
+                        this.state.actions.email ?
+                            <div className='col-12 mb-4'>
+                                <div className='row'>
+                                    <div className='col-12 col-sm-12 col-lg-3 col-md-3'>
+                                        Correo electrónico para inicio de sesión
+                                    </div>
+                                    <div className='col-12 col-sm-12 col-lg-7 col-md-7'>
+                                        joaealejunior@gmail.com
+                                    </div>
+                                    <div style={{ cursor: 'pointer' }} onClick={() => this.setState({ emailEdit: true })} className='col-12 col-sm-12 col-lg-2 col-md-2'>
+                                        Editar
+                                    </div>
+                                </div>
                             </div>
-                            <div className='col-12 col-sm-12 col-lg-7 col-md-7'>
-                                joaealejunior@gmail.com
+                            : ''
+                    }
+                    {
+                        this.state.actions.password ?
+                            <div className='col-12 mb-4'>
+                                <div className='row'>
+                                    <div className='col-12 col-sm-12 col-lg-3 col-md-3'>
+                                        Contraseña de inicio de sesión
+                                    </div>
+                                    <div className='col-12 col-sm-12 col-lg-7 col-md-7'>
+                                        *********
+                                    </div>
+                                    <div style={{ cursor: 'pointer' }} onClick={() => this.setState({ passwordEdit: true })} className='col-12 col-sm-12 col-lg-2 col-md-2'>
+                                        Editar
+                                    </div>
+                                </div>
                             </div>
-                            <div style={{ cursor: 'pointer' }} onClick={() => this.setState({ emailEdit: true })} className='col-12 col-sm-12 col-lg-2 col-md-2'>
-                                Editar
-                            </div>
-                        </div>
-                    </div>
-                    <div className='col-12 mb-4'>
-                        <div className='row'>
-                            <div className='col-12 col-sm-12 col-lg-3 col-md-3'>
-                                Contraseña de inicio de sesión
-                            </div>
-                            <div className='col-12 col-sm-12 col-lg-7 col-md-7'>
-                                *********
-                            </div>
-                            <div style={{ cursor: 'pointer' }} onClick={() => this.setState({ passwordEdit: true })} className='col-12 col-sm-12 col-lg-2 col-md-2'>
-                                Editar
-                            </div>
-                        </div>
-                    </div>
+                        : ''
+                    }
                 </div>
             </>
         )
     }
 }
 
-export default Account;
+export default withRouter(Account);

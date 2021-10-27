@@ -4,15 +4,19 @@ import moment from 'moment';
 import { Typography } from '@mui/material';
 
 import { KeyCardEdit } from '../forms.module';
+import { auth } from './../../auth/AuthUser.auth';
 
 import SweetAlert from 'react-bootstrap-sweetalert';
 
 class Card extends Component {
     constructor(props) {
         super(props);
-
+        const actions = auth.permits.keys[1];
         this.state = {
-            editKeyCard: false
+            editKeyCard: false,
+            actions: {
+                creditCard: (actions.control.find(val => val === 'creditCard') ? true : false)
+            }
         }
 
         this.columns = [
@@ -35,7 +39,9 @@ class Card extends Component {
         ]
         this.data = [
             {
-                keycard: <p style={{color: 'blue', cursor: 'pointer'}} onClick={() => this.setState({ editKeyCard: true })}>{this.hideKeyCard('4242 4242 4242 4242 4242')}</p>,
+                keycard: <p style={{color: 'blue', cursor: 'pointer'}} onClick={() => {
+                    if (this.state.actions.creditCard) this.setState({ editKeyCard: true })
+                }}>{this.hideKeyCard('4242 4242 4242 4242 4242')}</p>,
                 dateExpired: moment().format('MM/YY'),
                 cvc: '222',
                 date: moment().format('DD/MM/YYYY hh:mm A')

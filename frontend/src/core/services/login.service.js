@@ -1,4 +1,4 @@
-import { api, HTTP_OPTIONS } from "../../commons/config";
+import { api } from "../../commons/config";
 
 export const authUser = (email, password) => api.post('/users/auth', {
     email: email,

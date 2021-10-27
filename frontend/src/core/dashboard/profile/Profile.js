@@ -11,14 +11,22 @@ import {
     PersonalNames
 } from '../forms.module';
 
+import { authSection, auth } from './../../auth/AuthUser.auth';
+
 class Profile extends Component {
     constructor(props) {
         super(props);
+        const actions = auth.permits.keys[0];
 
         this.state = {
             editNumber: false,
-            personalName: false
+            personalName: false,
+            actions: {
+                numberPhone: (actions.control.find(val => val === 'phone') ? true : false),
+                names: (actions.control.find(val => val === 'names') ? true : false)
+            }
         }
+        if (!authSection('profile')) this.props.history.push('/login')
     }
 
     render() {
@@ -51,7 +59,7 @@ class Profile extends Component {
                         <PersonalNames />
                     </div>
                 </SweetAlert>
-                
+
                 <div className="container-fluid">
 
                     <SectionTitleWindow title='Perfil' />
@@ -62,32 +70,41 @@ class Profile extends Component {
                         <div className="col-12">
                             <BasicWindow title='Personal'>
                                 <div className='row'>
-                                    <div className='col-12 mb-4'>
-                                        <div className='row'>
-                                            <div className='col-12 col-sm-12 col-lg-3 col-md-3'>
-                                                Teléfono
+                                    {
+                                        this.state.actions.numberPhone ?
+                                            <div className='col-12 mb-4'>
+                                                <div className='row'>
+                                                    <div className='col-12 col-sm-12 col-lg-3 col-md-3'>
+                                                        Teléfono
+                                                    </div>
+                                                    <div className='col-12 col-sm-12 col-lg-7 col-md-7'>
+                                                        No configurado(a)
+                                                    </div>
+                                                    <div style={{ cursor: 'pointer' }} onClick={() => this.setState({ editNumber: true })} className='col-12 col-sm-12 col-lg-2 col-md-2'>
+                                                        Agregar número
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className='col-12 col-sm-12 col-lg-7 col-md-7'>
-                                                No configurado(a)
+                                            : ''
+                                    }
+                                    {
+                                        this.state.actions.names ?
+                                            <div className='col-12 mb-4'>
+                                                <div className='row'>
+                                                    <div className='col-12 col-sm-12 col-lg-3 col-md-3'>
+                                                        Nombre(s) y Apellido(s)
+                                                    </div>
+                                                    <div className='col-12 col-sm-12 col-lg-7 col-md-7'>
+                                                        No configurado(a)
+                                                    </div>
+                                                    <div style={{ cursor: 'pointer' }} onClick={() => this.setState({ personalName: true })} className='col-12 col-sm-12 col-lg-2 col-md-2'>
+                                                        Agregar nombre y apellido
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div style={{ cursor: 'pointer' }} onClick={() => this.setState({ editNumber: true })} className='col-12 col-sm-12 col-lg-2 col-md-2'>
-                                                Agregar número
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='col-12 mb-4'>
-                                        <div className='row'>
-                                            <div className='col-12 col-sm-12 col-lg-3 col-md-3'>
-                                                Nombre(s) y Apellido(s)
-                                            </div>
-                                            <div className='col-12 col-sm-12 col-lg-7 col-md-7'>
-                                                No configurado(a)
-                                            </div>
-                                            <div style={{ cursor: 'pointer' }} onClick={() => this.setState({ personalName: true })} className='col-12 col-sm-12 col-lg-2 col-md-2'>
-                                                Agregar nombre y apellido
-                                            </div>
-                                        </div>
-                                    </div>
+                                        : ''
+                                    }
+
                                 </div>
                             </BasicWindow>
                         </div>
