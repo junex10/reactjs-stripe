@@ -14,11 +14,14 @@ class Card extends Component {
         const actions = auth.permits.keys[1];
         this.state = {
             editKeyCard: false,
+            card: {
+                actualKeyCard: '',
+                actualCvc: ''
+            },
             actions: {
                 creditCard: (actions.control.find(val => val === 'creditCard') ? true : false)
             }
         }
-
         this.columns = [
             {
                 name: 'Número de tarjeta',
@@ -31,22 +34,23 @@ class Card extends Component {
             {
                 name: 'CVC',
                 selector: row => row.cvc
-            },
+            }/*,
             {
                 name: 'Fecha registro',
                 selector: row => row.date
-            }
+            }*/
         ]
-        this.data = [
-            {
-                keycard: <p style={{color: 'blue', cursor: 'pointer'}} onClick={() => {
-                    if (this.state.actions.creditCard) this.setState({ editKeyCard: true })
-                }}>{this.hideKeyCard('4242 4242 4242 4242 4242')}</p>,
-                dateExpired: moment().format('MM/YY'),
-                cvc: '222',
-                date: moment().format('DD/MM/YYYY hh:mm A')
-            }
-        ];
+        this.data = [];
+        auth.cards.map(val => {
+            const dateParsed = val.expirationDate.replaceAll('/', '-');
+            this.data.push({
+                keycard: <p id={val.creditCardNumber} style={{color: 'blue', cursor: 'pointer'}} onClick={() => {
+                    if (this.state.actions.creditCard) this.setState({ editKeyCard: true, actualKeyCard: val.creditCardNumber })
+                }}>{this.hideKeyCard(val.creditCardNumber)}</p>,
+                dateExpired: moment(dateParsed, 'DD-MM-YYYY').format('MM/YY'),
+                cvc: val.cvc
+            })
+        })
     }
     hideKeyCard = keyCard => {
         const lenCard = keyCard.length;
@@ -69,7 +73,7 @@ class Card extends Component {
                     onCancel={() => this.setState({ editKeyCard: false })}
                 >
                     <div className="bodyModal">
-                        <KeyCardEdit />
+                        <KeyCardEdit creditNumber={this.state.card.actualKeyCard} cvc={this.state.card.actualCvc} />
                     </div>
                 </SweetAlert>
                 <DataTable

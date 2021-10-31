@@ -21,9 +21,9 @@ class Account extends Component {
             actions: {
                 email: (actions.control.find(val => val === 'accountEmail') ? true : false),
                 password: (actions.control.find(val => val === 'accountPassword') ? true : false)
-                
             }
         }
+        this.email = auth.email;
         if (!authSection('account')) this.props.history.push('/dashboard/user/profile')
     }
     render() {
@@ -65,7 +65,7 @@ class Account extends Component {
                                         Correo electrónico para inicio de sesión
                                     </div>
                                     <div className='col-12 col-sm-12 col-lg-7 col-md-7'>
-                                        joaealejunior@gmail.com
+                                        {this.email}
                                     </div>
                                     <div style={{ cursor: 'pointer' }} onClick={() => this.setState({ emailEdit: true })} className='col-12 col-sm-12 col-lg-2 col-md-2'>
                                         Editar

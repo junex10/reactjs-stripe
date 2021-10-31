@@ -1,4 +1,4 @@
-import { Permits, Profile } from "../../interfaces/entities/User";
+import { Cards, Permits, Person, Profile } from "../../interfaces/entities/User";
 
 export class GetUsersDTO{
     email: string;
@@ -12,4 +12,6 @@ export class GetUserByIdDTO{
     id?: string;
     profile: Profile;
     permits: Permits;
+    person?: Person;
+    cards?: Cards;
 }

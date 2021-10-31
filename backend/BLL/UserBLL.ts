@@ -40,6 +40,8 @@ export class UserBLL implements IUserBLL {
                                     email: val[0].email,
                                     profile: val[0].profile,
                                     permits: val[0].permits,
+                                    person: val[0].person,
+                                    cards: val[0].cards,
                                     id: val[0].id
                                 };
                                 new JWTAuthManager().buildToken(dataFinded)

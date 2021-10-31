@@ -26,6 +26,8 @@ class Profile extends Component {
                 names: (actions.control.find(val => val === 'names') ? true : false)
             }
         }
+        this.phone = `${auth.person.areaCode} ${auth.person.phone}`;
+        this.names = `${auth.person.name} ${auth.person.lastname}`;
         if (!authSection('profile')) this.props.history.push('/login')
     }
 
@@ -78,7 +80,10 @@ class Profile extends Component {
                                                         Teléfono
                                                     </div>
                                                     <div className='col-12 col-sm-12 col-lg-7 col-md-7'>
-                                                        No configurado(a)
+                                                        {
+                                                            this.phone === undefined ?
+                                                            'No configurado(a)' : this.phone
+                                                        }
                                                     </div>
                                                     <div style={{ cursor: 'pointer' }} onClick={() => this.setState({ editNumber: true })} className='col-12 col-sm-12 col-lg-2 col-md-2'>
                                                         Agregar número
@@ -95,7 +100,10 @@ class Profile extends Component {
                                                         Nombre(s) y Apellido(s)
                                                     </div>
                                                     <div className='col-12 col-sm-12 col-lg-7 col-md-7'>
-                                                        No configurado(a)
+                                                        {
+                                                            this.names === undefined ?
+                                                            'No configurado(a)' : this.names
+                                                        }
                                                     </div>
                                                     <div style={{ cursor: 'pointer' }} onClick={() => this.setState({ personalName: true })} className='col-12 col-sm-12 col-lg-2 col-md-2'>
                                                         Agregar nombre y apellido

@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 
 import userSVG from './../../../img/dashboard/undraw_profile.svg';
 
+import { auth } from './../../auth/AuthUser.auth';
+
 class DashboardNavbar extends Component {
+    constructor(props){
+        super(props);
+        this.email = auth.email;
+    }
     render() {
         return (
             <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -36,7 +42,7 @@ class DashboardNavbar extends Component {
                     <li className="nav-item">
                         <img className="mr-4 img-profile rounded-circle"
                             src={userSVG} width='30' alt='userImage' />
-                        <span className='text-black'>Douglas McGee</span>
+                        <span className='text-black'>{this.email}</span>
                     </li>
                 </ul>
 
