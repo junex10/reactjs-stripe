@@ -26,7 +26,6 @@ class EmailEdit extends Component {
         });
     }
     handleSubmit = form => {
-        console.log(form)
         modifyEmail(this.email, form.email)
         .then(() => {
             this.setState({ emailSuccess: true });
@@ -59,7 +58,7 @@ class EmailEdit extends Component {
                 </SweetAlert>
                 <SweetAlert
                     show={this.state.emailSuccess}
-                    title={<Typography component={'div'} className="headingModal mt-2 mb-4" variant={'h5'}>{this.wayState}</Typography>}
+                    title={<Typography component={'div'} className="headingModal mt-2 mb-4" variant={'h5'}>Actualizado!</Typography>}
                     showCloseButton
                     closeBtnStyle={{ boxShadow: 'none' }}
                     showConfirm={true}
@@ -70,7 +69,7 @@ class EmailEdit extends Component {
                     success
                 >
                     <div className="bodyModal">
-                        <h6>Numero registrado</h6>
+                        <h6>Email actualizado!</h6>
                     </div>
                 </SweetAlert>
                 <Formik initialValues={this.initialValues} validationSchema={this.validationSchema} onSubmit={this.handleSubmit}>
