@@ -12,7 +12,8 @@ export {
 } from './resources/AuthUsers.dto';
 export {
     GetUsersDTO,
-    GetUserByIdDTO
+    GetUserByIdDTO,
+    GetUserByEmailDTO
 } from './resources/GetUsers.dto';
 export { 
     UpdatePhoneDTO, 

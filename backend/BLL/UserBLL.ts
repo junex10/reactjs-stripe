@@ -14,7 +14,8 @@ import {
     EditUserPasswordDTO,
     UpdatePhoneDTO,
     UpdateNamesDTO,
-    UpdateCreditCard
+    UpdateCreditCard,
+    GetUserByEmailDTO
 } from './../dtos/dtos.module';
 
 import { JWTAuthManager } from "../auth/JWTAuthManager";
@@ -77,6 +78,7 @@ export class UserBLL implements IUserBLL {
                                 email: value.email,
                                 password: value.password,
                                 profile: value.profile,
+                                person: value.person
                             });
                             resolve(datos);
                         });
@@ -103,7 +105,8 @@ export class UserBLL implements IUserBLL {
                         email: val.email,
                         password: val.password,
                         profile: val.profile,
-                        permits: val.permits
+                        permits: val.permits,
+                        person: val.person
                     };
                     resolve(data);
                 })
@@ -366,6 +369,27 @@ export class UserBLL implements IUserBLL {
                         }
                     })
             }
+        });
+    }
+    public GetUserByEmail(email: string): Promise<GetUserByEmailDTO>{
+        return new Promise((resolve, reject) => {
+            let data: GetUserByEmailDTO;
+            Users.schema
+                .find()
+                .where('email', email)
+                .then((x: any) => {
+                    const val = x[0];
+                    data = {
+                        id: val._id,
+                        email: val.email,
+                        password: val.password,
+                        profile: val.profile,
+                        permits: val.permits,
+                        person: val.person
+                    };
+                    resolve(data);
+                })
+                .catch(y => reject({ status: 500, message: 'No se encontró al usuario' }))
         });
     }
 }

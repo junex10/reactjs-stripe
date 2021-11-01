@@ -160,24 +160,24 @@ export class UserController implements IUserController {
     }
     public async UpdateCreditCard(req, res): Promise<void> {
         await JWTAUTH
-        .authToken(req.headers.authorization, { module: 'account', control: 'creditCard' })
-        .then(async () => {
-            try {
-                await this.userBusiness.UpdateCreditCard(req.body)
-                    .then(x => {
-                        res.status(200);
-                        res.send(x);
-                    })
-            }
-            catch (err) {
+            .authToken(req.headers.authorization, { module: 'account', control: 'creditCard' })
+            .then(async () => {
+                try {
+                    await this.userBusiness.UpdateCreditCard(req.body)
+                        .then(x => {
+                            res.status(200);
+                            res.send(x);
+                        })
+                }
+                catch (err) {
+                    res.status(err.status);
+                    res.send({ message: err.message });
+                }
+            })
+            .catch(err => {
                 res.status(err.status);
                 res.send({ message: err.message });
-            }
-        })
-        .catch(err => {
-            res.status(err.status);
-            res.send({ message: err.message });
-        });
+            });
     }
     public async NewUser(req, res): Promise<void> {
         try {
@@ -191,5 +191,26 @@ export class UserController implements IUserController {
             res.status(err.status);
             res.send({ message: err.message });
         }
+    }
+    public async GetUserByEmail(req, res): Promise<void> {
+        await JWTAUTH
+            .authToken(req.headers.authorization, { module: 'account', control: 'creditCard' })
+            .then(async () => {
+                try {
+                    await this.userBusiness.GetUserByEmail(req.body)
+                        .then(x => {
+                            res.status(200);
+                            res.send(x);
+                        })
+                }
+                catch (err) {
+                    res.status(err.status);
+                    res.send({ message: err.message });
+                }
+            })
+            .catch(err => {
+                res.status(err.status);
+                res.send({ message: err.message });
+            });
     }
 }

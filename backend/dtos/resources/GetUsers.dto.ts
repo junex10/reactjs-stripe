@@ -15,3 +15,12 @@ export class GetUserByIdDTO{
     person?: Person;
     cards?: Cards;
 }
+export class GetUserByEmailDTO{
+    email: string;
+    password?: string;
+    id?: string;
+    profile: Profile;
+    permits: Permits;
+    person?: Person;
+    cards?: Cards;
+}
