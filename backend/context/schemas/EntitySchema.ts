@@ -3,7 +3,7 @@ import { Entity } from './../../interfaces/entities/Entity';
 
 const EntitySchema = new Schema<Entity>({
     createdBy: { type: Number },
-    createDate: { type: Date },
+    createDate: { type: Date, default: new Date() },
     updatedBy: { type: Number },
     updateDate: { type: Date },
     deleteDate: { type: Date },

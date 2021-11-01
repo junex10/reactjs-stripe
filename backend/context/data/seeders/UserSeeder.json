@@ -90,7 +90,8 @@
                         "name": "profile",
                         "control": [
                             "phone",
-                            "names"
+                            "names",
+                            "spentReport"
                         ]
                     },
                     {
@@ -149,7 +150,8 @@
                         "name": "profile",
                         "control": [
                             "phone",
-                            "names"
+                            "names",
+                            "spentReport"
                         ]
                     },
                     {

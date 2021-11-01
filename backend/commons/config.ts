@@ -60,7 +60,8 @@ export const ACCESS_KEY = [
                 name: 'profile',
                 control: [
                     'phone',
-                    'names'
+                    'names',
+                    'spentReport'
                 ]
             },
             {

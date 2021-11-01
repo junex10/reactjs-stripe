@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
 import * as seeder from './../data/seeders/SalesSeeder.json';
 import { Sales, SaleInfo } from './../../interfaces/entities/Index';
+import EntitySchema from './EntitySchema';
 
 const SalesSchema = new Schema<Sales>({
     sale: [new Schema<SaleInfo>({
@@ -11,6 +12,7 @@ const SalesSchema = new Schema<Sales>({
         image: { type: String }
     }, { _id: false })]
 }, { collection: seeder.config.collection})
+.add(EntitySchema.EntitySchema);
 
 const schema = model<Sales>(seeder.config.collection, SalesSchema);
 
