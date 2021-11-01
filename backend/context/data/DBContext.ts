@@ -6,6 +6,7 @@ import Views from './../schemas/ViewsSchema';
 import MailProcess from './../schemas/MailProcessSchema';
 import Shopping from './../schemas/ShoppingSchema';
 import Category from '../schemas/CategorySchema';
+import Sales from '../schemas/SalesSchema';
 
 import { ISchema } from '../../interfaces/ISchema';
 
@@ -21,6 +22,7 @@ export class DBContext {
     mailProcess: any;
     shopping: any;
     category: any;
+    sales: any;
 
     utility: any;
 
@@ -31,7 +33,8 @@ export class DBContext {
         private Views: ISchema,
         private MailProcess: ISchema,
         private Shopping: ISchema,
-        private Category: ISchema
+        private Category: ISchema,
+        private Sales: ISchema
     ) {
 
         this.users = Object.values(Users);
@@ -39,6 +42,7 @@ export class DBContext {
         this.mailProcess = Object.values(MailProcess);
         this.shopping = Object.values(Shopping);
         this.category = Object.values(Category);
+        this.sales = Object.values(Sales);
 
         this.utility = new Utility();
     }
@@ -174,6 +178,17 @@ export class DBContext {
                 Files.errorLog(message);
                 Files.binnacleLog(message);
             });
+        this.Create(this.sales[0], this.sales[1].config, null, this.sales[1].seed)
+            .then(x => {
+                console.log(x);
+                Files.binnacleLog(`${x}`);
+            })
+            .catch(err => {
+                const message = `An error while ocurred verifying, ${err}`;
+                console.log(message);
+                Files.errorLog(message);
+                Files.binnacleLog(message);
+            });
     }
 }
 
@@ -182,6 +197,7 @@ const initializedContext = new DBContext(
     Views,
     MailProcess,
     Shopping,
-    Category
+    Category,
+    Sales
 );
 export { initializedContext };
