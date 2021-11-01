@@ -9,11 +9,13 @@ import {
 } from './../forms.module';
 
 import { authSection, auth } from './../../auth/AuthUser.auth';
+import { userSession } from './../../../commons/config';
 
 class Account extends Component {
     constructor(props) {
         super(props);
         const actions = auth.permits.keys[1];
+        this.email = userSession.user;
 
         this.state = {
             emailEdit: false,
@@ -26,6 +28,8 @@ class Account extends Component {
         this.email = auth.email;
         if (!authSection('account')) this.props.history.push('/dashboard/user/profile')
     }
+    onShowEmail = event => this.setState({ emailEdit: event });
+    onShowPassword = event => this.setState({ passwordEdit: event });
     render() {
         return (
             <>
@@ -39,7 +43,7 @@ class Account extends Component {
                     onCancel={() => this.setState({ emailEdit: false })}
                 >
                     <div className="bodyModal">
-                        <EmailEdit />
+                        <EmailEdit email={this.email} show={this.onShowEmail} />
                     </div>
                 </SweetAlert>
 
@@ -53,7 +57,7 @@ class Account extends Component {
                     onCancel={() => this.setState({ passwordEdit: false })}
                 >
                     <div className="bodyModal">
-                        <PasswordEdit />
+                        <PasswordEdit show={this.onShowEmail} />
                     </div>
                 </SweetAlert>
                 <div className='row'>

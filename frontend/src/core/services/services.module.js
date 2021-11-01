@@ -4,5 +4,8 @@ export {
 } from './login.service'
 export {
     addNumber,
-    addNames
+    addNames,
+    modifyEmail,
+    addCreditCard,
+    modifyPassword
 } from './account.service'

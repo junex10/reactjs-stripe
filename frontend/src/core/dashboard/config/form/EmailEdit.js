@@ -2,10 +2,20 @@ import React, { Component } from 'react';
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 
+import SweetAlert from 'react-bootstrap-sweetalert';
+import { Typography } from '@mui/material';
+
+import { modifyEmail } from '../../../services/services.module';
+
 class EmailEdit extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            connectionError: false,
+            emailSuccess: false
+        }
+        this.email = props.email;
         this.initialValues = {
             email: ''
         };
@@ -17,10 +27,52 @@ class EmailEdit extends Component {
     }
     handleSubmit = form => {
         console.log(form)
+        modifyEmail(this.email, form.email)
+        .then(() => {
+            this.setState({ emailSuccess: true });
+        })
+        .catch(() => this.setState({ connectionError: true }))
+    }
+    onConfirm = () => {
+        this.setState({emailSuccess : false });
+        const { show } = this.props;
+        show(false);
     }
     render() {
         return (
             <>
+                <SweetAlert
+                    show={this.state.connectionError}
+                    title={<Typography component={'div'} className="headingModal mt-2 mb-4" variant={'h5'}>Error de conexión</Typography>}
+                    showCloseButton
+                    closeBtnStyle={{ boxShadow: 'none' }}
+                    showConfirm={true}
+                    confirmBtnText='Entendido'
+                    confirmBtnCssClass='btn btn-danger btn-block'
+                    confirmBtnStyle={{ border: 'none' }}
+                    onConfirm={() => this.setState({ connectionError: false })}
+                    error
+                >
+                    <div className="bodyModal">
+                        <h6>Ocurrió un error inesperado con la conexión</h6>
+                    </div>
+                </SweetAlert>
+                <SweetAlert
+                    show={this.state.emailSuccess}
+                    title={<Typography component={'div'} className="headingModal mt-2 mb-4" variant={'h5'}>{this.wayState}</Typography>}
+                    showCloseButton
+                    closeBtnStyle={{ boxShadow: 'none' }}
+                    showConfirm={true}
+                    confirmBtnText='Entendido'
+                    confirmBtnCssClass='btn btn-success btn-block'
+                    confirmBtnStyle={{ border: 'none' }}
+                    onConfirm={this.onConfirm}
+                    success
+                >
+                    <div className="bodyModal">
+                        <h6>Numero registrado</h6>
+                    </div>
+                </SweetAlert>
                 <Formik initialValues={this.initialValues} validationSchema={this.validationSchema} onSubmit={this.handleSubmit}>
                     {
                         formik => {
