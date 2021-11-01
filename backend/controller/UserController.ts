@@ -74,6 +74,7 @@ export class UserController implements IUserController {
             });
     }
     public async UpdatePhone(req, res): Promise<void> {
+        console.log(req.headers, req.body, ' aqui ');
         await JWTAUTH
             .authToken(req.headers.authorization, { module: 'profile', control: 'phone' })
             .then(async () => {

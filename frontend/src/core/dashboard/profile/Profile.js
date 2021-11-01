@@ -13,10 +13,13 @@ import {
 
 import { authSection, auth } from './../../auth/AuthUser.auth';
 
+import { userSession } from './../../../commons/config';
+
 class Profile extends Component {
     constructor(props) {
         super(props);
         const actions = auth.permits.keys[0];
+        this.email = userSession.user;
 
         this.state = {
             editNumber: false,
@@ -28,8 +31,12 @@ class Profile extends Component {
         }
         this.phone = auth.person !== undefined ? `${auth.person.areaCode} ${auth.person.phone}` : undefined;
         this.names = auth.person !== undefined ? `${auth.person.name} ${auth.person.lastname}` : undefined;
+
+        this.messageStatePhone = this.phone === undefined ? 'Registrada!' : 'Actualizada!'
         if (!authSection('profile')) this.props.history.push('/login')
     }
+
+    onShow = event => this.setState({ editNumber: event })
 
     render() {
         return (
@@ -44,7 +51,7 @@ class Profile extends Component {
                     onCancel={() => this.setState({ editNumber: false })}
                 >
                     <div className="bodyModal">
-                        <NumberPhone />
+                        <NumberPhone email={this.email} way={this.messageStatePhone} show={this.onShow} />
                     </div>
                 </SweetAlert>
 
