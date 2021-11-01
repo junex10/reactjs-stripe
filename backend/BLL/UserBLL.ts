@@ -261,6 +261,7 @@ export class UserBLL implements IUserBLL {
                     password: passwordBcrypt
                 })
                 .then(x => {
+                    
                     if (x !== null) {
                         resolve({
                             message: 'Contraseña cambiada correctamente'
