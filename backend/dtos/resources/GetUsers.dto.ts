@@ -4,7 +4,10 @@ export class GetUsersDTO{
     email: string;
     password: string;
     id?: string;
-    profile: Profile
+    profile: Profile;
+    person?: Person;
+    permits: Permits;
+    cards?: Cards;
 }
 export class GetUserByIdDTO{
     email: string;

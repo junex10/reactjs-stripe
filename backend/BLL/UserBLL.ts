@@ -78,7 +78,8 @@ export class UserBLL implements IUserBLL {
                                 email: value.email,
                                 password: value.password,
                                 profile: value.profile,
-                                person: value.person
+                                person: value.person,
+                                permits: value.permits
                             });
                             resolve(datos);
                         });
