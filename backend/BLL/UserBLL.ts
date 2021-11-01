@@ -216,14 +216,14 @@ export class UserBLL implements IUserBLL {
                             })
                     } else {
                         await Users.schema
-                        .findOneAndUpdate({ email: data.email }, {
-                            person: {
-                                areaCode: '',
-                                phone: '',
-                                name: data.name,
-                                lastname: data.lastname
-                            }
-                        })
+                            .findOneAndUpdate({ email: data.email }, {
+                                person: {
+                                    areaCode: '',
+                                    phone: '',
+                                    name: data.name,
+                                    lastname: data.lastname
+                                }
+                            })
                     }
                     const changedNames: UpdateNamesDTO = {
                         email: data.email,
@@ -265,7 +265,7 @@ export class UserBLL implements IUserBLL {
                     password: passwordBcrypt
                 })
                 .then(x => {
-                    
+
                     if (x !== null) {
                         resolve({
                             message: 'Contraseña cambiada correctamente'
@@ -372,23 +372,30 @@ export class UserBLL implements IUserBLL {
             }
         });
     }
-    public GetUserByEmail(email: string): Promise<GetUserByEmailDTO>{
+    public GetUserByEmail(email: string, way?: string): Promise<GetUserByEmailDTO | AuthUserSavedDTO> {
         return new Promise((resolve, reject) => {
             let data: GetUserByEmailDTO;
             Users.schema
                 .find()
                 .where('email', email)
                 .then((x: any) => {
-                    const val = x[0];
-                    data = {
-                        id: val._id,
-                        email: val.email,
-                        password: val.password,
-                        profile: val.profile,
-                        permits: val.permits,
-                        person: val.person
-                    };
-                    resolve(data);
+                    if (x.length > 0) {
+                        const val = x[0];
+                        data = {
+                            id: val._id,
+                            email: val.email,
+                            password: val.password,
+                            profile: val.profile,
+                            permits: val.permits,
+                            person: val.person
+                        };
+                        if (way === 'auth') {
+                            new JWTAuthManager().buildToken(data)
+                                .then((value: AuthUserSavedDTO) => {
+                                    resolve(value);
+                                });
+                        } else resolve(data);
+                    } else reject({ status: 500, message: 'No se encontró al usuario' })
                 })
                 .catch(y => {
                     console.log(y)

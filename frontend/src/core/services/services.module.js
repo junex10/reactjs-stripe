@@ -7,5 +7,7 @@ export {
     addNames,
     modifyEmail,
     addCreditCard,
-    modifyPassword
+    modifyPassword,
+    getUser,
+    setUser
 } from './account.service'

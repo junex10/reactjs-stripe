@@ -31,3 +31,5 @@ export const modifyPassword = (email, newPassword) => api.put('/users/update/pas
     email: email,
     newPassword: newPassword
 }, HTTP_OPTIONS)
+export const getUser = email => api.get(`/users/getUserByEmail/${email}/auth`)
+export const setUser = data => window.sessionStorage.setItem('userSession', JSON.stringify(data))

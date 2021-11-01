@@ -5,21 +5,21 @@ import { Typography } from '@mui/material';
 
 import ProfileReport from './ProfileReport';
 import { BasicWindow, SectionTitleWindow } from './../../shared/shared.module';
-
 import {
     NumberPhone,
     PersonalNames
 } from '../forms.module';
-
 import { authSection, auth } from './../../auth/AuthUser.auth';
-
 import { userSession } from './../../../commons/config';
+import { getUser, setUser } from './../../services/services.module';
 
 class Profile extends Component {
     constructor(props) {
         super(props);
         const actions = auth.permits.keys[0];
         this.email = userSession.user;
+        getUser(this.email)
+        .then(val => setUser(val.data))
 
         this.state = {
             editNumber: false,

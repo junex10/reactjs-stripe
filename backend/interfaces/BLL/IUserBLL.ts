@@ -23,5 +23,5 @@ export interface IUserBLL {
     UpdatePassword(data: EditUserPasswordDTO): Promise<Object>;
     UpdateCreditCard(data: UpdateCreditCard): Promise<Object>;
     NewUser(data: RegisterUserDTO): Promise<AuthUserSavedDTO>;
-    GetUserByEmail(data: string): Promise<GetUserByEmailDTO>;
+    GetUserByEmail(data: string, way: string): Promise<GetUserByEmailDTO | AuthUserSavedDTO>;
 }
