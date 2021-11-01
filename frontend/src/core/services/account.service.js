@@ -5,3 +5,8 @@ export const addNumber = (email, areaCode, numberPhone) => api.put('/users/updat
     phone: numberPhone,
     areaCode: areaCode
 }, HTTP_OPTIONS);
+export const addNames = (email, name, lastname) => api.put('/users/update/names', {
+    email: email,
+    name: name,
+    lastname: lastname
+}, HTTP_OPTIONS);

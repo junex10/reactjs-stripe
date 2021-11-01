@@ -3,5 +3,6 @@ export {
     newUser
 } from './login.service'
 export {
-    addNumber
+    addNumber,
+    addNames
 } from './account.service'

@@ -29,14 +29,22 @@ class Profile extends Component {
                 names: (actions.control.find(val => val === 'names') ? true : false)
             }
         }
+        this.name = '';
+        this.lastname = '';
+        if (auth.person !== undefined) {
+            this.name = auth.person.name;
+            this.lastname = auth.person.lastname;
+        }
         this.phone = auth.person !== undefined ? `${auth.person.areaCode} ${auth.person.phone}` : undefined;
         this.names = auth.person !== undefined ? `${auth.person.name} ${auth.person.lastname}` : undefined;
 
         this.messageStatePhone = this.phone === undefined ? 'Registrada!' : 'Actualizada!'
+        this.messageStateNames = this.names === undefined ? 'Registrada!' : 'Actualizada!'
         if (!authSection('profile')) this.props.history.push('/login')
     }
 
-    onShow = event => this.setState({ editNumber: event })
+    onShow = event => this.setState({ editNumber: event });
+    onPersonalNames = event => this.setState({ personalName: event });
 
     render() {
         return (
@@ -65,7 +73,7 @@ class Profile extends Component {
                     onCancel={() => this.setState({ personalName: false })}
                 >
                     <div className="bodyModal">
-                        <PersonalNames />
+                        <PersonalNames email={this.email} way={this.messageStateNames} name={this.name} lastname={this.lastname} show={this.onPersonalNames} />
                     </div>
                 </SweetAlert>
 
