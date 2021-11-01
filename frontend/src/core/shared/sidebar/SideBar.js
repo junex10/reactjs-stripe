@@ -6,7 +6,7 @@ class SideBar extends Component {
         return (
             <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-                <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <a className="sidebar-brand d-flex align-items-center justify-content-center">
                     <div className="sidebar-brand-icon rotate-n-15">
                         <img width={100} src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/2560px-Stripe_Logo%2C_revised_2016.svg.png' alt='logo' />
                     </div>
@@ -15,11 +15,11 @@ class SideBar extends Component {
 
                 <hr className="sidebar-divider my-0" />
 
-                <li className="nav-item active">
+                {/*<li className="nav-item active">
                     <a className="nav-link" href="index.html">
                         <i className="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span></a>
-                </li>
+        </li>*/}
 
                 <hr className="sidebar-divider" />
 

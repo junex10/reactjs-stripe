@@ -24,23 +24,6 @@ class Navbar extends Component {
                         <li className="nav-link scrollto"><Link to='/tienda'>Tienda</Link></li>
                         <li className="nav-link scrollto"><Link to='/login'>Log in</Link></li>
                         <li className="nav-link scrollto"><Link to='/login/signup'><button className='btn btn-success'>Sign Up</button></Link></li>
-                        {/*<li className="dropdown"><a href={() => false}><span>Drop Down</span> <i className="bi bi-chevron-down"></i></a>
-                                <ul>
-                                    <li><a href={() => false}>Drop Down 1</a></li>
-                                    <li className="dropdown"><a href={() => false}><span>Deep Drop Down</span> <i className="bi bi-chevron-right"></i></a>
-                                        <ul>
-                                            <li><a href={() => false}>Deep Drop Down 1</a></li>
-                                            <li><a href={() => false}>Deep Drop Down 2</a></li>
-                                            <li><a href={() => false}>Deep Drop Down 3</a></li>
-                                            <li><a href={() => false}>Deep Drop Down 4</a></li>
-                                            <li><a href={() => false}>Deep Drop Down 5</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href={() => false}>Drop Down 2</a></li>
-                                    <li><a href={() => false}>Drop Down 3</a></li>
-                                    <li><a href={() => false}>Drop Down 4</a></li>
-                                </ul>
-        </li>*/}
                     </ul>
                     <i className="bi bi-list mobile-nav-toggle"></i>
                 </nav>

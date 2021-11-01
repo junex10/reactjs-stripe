@@ -26,8 +26,8 @@ class Profile extends Component {
                 names: (actions.control.find(val => val === 'names') ? true : false)
             }
         }
-        this.phone = `${auth.person.areaCode} ${auth.person.phone}`;
-        this.names = `${auth.person.name} ${auth.person.lastname}`;
+        this.phone = auth.person !== undefined ? `${auth.person.areaCode} ${auth.person.phone}` : undefined;
+        this.names = auth.person !== undefined ? `${auth.person.name} ${auth.person.lastname}` : undefined;
         if (!authSection('profile')) this.props.history.push('/login')
     }
 
@@ -86,7 +86,7 @@ class Profile extends Component {
                                                         }
                                                     </div>
                                                     <div style={{ cursor: 'pointer' }} onClick={() => this.setState({ editNumber: true })} className='col-12 col-sm-12 col-lg-2 col-md-2'>
-                                                        Agregar número
+                                                        { this.phone === undefined ? 'Agregar' : 'Editar' } número
                                                     </div>
                                                 </div>
                                             </div>
@@ -106,7 +106,7 @@ class Profile extends Component {
                                                         }
                                                     </div>
                                                     <div style={{ cursor: 'pointer' }} onClick={() => this.setState({ personalName: true })} className='col-12 col-sm-12 col-lg-2 col-md-2'>
-                                                        Agregar nombre y apellido
+                                                        { this.names === undefined ? 'Agregar' : 'Editar' } nombre y apellido
                                                     </div>
                                                 </div>
                                             </div>

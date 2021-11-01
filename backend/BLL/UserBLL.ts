@@ -123,10 +123,10 @@ export class UserBLL implements IUserBLL {
                             let hashPassword: string = '';
                             const userProfile = (data.userType !== undefined) ? data.userType : 'Usuario';
                             await bcrypt.hash(data.password, BcryptEnum.saltRound)
-                            .then((passwordHashed: string) => hashPassword = passwordHashed);
+                                .then((passwordHashed: string) => hashPassword = passwordHashed);
                             const userAccess = ACCESS.find(val => val.name == userProfile);
                             const userKeys = ACCESS_KEY.find(val => val.name == userProfile);
-                            if (userAccess === undefined || userKeys === undefined) reject({ status: 400, message: 'No se existe el perfil de usuario '})
+                            if (userAccess === undefined || userKeys === undefined) reject({ status: 400, message: 'No se existe el perfil de usuario ' })
                             else {
                                 const newUser: User = {
                                     email: data.email,
@@ -161,15 +161,27 @@ export class UserBLL implements IUserBLL {
             Users.schema
                 .findOne({ email: data.email })
                 .then(async val => {
-                    await Users.schema
-                        .findOneAndUpdate({ email: val.email }, {
-                            person: {
-                                areaCode: data.areaCode,
-                                phone: data.phone,
-                                name: val.person.name,
-                                lastname: val.person.lastname
-                            }
-                        })
+                    if (val.person !== undefined) {
+                        await Users.schema
+                            .findOneAndUpdate({ email: val.email }, {
+                                person: {
+                                    areaCode: data.areaCode,
+                                    phone: data.phone,
+                                    name: val.person.name,
+                                    lastname: val.person.lastname
+                                }
+                            })
+                    } else {
+                        await Users.schema
+                            .findOneAndUpdate({ email: val.email }, {
+                                person: {
+                                    areaCode: data.areaCode,
+                                    phone: data.phone,
+                                    name: '',
+                                    lastname: ''
+                                }
+                            })
+                    }
                     const changedPhone: UpdatePhoneDTO = {
                         phone: data.phone,
                         areaCode: data.areaCode,
@@ -177,7 +189,10 @@ export class UserBLL implements IUserBLL {
                     };
                     resolve(changedPhone);
                 })
-                .catch(y => reject({ status: 500, message: 'No se pudo cambiar el número de teléfono' }));
+                .catch(y => {
+                    console.log(y)
+                    reject({ status: 500, message: 'No se pudo cambiar el número de teléfono' })
+                });
         });
     }
     public async UpdateNames(data: UpdateNamesDTO): Promise<UpdateNamesDTO> {
@@ -226,9 +241,9 @@ export class UserBLL implements IUserBLL {
         return await new Promise(async (resolve, reject) => {
             var passwordBcrypt: string = '';
             await bcrypt.hash(data.newPassword, BcryptEnum.saltRound)
-            .then((passwordHash: string) => {
-                passwordBcrypt = passwordHash
-            });
+                .then((passwordHash: string) => {
+                    passwordBcrypt = passwordHash
+                });
             Users.schema
                 .findOneAndUpdate({ email: data.email }, {
                     password: passwordBcrypt
@@ -258,7 +273,7 @@ export class UserBLL implements IUserBLL {
                         };
                         let autoIncrement = 0;
                         cards.find((value, index) => {
-                            if (value.creditCardNumber === data.creditCardNumber){
+                            if (value.creditCardNumber === data.creditCardNumber) {
                                 cards.splice(index, 1);
                                 autoIncrement++;
                             }
@@ -296,10 +311,10 @@ export class UserBLL implements IUserBLL {
                             let hashPassword: string = '';
                             const userProfile = (data.userType !== undefined) ? data.userType : 'Usuario';
                             await bcrypt.hash(data.password, BcryptEnum.saltRound)
-                            .then((passwordHashed: string) => hashPassword = passwordHashed);
+                                .then((passwordHashed: string) => hashPassword = passwordHashed);
                             const userAccess = ACCESS.find(val => val.name == userProfile);
                             const userKeys = ACCESS_KEY.find(val => val.name == userProfile);
-                            if (userAccess === undefined || userKeys === undefined) reject({ status: 400, message: 'No se existe el perfil de usuario '})
+                            if (userAccess === undefined || userKeys === undefined) reject({ status: 400, message: 'No se existe el perfil de usuario ' })
                             else {
                                 const newUser: User = {
                                     email: data.email,
@@ -331,7 +346,7 @@ export class UserBLL implements IUserBLL {
                                                     .then((value: AuthUserSavedDTO) => {
                                                         resolve(value);
                                                     });
-                                            })                                        
+                                            })
                                     })
                                     .catch(y => reject({ status: 400, message: 'No se pudo registrar el usuario' }))
                             }
