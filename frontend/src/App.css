@@ -44,7 +44,7 @@
 .nav-item i, .nav-item span {
     color: white !important;
 }
-.nav-item i, .nav-item span.text-black{
+.nav-item span.text-black{
     color: black !important;
 }
 .side {
