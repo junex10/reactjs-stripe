@@ -200,15 +200,27 @@ export class UserBLL implements IUserBLL {
             Users.schema
                 .findOne({ email: data.email })
                 .then(async val => {
-                    await Users.schema
+                    if (val.person !== undefined) {
+                        await Users.schema
+                            .findOneAndUpdate({ email: data.email }, {
+                                person: {
+                                    areaCode: val.person.areaCode,
+                                    phone: val.person.phone,
+                                    name: data.name,
+                                    lastname: data.lastname
+                                }
+                            })
+                    } else {
+                        await Users.schema
                         .findOneAndUpdate({ email: data.email }, {
                             person: {
-                                areaCode: val.person.areaCode,
-                                phone: val.person.phone,
+                                areaCode: '',
+                                phone: '',
                                 name: data.name,
                                 lastname: data.lastname
                             }
                         })
+                    }
                     const changedNames: UpdateNamesDTO = {
                         email: data.email,
                         name: data.name,
