@@ -390,7 +390,10 @@ export class UserBLL implements IUserBLL {
                     };
                     resolve(data);
                 })
-                .catch(y => reject({ status: 500, message: 'No se encontró al usuario' }))
+                .catch(y => {
+                    console.log(y)
+                    reject({ status: 500, message: 'No se encontró al usuario' })
+                })
         });
     }
 }

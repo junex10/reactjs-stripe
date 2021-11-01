@@ -193,24 +193,17 @@ export class UserController implements IUserController {
         }
     }
     public async GetUserByEmail(req, res): Promise<void> {
-        await JWTAUTH
-            .authToken(req.headers.authorization, { module: 'account', control: 'creditCard' })
-            .then(async () => {
-                try {
-                    await this.userBusiness.GetUserByEmail(req.body)
-                        .then(x => {
-                            res.status(200);
-                            res.send(x);
-                        })
-                }
-                catch (err) {
-                    res.status(err.status);
-                    res.send({ message: err.message });
-                }
-            })
-            .catch(err => {
-                res.status(err.status);
-                res.send({ message: err.message });
-            });
+        try {
+            const email = req.params.email;
+            await this.userBusiness.GetUserByEmail(email)
+                .then(x => {
+                    res.status(200);
+                    res.send(x);
+                })
+        }
+        catch (err) {
+            res.status(err.status);
+            res.send({ message: err.message });
+        }
     }
 }
