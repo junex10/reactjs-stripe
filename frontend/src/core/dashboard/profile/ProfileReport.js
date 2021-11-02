@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { spent } from './../../services/services.module';
+import { spent, getCart } from './../../services/services.module';
 
 class ProfileReport extends Component {
     constructor(props) {
@@ -9,7 +9,8 @@ class ProfileReport extends Component {
         this.state = {
             montly: 0,
             annual: 0,
-            total: 0
+            total: 0,
+            totalCart: 0
         }
     }
     componentDidMount() {
@@ -24,6 +25,10 @@ class ProfileReport extends Component {
         spent(this.email, 'nothing')
             .then(val => 
                 val.data.map(value => this.setState({ total: this.state.total + value.spent })) 
+            )
+        getCart(this.email, 'not-image')
+            .then(value => 
+                this.setState({ totalCart: this.state.totalCart + value.data.length })
             )
     }
     render() {
@@ -96,7 +101,11 @@ class ProfileReport extends Component {
                                 <div className="col mr-2">
                                     <div className="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                         EN CARRITO</div>
-                                    <div className="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                    <div className="h5 mb-0 font-weight-bold text-gray-800">
+                                        {
+                                            new Intl.NumberFormat().format(this.state.totalCart)
+                                        }
+                                    </div>
                                 </div>
                                 <div className="col-auto">
                                     <i className="fas fa-shopping-cart fa-2x text-gray-300"></i>

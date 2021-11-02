@@ -1,5 +1,7 @@
 import { api, HTTP_OPTIONS } from "../../commons/config";
 
+export const getUser = email => api.get(`/users/getUserByEmail/${email}/auth`)
+export const setUser = data => window.sessionStorage.setItem('userSession', JSON.stringify(data))
 export const addNumber = (email, areaCode, numberPhone) => api.put('/users/update/phone', {
     email: email,
     phone: numberPhone,
@@ -31,5 +33,5 @@ export const modifyPassword = (email, newPassword) => api.put('/users/update/pas
     email: email,
     newPassword: newPassword
 }, HTTP_OPTIONS)
-export const getUser = email => api.get(`/users/getUserByEmail/${email}/auth`)
-export const setUser = data => window.sessionStorage.setItem('userSession', JSON.stringify(data))
+export const getCart = (email, way = 'image') => 
+    (way === 'image') ? api.get(`/sales/getCart/${email}`) : api.get(`/sales/getCart/no-image/${email}`); 

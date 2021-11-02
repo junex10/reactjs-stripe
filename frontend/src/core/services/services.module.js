@@ -9,7 +9,8 @@ export {
     addCreditCard,
     modifyPassword,
     getUser,
-    setUser
+    setUser,
+    getCart
 } from './account.service'
 export {
     spent
