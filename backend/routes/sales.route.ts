@@ -8,5 +8,6 @@ const salesController = new SalesController(
 const sales = express.Router();
 
 sales.get('/spent/:date/:email', (req: Object, res: Object) => salesController.GetSpent(req, res));
+sales.get('/getCart/:email', (req: Object, res: Object) => salesController.GetCart(req, res));
 
 export { sales };

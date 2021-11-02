@@ -44,6 +44,18 @@
                     }
                 ]
             },
+            "cart": [
+                {
+                    "product": "Samsung note 8",
+                    "price": 200,
+                    "many": 1
+                },
+                {
+                    "product": "Computadora DELL",
+                    "price": 400,
+                    "many": 1
+                }
+            ],
             "apply": true
         },
         {
@@ -104,6 +116,18 @@
                     }
                 ]
             },
+            "cart": [
+                {
+                    "product": "Samsung note 8",
+                    "price": 200,
+                    "many": 1
+                },
+                {
+                    "product": "Computadora DELL",
+                    "price": 400,
+                    "many": 1
+                }
+            ],
             "apply": true
         },
         {
@@ -180,6 +204,18 @@
                     }
                 ]
             },
+            "cart": [
+                {
+                    "product": "Samsung note 8",
+                    "price": 200,
+                    "many": 1
+                },
+                {
+                    "product": "Computadora DELL",
+                    "price": 400,
+                    "many": 1
+                }
+            ],
             "apply": true
         }
     ]

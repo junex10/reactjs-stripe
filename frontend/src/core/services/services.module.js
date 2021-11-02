@@ -11,3 +11,6 @@ export {
     getUser,
     setUser
 } from './account.service'
+export {
+    spent
+} from './sales.service'

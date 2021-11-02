@@ -28,3 +28,6 @@ export {
 export {
     GetSpentDTO
 } from './resources/GetSpent.dto';
+export {
+    GetCartDTO
+} from './resources/GetCart.dto';

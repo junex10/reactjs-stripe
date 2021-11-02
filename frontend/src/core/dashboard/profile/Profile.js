@@ -81,7 +81,7 @@ class Profile extends Component {
 
                     <SectionTitleWindow title='Perfil' />
 
-                    <ProfileReport />
+                    <ProfileReport email={this.email} />
 
                     <div className="row">
                         <div className="col-12">

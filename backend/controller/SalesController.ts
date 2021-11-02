@@ -21,7 +21,7 @@ export class SalesController implements ISalesController {
                             res.status(200);
                             res.send(x);
                         })
-                } catch(err) {
+                } catch (err) {
                     res.status(err.status);
                     res.send({ message: err.message })
                 }
@@ -30,5 +30,19 @@ export class SalesController implements ISalesController {
                 res.status(err.status);
                 res.send({ message: err.message });
             });
+    }
+    public async GetCart(req, res): Promise<void> {
+        try {
+            const email = req.params.email;
+            await this.salesBusiness.GetCart(email, true)
+                .then(x => {
+                    res.status(200);
+                    res.send(x);
+                })
+        } catch (err) {
+            res.status(err.status);
+            res.send({ message: err.message })
+        }
+
     }
 }

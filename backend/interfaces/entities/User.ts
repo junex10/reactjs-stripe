@@ -7,7 +7,8 @@ export interface User extends Entity{
     online: boolean,
     cards?: Cards[],
     person?: Person,
-    permits: Permits
+    permits: Permits,
+    cart?: Cart[]
 }
 export interface Profile{
     role: string,
@@ -38,4 +39,9 @@ export interface PermitsKeys{
 }
 export interface ControlKeys{
     [index: number]: string;
+}
+export interface Cart{
+    product: string,
+    price: number,
+    many: number
 }

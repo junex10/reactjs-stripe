@@ -2,7 +2,8 @@ import Sales from './../context/schemas/SalesSchema';
 import { ISalesBLL } from "../interfaces/BLL/ISalesBLL";
 
 import {
-    GetSpentDTO
+    GetSpentDTO,
+    GetCartDTO
 } from './../dtos/dtos.module';
 
 export class SalesBLL implements ISalesBLL {
@@ -48,8 +49,17 @@ export class SalesBLL implements ISalesBLL {
                                 defaultData = [...dataYear];
                                 resolve(defaultData);
                             break;
-                            default: 
-                                resolve(val);
+                            default:
+                                let dataAll = [];
+                                val.map((date: any) => {
+                                    date.sale.map(value => {
+                                        dataAll.push({
+                                            spentType: value.category,
+                                            spent: value.price
+                                        })
+                                    })
+                                })
+                                resolve(dataAll);
                             break;
                         }
                     } else {
@@ -58,6 +68,29 @@ export class SalesBLL implements ISalesBLL {
                 })
                 .catch(y => {
                     reject({ status: 500, message: 'No se encontró ninguna venta' })
+                })
+        });
+    }
+    public GetCart(email: string, img?: boolean): Promise<GetCartDTO[]> {
+        return new Promise((resolve, reject) => {
+            Sales.schema
+                .findOne({ buyerEmail: email })
+                .then(val => {
+                    let data: GetCartDTO[];
+                    let tmpData = [];
+                    val.sale.map(sale => {
+                        tmpData.push({
+                            product: sale.product,
+                            price: sale.price,
+                            many: sale.many,
+                            image: (img) ? (sale.image !== undefined) ? sale.image : '' : ''
+                        })
+                    });
+                    data = [...tmpData];
+                    resolve(data);
+                })
+                .catch(y => {
+                    reject({ status: 500, message: 'No se encontró ningun carrito de compras' })
                 })
         });
     }
