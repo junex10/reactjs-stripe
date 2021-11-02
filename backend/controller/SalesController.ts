@@ -43,6 +43,18 @@ export class SalesController implements ISalesController {
             res.status(err.status);
             res.send({ message: err.message })
         }
-
+    }
+    public async GetCartNotImage(req, res): Promise<void> {
+        try {
+            const email = req.params.email;
+            await this.salesBusiness.GetCart(email, false)
+                .then(x => {
+                    res.status(200);
+                    res.send(x);
+                })
+        } catch (err) {
+            res.status(err.status);
+            res.send({ message: err.message })
+        }
     }
 }
