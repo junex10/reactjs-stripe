@@ -11,7 +11,7 @@ import SweetAlert from 'react-bootstrap-sweetalert';
 class Card extends Component {
     constructor(props) {
         super(props);
-        const actions = auth.permits.keys[1];
+        const actions = auth.permits.keys.find(val => val.name === 'all' || val.name === 'account');
         this.state = {
             editKeyCard: false,
             card: {
@@ -19,7 +19,7 @@ class Card extends Component {
                 actualCvc: ''
             },
             actions: {
-                creditCard: (actions.control.find(val => val === 'creditCard') ? true : false)
+                creditCard: (actions.control.find(val => val === 'creditCard' || val === 'all') ? true : false)
             }
         }
         this.columns = [

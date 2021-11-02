@@ -14,8 +14,9 @@ export class SalesController implements ISalesController {
             .authToken(req.headers.authorization, { module: 'profile', control: 'spentReport' })
             .then(async () => {
                 try {
-                    const spent = req.params.spent;
-                    await this.salesBusiness.GetSpent(spent)
+                    const spent = req.params.date;
+                    const email = req.params.email
+                    await this.salesBusiness.GetSpent(spent, email)
                         .then(x => {
                             res.status(200);
                             res.send(x);

@@ -14,15 +14,15 @@ import { userSession } from './../../../commons/config';
 class Account extends Component {
     constructor(props) {
         super(props);
-        const actions = auth.permits.keys[1];
+        const actions = auth.permits.keys.find(val => val.name === 'all' || val.name === 'account');
         this.email = userSession.user;
 
         this.state = {
             emailEdit: false,
             passwordEdit: false,
             actions: {
-                email: (actions.control.find(val => val === 'accountEmail') ? true : false),
-                password: (actions.control.find(val => val === 'accountPassword') ? true : false)
+                email: (actions.control.find(val => val === 'accountEmail' || val === 'all') ? true : false),
+                password: (actions.control.find(val => val === 'accountPassword' || val === 'all') ? true : false)
             }
         }
         this.email = auth.email;

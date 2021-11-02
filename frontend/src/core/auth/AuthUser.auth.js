@@ -4,6 +4,6 @@ import * as jwt from 'jsonwebtoken';
 export const auth = (authorization !== '') ? jwt.verify(authorization, JWTKEY) : null;
 
 export const authSection = section => {
-    const access = auth.profile.access.find(val => val.view === section);
+    const access = auth.profile.access.find(val => val.view === section || val.view === 'all');
     return (access !== undefined);
 }

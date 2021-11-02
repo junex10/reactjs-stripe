@@ -7,6 +7,6 @@ const salesController = new SalesController(
 );
 const sales = express.Router();
 
-sales.get('/spent/:date', (req: Object, res: Object) => salesController.GetSpent(req, res));
+sales.get('/spent/:date/:email', (req: Object, res: Object) => salesController.GetSpent(req, res));
 
 export { sales };

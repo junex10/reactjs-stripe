@@ -16,7 +16,7 @@ import { getUser, setUser } from './../../services/services.module';
 class Profile extends Component {
     constructor(props) {
         super(props);
-        const actions = auth.permits.keys[0];
+        const actions = auth.permits.keys.find(val => val.name === 'all' || val.name === 'profile');
         this.email = userSession.user;
         getUser(this.email)
         .then(val => setUser(val.data))
@@ -25,8 +25,8 @@ class Profile extends Component {
             editNumber: false,
             personalName: false,
             actions: {
-                numberPhone: (actions.control.find(val => val === 'phone') ? true : false),
-                names: (actions.control.find(val => val === 'names') ? true : false)
+                numberPhone: (actions.control.find(val => val === 'phone' || val === 'all') ? true : false),
+                names: (actions.control.find(val => val === 'names' || val === 'all') ? true : false)
             }
         }
         this.name = '';

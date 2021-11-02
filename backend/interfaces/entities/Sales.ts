@@ -1,5 +1,6 @@
 import { Entity } from './../entities/Entity';
 export interface Sales extends Entity{
+    buyerEmail: string,
     sale: SaleInfo[]
 }
 export interface SaleInfo {
