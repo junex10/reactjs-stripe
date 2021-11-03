@@ -35,3 +35,14 @@ export const modifyPassword = (email, newPassword) => api.put('/users/update/pas
 }, HTTP_OPTIONS)
 export const getCart = (email, way = 'image') => 
     (way === 'image') ? api.get(`/sales/getCart/${email}`) : api.get(`/sales/getCart/no-image/${email}`); 
+export const addCard = (
+    email,
+    creditCardNumber,
+    cvc,
+    expirationDate
+) => api.post('/users/addCard', {
+    email: email,
+    creditCardNumber: creditCardNumber,
+    cvc: cvc,
+    expirationDate: expirationDate
+}, HTTP_OPTIONS)

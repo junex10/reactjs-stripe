@@ -21,7 +21,6 @@ class KeyCardEdit extends Component {
         this.validationSchema = yup.object({
             keycard: yup.string()
                 .required('Campo obligatorio')
-                .min(20, 'Mínimo 20 dígitos')
                 .max(20, 'Máximo 20 dígitos'),
             expirationDate: yup.date()
                 .required('Campo obligatorio'),

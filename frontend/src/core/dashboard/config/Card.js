@@ -5,13 +5,16 @@ import { Typography } from '@mui/material';
 
 import { KeyCardEdit } from '../forms.module';
 import { auth } from './../../auth/AuthUser.auth';
+import { userSession } from './../../../commons/config';
 
 import SweetAlert from 'react-bootstrap-sweetalert';
+import AddCard from './form/AddCard';
 
 class Card extends Component {
     constructor(props) {
         super(props);
         const actions = auth.permits.keys.find(val => val.name === 'all' || val.name === 'account');
+        this.email = userSession.user;
         this.state = {
             editKeyCard: false,
             card: {
@@ -61,12 +64,14 @@ class Card extends Component {
         return newKeyCard.join('');
     }
 
+    onShowAddCard = e => this.setState({ addCard: e });
+
     render() {
         return (
             <>
                 <div className='row'>
                     <div className='col-2'>
-                        <button className='btn btn-success btn-add' onClick={() => this.setState({ addCard: true })}><i class="fas fa-plus"></i></button>
+                        <button className='btn btn-success btn-add' onClick={() => this.setState({ addCard: true })}><i className="fas fa-plus"></i></button>
                     </div>
                 </div>
                 <SweetAlert
@@ -79,7 +84,7 @@ class Card extends Component {
                     onCancel={() => this.setState({ addCard: false })}
                 >
                     <div className="bodyModal">
-                        Hola
+                        <AddCard email={this.email} show={this.onShowAddCard} />
                     </div>
                 </SweetAlert>
                 <SweetAlert

@@ -411,6 +411,7 @@ export class UserBLL implements IUserBLL {
             Users.schema
                 .findOne({ email: data.email })
                 .then(val => {
+                    console.log(val.cards)
                     const findCard = val.cards.find(card => card.creditCardNumber === data.creditCardNumber);
                     if (findCard !== undefined) reject({ status: 400, message: 'La tarjeta ya está registrada' });
                     else {
