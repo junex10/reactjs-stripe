@@ -41,7 +41,7 @@ class LoginAccount extends Component {
     }
     onConfirmAuth = () => {
         this.setState({ authSuccess: false });
-        this.props.history.push('/dashboard/user/profile')
+        setTimeout(() => this.props.history.push('/dashboard/user/profile'), 1000)
     }
     render() {
         return (

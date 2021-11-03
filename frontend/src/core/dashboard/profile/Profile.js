@@ -43,6 +43,10 @@ class Profile extends Component {
         if (!authSection('profile')) this.props.history.push('/login')
     }
 
+    componentDidMount() {
+        
+    }
+
     onShow = event => this.setState({ editNumber: event });
     onPersonalNames = event => this.setState({ personalName: event });
 

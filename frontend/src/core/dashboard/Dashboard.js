@@ -8,9 +8,15 @@ import Profile from './profile/Profile';
 import Log from './logs/Log';
 import Config from './config/Config';
 
+import { authLogin } from './../auth/AuthUser.auth'
+
 import './../../css/dashboard.css';
 
 class Dashboard extends Component {
+    constructor(props){
+        super(props);
+        authLogin();
+    }
     render() {
         return (
             <BrowserRouter>
