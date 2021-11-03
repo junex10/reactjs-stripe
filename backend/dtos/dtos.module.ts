@@ -8,7 +8,8 @@ export {
     AuthUserSavedDTO,
     RegisterUserDTO,
     EditUserEmailDTO,
-    EditUserPasswordDTO
+    EditUserPasswordDTO,
+    AddCardDTO
 } from './resources/AuthUsers.dto';
 export {
     GetUsersDTO,

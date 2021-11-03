@@ -20,7 +20,8 @@ class Card extends Component {
             },
             actions: {
                 creditCard: (actions.control.find(val => val === 'creditCard' || val === 'all') ? true : false)
-            }
+            },
+            addCard: false
         }
         this.columns = [
             {
@@ -44,7 +45,7 @@ class Card extends Component {
         auth.cards.map(val => {
             const dateParsed = val.expirationDate.replaceAll('/', '-');
             this.data.push({
-                keycard: <p id={val.creditCardNumber} style={{color: 'blue', cursor: 'pointer'}} onClick={() => {
+                keycard: <p id={val.creditCardNumber} style={{ color: 'blue', cursor: 'pointer' }} onClick={() => {
                     if (this.state.actions.creditCard) this.setState({ editKeyCard: true, actualKeyCard: val.creditCardNumber })
                 }}>{this.hideKeyCard(val.creditCardNumber)}</p>,
                 dateExpired: moment(dateParsed, 'DD-MM-YYYY').format('MM/YY'),
@@ -63,6 +64,24 @@ class Card extends Component {
     render() {
         return (
             <>
+                <div className='row'>
+                    <div className='col-2'>
+                        <button className='btn btn-success btn-add' onClick={() => this.setState({ addCard: true })}><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+                <SweetAlert
+                    show={this.state.addCard}
+                    title={<Typography component={'div'} className="headingModal mt-2 mb-4" variant={'h6'}>Agregar Tarjeta de credito</Typography>}
+                    showCloseButton
+                    closeBtnStyle={{ boxShadow: 'none' }}
+                    showConfirm={false}
+                    onConfirm={() => this.setState({ addCard: false })}
+                    onCancel={() => this.setState({ addCard: false })}
+                >
+                    <div className="bodyModal">
+                        Hola
+                    </div>
+                </SweetAlert>
                 <SweetAlert
                     show={this.state.editKeyCard}
                     title={<Typography component={'div'} className="headingModal mt-2 mb-4" variant={'h6'}>Tarjeta de credito</Typography>}

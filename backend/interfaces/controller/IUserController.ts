@@ -10,4 +10,5 @@ export interface IUserController {
     UpdatePassword(req, res): Promise<void>;
     UpdateCreditCard(req, res): Promise<void>;
     NewUser(req, res): Promise<void>;
+    AddCard(req, res): Promise<void>;
 }

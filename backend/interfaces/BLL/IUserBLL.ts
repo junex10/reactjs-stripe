@@ -9,7 +9,8 @@ import {
     UpdateCreditCard,
     EditUserEmailDTO,
     EditUserPasswordDTO,
-    GetUserByEmailDTO
+    GetUserByEmailDTO,
+    AddCardDTO
 } from "../../dtos/dtos.module";
 
 export interface IUserBLL {
@@ -24,4 +25,5 @@ export interface IUserBLL {
     UpdateCreditCard(data: UpdateCreditCard): Promise<Object>;
     NewUser(data: RegisterUserDTO): Promise<AuthUserSavedDTO>;
     GetUserByEmail(data: string, way: string): Promise<GetUserByEmailDTO | AuthUserSavedDTO>;
+    AddCard(data: AddCardDTO): Promise<AddCardDTO>;
 }

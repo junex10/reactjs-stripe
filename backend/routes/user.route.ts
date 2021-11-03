@@ -19,5 +19,6 @@ user.put('/update/email', (req: Object, res: Object) => userController.UpdateEma
 user.put('/update/password', (req: Object, res: Object) => userController.UpdatePassword(req, res));
 user.put('/update/creditcard', (req: Object, res: Object) => userController.UpdateCreditCard(req, res));
 user.post('/newUser', (req: Object, res: Object) => userController.NewUser(req, res));
+user.post('/addCard', (req: Object, res: Object) => userController.AddCard(req, res));
 
 export { user };

@@ -15,7 +15,8 @@ import {
     UpdatePhoneDTO,
     UpdateNamesDTO,
     UpdateCreditCard,
-    GetUserByEmailDTO
+    GetUserByEmailDTO,
+    AddCardDTO
 } from './../dtos/dtos.module';
 
 import { JWTAuthManager } from "../auth/JWTAuthManager";
@@ -45,7 +46,6 @@ export class UserBLL implements IUserBLL {
                                     cards: val[0].cards,
                                     id: val[0].id
                                 };
-                                console.log(dataFinded)
                                 new JWTAuthManager().buildToken(dataFinded)
                                     .then((value: AuthUserSavedDTO) => {
                                         resolve(value);
@@ -402,6 +402,39 @@ export class UserBLL implements IUserBLL {
                 .catch(y => {
                     console.log(y)
                     reject({ status: 500, message: 'No se encontró al usuario' })
+                })
+        });
+    }
+    public AddCard(data: AddCardDTO): Promise<AddCardDTO> {
+        return new Promise((resolve, reject) => {
+            let dataReturn: AddCardDTO;
+            Users.schema
+                .findOne({ email: data.email })
+                .then(val => {
+                    const findCard = val.cards.find(card => card.creditCardNumber === data.creditCardNumber);
+                    if (findCard !== undefined) reject({ status: 400, message: 'La tarjeta ya está registrada' });
+                    else {
+                        let cards = [...val.cards];
+                        cards.push({
+                            creditCardNumber: data.creditCardNumber,
+                            cvc: data.cvc,
+                            expirationDate: data.expirationDate
+                        });
+                        Users.schema
+                            .updateOne({ email: data.email }, {
+                                cards: cards
+                            })
+                            .then(() => {
+                                dataReturn = {
+                                    email: data.email,
+                                    creditCardNumber: data.creditCardNumber,
+                                    cvc: data.cvc,
+                                    expirationDate: data.expirationDate
+                                };
+                                resolve(dataReturn)
+                            })
+                            .catch(() => reject({ status: 500, message: 'Error desconocido al registrar nueva tarjeta' }))
+                    }
                 })
         });
     }

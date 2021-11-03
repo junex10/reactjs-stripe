@@ -20,3 +20,9 @@ export class EditUserPasswordDTO{
     email: string;
     newPassword: string;
 }
+export class AddCardDTO{
+    email: string;
+    creditCardNumber: string;
+    cvc: number;
+    expirationDate: string;
+}
