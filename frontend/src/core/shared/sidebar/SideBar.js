@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { authSection, auth, logout } from './../../auth/AuthUser.auth';
 
 class SideBar extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            profile: authSection('profile'),
+            log: true,
+            configAccount: authSection('account')
+        }
+    }
     render() {
         return (
             <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -19,31 +28,44 @@ class SideBar extends Component {
                 <div className="sidebar-heading">
                     PERSONAL
                 </div>
-
-                <li className="nav-item mt-4 mb-4 side">
-                    <Link to='/dashboard/user/profile'>
-                        <i className="fas fa-user"></i>
-                        <span className='ml-2'>Perfil</span>
-                    </Link>
-                </li>
-
-                <li className="nav-item mb-4 side">
-                    <Link to='/dashboard/user/logs'>
-                        <i className="fas fa-clipboard-list"></i>
-                        <span className='ml-2'>Historial</span>
-                    </Link>
-                </li>
+                {
+                    this.state.configAccount ?
+                        <li className="nav-item mt-4 mb-4 side">
+                            <Link to='/dashboard/user/profile'>
+                                <i className="fas fa-user"></i>
+                                <span className='ml-2'>Perfil</span>
+                            </Link>
+                        </li>
+                        : ''
+                }
+                {
+                    this.state.log ?
+                        <li className="nav-item mb-4 side">
+                            <Link to='/dashboard/user/logs'>
+                                <i className="fas fa-clipboard-list"></i>
+                                <span className='ml-2'>Historial</span>
+                            </Link>
+                        </li>
+                        : ''
+                }
                 <hr className="sidebar-divider" />
 
                 <div className="sidebar-heading">
                     Administrador
                 </div>
-
-                <li className="nav-item mt-4 side">
-                    <Link to='/dashboard/admin'>
-                        <i className="fas fa-user-circle"></i>
-                        <span className='ml-2'>Administración de cuenta</span>
-                    </Link>
+                {
+                    this.state.configAccount ?
+                        <li className="nav-item mt-4 side">
+                            <Link to='/dashboard/admin'>
+                                <i className="fas fa-user-circle"></i>
+                                <span className='ml-2'>Administración de cuenta</span>
+                            </Link>
+                        </li>
+                        : ''
+                }
+                <li className='nav-item mt-4 side' onClick={logout}>
+                    <i className="fas fa-sign-out-alt"></i>
+                    <span className='ml-2'>Cerrar sesión</span>
                 </li>
             </ul>
         );
