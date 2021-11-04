@@ -8,7 +8,17 @@ import {
     SectionTitleWindow
 } from './../../shared/shared.module';
 
+import { getUser, setUser } from './../../services/services.module';
+import { userSession } from './../../../commons/config';
+
 class Config extends Component {
+    constructor(props){
+        super(props);
+        
+        this.email = userSession.user;
+        getUser(this.email)
+        .then(val => setUser(val.data))
+    }
     render() {
         return (
             <>

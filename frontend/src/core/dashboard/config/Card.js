@@ -19,7 +19,8 @@ class Card extends Component {
             editKeyCard: false,
             card: {
                 actualKeyCard: '',
-                actualCvc: ''
+                actualCvc: '',
+                expirationDate: ''
             },
             actions: {
                 creditCard: (actions.control.find(val => val === 'creditCard' || val === 'all') ? true : false)
@@ -49,7 +50,7 @@ class Card extends Component {
             const dateParsed = val.expirationDate.replaceAll('/', '-');
             this.data.push({
                 keycard: <p id={val.creditCardNumber} style={{ color: 'blue', cursor: 'pointer' }} onClick={() => {
-                    if (this.state.actions.creditCard) this.setState({ editKeyCard: true, actualKeyCard: val.creditCardNumber })
+                    if (this.state.actions.creditCard) this.setState({ editKeyCard: true, card: { actualKeyCard: val.creditCardNumber, actualCvc: val.cvc, expirationDate: moment(dateParsed, 'DD-MM-YYYY').format('MM/YY') } })
                 }}>{this.hideKeyCard(val.creditCardNumber)}</p>,
                 dateExpired: moment(dateParsed, 'DD-MM-YYYY').format('MM/YY'),
                 cvc: val.cvc
@@ -65,6 +66,7 @@ class Card extends Component {
     }
 
     onShowAddCard = e => this.setState({ addCard: e });
+    onShowCardEdit = e => this.setState({ editKeyCard: e });
 
     render() {
         return (
@@ -97,7 +99,7 @@ class Card extends Component {
                     onCancel={() => this.setState({ editKeyCard: false })}
                 >
                     <div className="bodyModal">
-                        <KeyCardEdit creditNumber={this.state.card.actualKeyCard} cvc={this.state.card.actualCvc} />
+                        <KeyCardEdit show={this.onShowCardEdit} creditNumber={this.state.card.actualKeyCard} cvc={this.state.card.actualCvc} expirationDate={this.state.card.expirationDate} email={this.email} />
                     </div>
                 </SweetAlert>
                 <DataTable

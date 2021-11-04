@@ -46,3 +46,16 @@ export const addCard = (
     cvc: cvc,
     expirationDate: expirationDate
 }, HTTP_OPTIONS)
+export const modifyCreditCard = (
+    email, 
+    creditCardNumber,
+    newCreditCard,
+    cvc,
+    expirationDate
+) => api.put('/users/update/creditcard', {
+    email: email,
+    creditCardNumber: creditCardNumber,
+    newCreditCard: newCreditCard,
+    cvc: cvc,
+    expirationDate: expirationDate
+}, HTTP_OPTIONS)

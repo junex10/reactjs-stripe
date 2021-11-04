@@ -11,7 +11,8 @@ export {
     getUser,
     setUser,
     getCart,
-    addCard
+    addCard,
+    modifyCreditCard
 } from './account.service'
 export {
     spent
