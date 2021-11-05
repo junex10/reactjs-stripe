@@ -5,10 +5,10 @@ class BuyButtons extends Component {
         return (
             <div className='row bodyItemCard mt-4'>
                 <div className='col-12 col-sm-12 col-lg-6 col-md-6'>
-                    <button className='btn btn-success' id='addCart'><i class="fas fa-cart-plus"></i>Carrito</button>
+                    <button className='btn btn-success btn-block' id='addCart'><i className="fas fa-cart-plus"></i></button>
                 </div>
                 <div className='col-12 col-sm-12 col-lg-6 col-md-6'>
-                    <button className='btn btn-success' id='buy'><i class="fas fa-shopping-basket"></i> Comprar</button>
+                    <button className='btn btn-success btn-block' id='buy'><i className="fas fa-shopping-basket"></i></button>
                 </div>
             </div>
         );

@@ -17,3 +17,6 @@ export {
 export {
     spent
 } from './sales.service'
+export {
+    getStore
+} from './shopping.service'
