@@ -37,6 +37,21 @@ class Navbar extends Component {
                                 </li>
                                 : ''
                         }
+                        {
+                            userSession !== null ?
+                                <li className='nav-link scrollto'>
+                                    <div className="dropdown">
+                                        <button className="btn btn-success dropdown-toggle" type="button" id="dropdownCart" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i className="fas fa-shopping-cart" style={{ fontSize: '20px', cursor: 'pointer' }}></i> Carrito
+                                        </button>
+                                        <div className="dropdown-menu" aria-labelledby="dropdownCart">
+                                            <Link to='/tienda/carrito' className="dropdown-item">Ferrari - 20</Link>
+                                        </div>
+                                    </div>
+                                </li>
+                            : ''
+                        }
+
                         <li className="nav-link scrollto"><Link to='/home'>Home</Link></li>
                         <li className="nav-link scrollto"><Link to='/tienda/Sin filtros'>Tienda</Link></li>
                         {
@@ -45,12 +60,12 @@ class Navbar extends Component {
                                     <li className="nav-link scrollto"><Link to='/login'>Log in</Link></li>
                                     <li className="nav-link scrollto"><Link to='/login/signup'><button className='btn btn-success'>Sign Up</button></Link></li>
                                 </>
-                            : <>
-                                <li className='nav-link scrollto'>
-                                    <Link to='/dashboard/user/profile'>Perfil</Link>
-                                </li>
-                                <li className="nav-link scrollto" onClick={this.logout}><Link>Cerrar sesión</Link></li>
-                            </>
+                                : <>
+                                    <li className='nav-link scrollto'>
+                                        <Link to='/dashboard/user/profile'>Perfil</Link>
+                                    </li>
+                                    <li className="nav-link scrollto" onClick={this.logout}><Link to='/tienda/Sin filtros'>Cerrar sesión</Link></li>
+                                </>
                         }
                     </ul>
                     <i className="bi bi-list mobile-nav-toggle"></i>
