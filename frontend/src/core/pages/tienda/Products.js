@@ -43,7 +43,7 @@ class Products extends Component {
                                                 <span className="badge badge-primary">{value.product}</span>
                                             </div>
                                             Precio <b>{new Intl.NumberFormat().format(value.price)}$</b>
-                                            <BuyButtons />
+                                            <BuyButtons product={value.product} />
                                         </div>
                                     </div>
                                 </div>
