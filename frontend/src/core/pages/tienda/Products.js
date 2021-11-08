@@ -32,7 +32,7 @@ class Products extends Component {
                     {
                         this.state.filter.products.map(value => {
                             return (
-                                <div className='col-4 col-sm-4 col-md-3 col-lg-3' key={value.product}>
+                                <div className='col-4 col-sm-4 col-md-3 col-lg-3 mb-4' key={value.product}>
                                     <div className='card'>
                                         <div className='card-title'>
                                             <img className='image' src={value.image}

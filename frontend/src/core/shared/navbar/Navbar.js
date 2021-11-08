@@ -5,6 +5,7 @@ import userSVG from './../../../img/dashboard/undraw_profile.svg';
 
 import DashboardNavbar from './DashboardNavbar';
 import { userSession } from './../../../commons/config';
+import { logout } from './../../auth/AuthUser.auth';
 
 class Navbar extends Component {
     constructor(props) {
@@ -14,6 +15,8 @@ class Navbar extends Component {
 
         this.email = userSession !== null ? userSession.user : '';
     }
+    logout = () => logout('/tienda/Sin filtros')
+
     SiteNavbar = () => {
         return (<header id="header" className="fixed-top d-flex align-items-center header-transparent" style={this.background}>
             <div className="container d-flex align-items-center justify-content-between">
@@ -35,7 +38,7 @@ class Navbar extends Component {
                                 : ''
                         }
                         <li className="nav-link scrollto"><Link to='/home'>Home</Link></li>
-                        <li className="nav-link scrollto"><Link to='/tienda'>Tienda</Link></li>
+                        <li className="nav-link scrollto"><Link to='/tienda/Sin filtros'>Tienda</Link></li>
                         {
                             userSession === null ?
                                 <>
@@ -46,6 +49,7 @@ class Navbar extends Component {
                                 <li className='nav-link scrollto'>
                                     <Link to='/dashboard/user/profile'>Perfil</Link>
                                 </li>
+                                <li className="nav-link scrollto" onClick={this.logout}><Link>Cerrar sesión</Link></li>
                             </>
                         }
                     </ul>

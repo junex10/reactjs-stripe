@@ -33,7 +33,7 @@ class Pages extends Component {
                         <div>
                             <Navbar background={{ background: '#191CA9', maxWidth: '100%' }} site="index" />
                             <Tienda />
-                            {/*<Footer />*/}
+                            <Footer />
                         </div>
                     );
                 }} />
