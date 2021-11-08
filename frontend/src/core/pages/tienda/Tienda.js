@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import FilterBar from './FilterBar';
 import Products from './Products';
@@ -6,6 +7,13 @@ import Products from './Products';
 import './../../../css/store.css';
 
 class Tienda extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            actualCategory: props.match.params.filter
+        }
+    }
+    onActualCategory = e => this.setState({ actualCategory: e });
     render() {
         return (
             <main id="main">
@@ -21,7 +29,7 @@ class Tienda extends Component {
                         <FilterBar />
                     </div>
                     <section className='col-10 store'>
-                        <Products />
+                        <Products actualCategory={this.state.actualCategory} />
                     </section>
                 </div>
             </main>
@@ -29,4 +37,4 @@ class Tienda extends Component {
     }
 };
 
-export default Tienda;
+export default withRouter(Tienda);

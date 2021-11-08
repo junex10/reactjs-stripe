@@ -5,6 +5,9 @@ import CategoryFilterBar from './CategoryFilterBar';
 import './../../../css/filterbar.css';
 
 class FilterBar extends Component {
+    constructor(props){
+        super(props);
+    }
     hideFilter() {
         const filters = document.getElementById('filters');
         if (filters.dataset.control === '1') {
@@ -16,6 +19,10 @@ class FilterBar extends Component {
             filters.dataset.control = '1';
         }
     }
+    category = e => {
+        const { category } = this.props;
+        category(e);
+    };
     render() {
         return (
             <section className='inner-page'>

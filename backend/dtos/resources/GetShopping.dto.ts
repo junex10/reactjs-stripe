@@ -3,6 +3,7 @@ export class GetStock {
     stock: number;
     category: string;
     image?: string;
+    price: number;
 }
 export class RegisterStock {
     product: string;
@@ -18,4 +19,7 @@ export class UpdateStock {
     stock: number;
     category: string;
     image?: string;
+}
+export class GetCategory{
+    name: string;
 }

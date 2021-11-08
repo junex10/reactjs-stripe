@@ -28,12 +28,12 @@ class Pages extends Component {
                         </div>
                     );
                 }} />
-                <Route path='/tienda' render={() => {
+                <Route path='/tienda/:filter?' render={() => {
                     return (
                         <div>
                             <Navbar background={{ background: '#191CA9', maxWidth: '100%' }} site="index" />
                             <Tienda />
-                            <Footer />
+                            {/*<Footer />*/}
                         </div>
                     );
                 }} />

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { authSection, auth, logout } from './../../auth/AuthUser.auth';
+import { authSection, logout } from './../../auth/AuthUser.auth';
 
 class SideBar extends Component {
     constructor(props) {

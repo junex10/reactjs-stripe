@@ -57,7 +57,7 @@ class Account extends Component {
                     onCancel={() => this.setState({ passwordEdit: false })}
                 >
                     <div className="bodyModal">
-                        <PasswordEdit show={this.onShowEmail} email={this.email} show={this.onShowPassword} />
+                        <PasswordEdit email={this.email} show={this.onShowPassword} />
                     </div>
                 </SweetAlert>
                 <div className='row'>

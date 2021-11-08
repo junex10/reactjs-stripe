@@ -12,5 +12,7 @@ shopping.get('/getStock/:product?', (req: Object, res: Object) => shoppingContro
 shopping.post('/registerStock', (req: Object, res: Object) => shoppingController.RegisterStock(req, res));
 shopping.put('/updateStock', (req: Object, res: Object) => shoppingController.UpdateStock(req, res));
 shopping.delete('/deleteStock/:productId?', (req: Object, res: Object) => shoppingController.DeleteStock(req, res));
+shopping.get('/getStock/category/:category?', (req: Object, res: Object) => shoppingController.GetStockByCategory(req, res));
+shopping.get('/getCategory', (req: Object, res: Object) => shoppingController.GetCategory(req, res));
 
 export { shopping };

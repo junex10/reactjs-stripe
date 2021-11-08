@@ -18,5 +18,6 @@ export {
     spent
 } from './sales.service'
 export {
-    getStore
+    getStore,
+    getCategory
 } from './shopping.service'

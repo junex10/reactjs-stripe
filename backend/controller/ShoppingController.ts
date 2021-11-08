@@ -89,4 +89,31 @@ export class ShoppingController implements IShoppingController {
                 res.send({ message: err.message });
             });
     }
+    public async GetStockByCategory(req, res): Promise<void> {
+        try {
+            await this.shoppingBusiness.GetStockByCategory(req.params.category)
+                .then(x => {
+                    res.status(200);
+                    res.send(x);
+                });
+        }
+        catch (err) {
+            res.status(err.status);
+            res.send({ message: err.message })
+        }
+    }
+    public async GetCategory(req: any, res: any): Promise<void> {
+        try {
+            await this.shoppingBusiness.GetCategory()
+                .then(x => {
+                    res.status(200);
+                    res.send(x);
+                });
+        }
+        catch (err) {
+            res.status(err.status);
+            res.send({ message: err.message })
+        }
+    }
+    
 }

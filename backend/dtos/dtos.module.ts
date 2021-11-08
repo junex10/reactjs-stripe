@@ -24,7 +24,8 @@ export {
 export {
     GetStock,
     RegisterStock,
-    UpdateStock
+    UpdateStock,
+    GetCategory
 } from './resources/GetShopping.dto';
 export {
     GetSpentDTO

@@ -46,7 +46,7 @@ class Card extends Component {
             }*/
         ]
         this.data = [];
-        auth.cards.map(val => {
+        auth.cards.forEach(val => {
             const dateParsed = val.expirationDate.replaceAll('/', '-');
             this.data.push({
                 keycard: <p id={val.creditCardNumber} style={{ color: 'blue', cursor: 'pointer' }} onClick={() => {

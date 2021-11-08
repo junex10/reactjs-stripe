@@ -1,3 +1,4 @@
-import { api, HTTP_OPTIONS } from '../../commons/config';
+import { api } from '../../commons/config';
 
-export const getStore = () => api.get('/store/getStock')
+export const getStore = category => api.get(`store/getStock/category/${category}`)
+export const getCategory = () => api.get('store/getCategory')

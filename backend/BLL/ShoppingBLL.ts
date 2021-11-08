@@ -1,10 +1,12 @@
 import Shopping from './../context/schemas/ShoppingSchema';
+import Category from './../context/schemas/CategorySchema';
 import { IShoppingBLL } from "../interfaces/BLL/IShoppingBLL";
 
 import {
     GetStock,
     RegisterStock,
-    UpdateStock
+    UpdateStock,
+    GetCategory
 } from '../dtos/dtos.module';
 
 export class ShoppingBLL implements IShoppingBLL {
@@ -23,7 +25,8 @@ export class ShoppingBLL implements IShoppingBLL {
                                 product: val.product,
                                 stock: val.stock,
                                 category: val.category,
-                                image: (val.image !== undefined) ? val.image : null
+                                image: (val.image !== undefined) ? val.image : null,
+                                price: val.price
                             })
                         });
                         resolve(stock);
@@ -38,7 +41,8 @@ export class ShoppingBLL implements IShoppingBLL {
                             product: product.product,
                             stock: product.stock,
                             category: product.category,
-                            image: (product.image !== undefined) ? product.image : null
+                            image: (product.image !== undefined) ? product.image : null,
+                            price: product.price
                         };
                         resolve(stock);
                     })
@@ -119,4 +123,68 @@ export class ShoppingBLL implements IShoppingBLL {
             }
         });
     }
+    public GetStockByCategory(category: string): Promise<GetStock[]> {
+        return new Promise(async (resolve, reject) => {
+            let data: GetStock[];
+            let tmpData = [];
+            if (category !== 'Sin filtros') {
+                await Shopping.schema
+                    .find({ category: category })
+                    .then(value => {
+                        if (value.length > 0) {
+                            value.map(valProduct => {
+                                tmpData.push({
+                                    product: valProduct.product,
+                                    stock: valProduct.stock,
+                                    category: valProduct.category,
+                                    image: valProduct.image,
+                                    price: valProduct.price
+                                });
+                            })
+                            data = [...tmpData];
+                            resolve(data);
+                        } else reject({ status: 500, message: 'No se pudo encontrar el producto' })
+                    })
+                    .catch(y => {
+                        reject({ status: 500, message: 'No se pudo encontrar el producto' })
+                    })
+            } else {
+                await Shopping.schema
+                    .find()
+                    .then(value => {
+                        if (value.length > 0) {
+                            value.map(valProduct => {
+                                tmpData.push({
+                                    product: valProduct.product,
+                                    stock: valProduct.stock,
+                                    category: valProduct.category,
+                                    image: valProduct.image,
+                                    price: valProduct.price
+                                });
+                            })
+                            data = [...tmpData];
+                            resolve(data);
+                        } else reject({ status: 500, message: 'No se pudo encontrar el producto' })
+                    })
+                    .catch(y => {
+                        reject({ status: 500, message: 'No se pudo encontrar el producto' })
+                    })
+            }
+        });
+    }
+    public GetCategory(): Promise<GetCategory[]> {
+        return new Promise((resolve, reject) => {
+            let data: GetCategory[];
+            Category.schema
+                .find()
+                .then(value => {
+                    let tmpData = [];
+                    value.map(val => tmpData.push({ name: val.name }));
+                    data = [...tmpData];
+                    resolve(data);
+                })
+                .catch(y => reject({ status: 500, message: 'No se pudo encontrar el producto' }))
+        });
+    }
+    
 }

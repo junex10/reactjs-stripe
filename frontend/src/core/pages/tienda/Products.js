@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { withRouter } from 'react-router-dom';
 import BuyButtons from './BuyButtons';
 
 import { getStore } from './../../services/services.module';
@@ -9,38 +9,50 @@ class Products extends Component {
         super(props);
         this.state = {
             filter: {
-                category: '',
+                category: props.actualCategory,
                 products: []
             }
         }
-        
-        getStore()
-        .then(value => {
-            console.log(value.data)
-        })
+    }
+    componentDidMount() {
+        getStore(this.state.filter.category)
+            .then(value => {
+                this.setState({
+                    filter: {
+                        category: this.state.filter.category,
+                        products: [...value.data]
+                    }
+                });
+            })
     }
     render() {
         return (
             <div className='container'>
                 <div className='row'>
-                    <div className='col-4 col-sm-4 col-md-3 col-lg-3'>
-                        <div className='card'>
-                            <div className='card-title'>
-                                <img className='image' src='https://www.estrategiaynegocios.net/csp/mediapool/sites/dt.common.streams.StreamServer.cls?STREAMOID=tEiqzpyZB9KQ34ElgK5VT8$daE2N3K4ZzOUsqbU5sYvO$hCK717SNqjH3GhHEJaH6FB40xiOfUoExWL3M40tfzssyZqpeG_J0TFo7ZhRaDiHC9oxmioMlYVJD0A$3RbIiibgT65kY_CSDiCiUzvHvODrHApbd6ry6YGl5GGOZrs-&CONTENTTYPE=image/jpeg'
-                                    alt='carro' />
-                            </div>
-                            <div className='card-body'>
-                                <div className='mb-3'>
-                                    <span className="badge badge-primary">Carros</span>
+                    {
+                        this.state.filter.products.map(value => {
+                            return (
+                                <div className='col-4 col-sm-4 col-md-3 col-lg-3' key={value.product}>
+                                    <div className='card'>
+                                        <div className='card-title'>
+                                            <img className='image' src={value.image}
+                                                alt={value.product} />
+                                        </div>
+                                        <div className='card-body'>
+                                            <div className='mb-3'>
+                                                <span className="badge badge-primary">{value.product}</span>
+                                            </div>
+                                            Precio <b>{new Intl.NumberFormat().format(value.price)}$</b>
+                                            <BuyButtons />
+                                        </div>
+                                    </div>
                                 </div>
-                                Precio del carro <b>40000$</b>
-                                <BuyButtons />
-                            </div>
-                        </div>
-                    </div>
+                            );
+                        })
+                    }
                 </div>
             </div>
         );
     }
 }
-export default Products;
+export default withRouter(Products);
