@@ -15,7 +15,8 @@ export {
     modifyCreditCard
 } from './account.service'
 export {
-    spent
+    spent,
+    newSale
 } from './sales.service'
 export {
     getStore,

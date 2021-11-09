@@ -2,9 +2,10 @@ import Sales from './../context/schemas/SalesSchema';
 import { ISalesBLL } from "../interfaces/BLL/ISalesBLL";
 import {
     GetSpentDTO,
-    GetCartDTO
+    GetCartDTO,
+    NewSaleDTO
 } from './../dtos/dtos.module';
-import Stripe from 'stripe';
+import { Stripe } from 'stripe';
 import { Utility } from './../utilitys/Utility';
 
 export class SalesBLL implements ISalesBLL {
@@ -17,7 +18,7 @@ export class SalesBLL implements ISalesBLL {
                 .then(val => {
                     if (val.length > 0) {
                         let defaultData: GetSpentDTO[];
-                        switch(spent) {
+                        switch (spent) {
                             case 'month':
                                 const actualMonth = new Date().getMonth() + 1;
                                 let data = [];
@@ -33,7 +34,7 @@ export class SalesBLL implements ISalesBLL {
                                 });
                                 defaultData = [...data];
                                 resolve(defaultData);
-                            break;
+                                break;
                             case 'year':
                                 const actualYear = new Date().getFullYear();
                                 let dataYear = [];
@@ -49,7 +50,7 @@ export class SalesBLL implements ISalesBLL {
                                 })
                                 defaultData = [...dataYear];
                                 resolve(defaultData);
-                            break;
+                                break;
                             default:
                                 let dataAll = [];
                                 val.map((date: any) => {
@@ -61,7 +62,7 @@ export class SalesBLL implements ISalesBLL {
                                     })
                                 })
                                 resolve(dataAll);
-                            break;
+                                break;
                         }
                     } else {
                         reject({ status: 500, message: 'No se encontró ninguna venta' })
@@ -95,15 +96,35 @@ export class SalesBLL implements ISalesBLL {
                 })
         });
     }
-    public NewSale(data: any): Promise<any> {
+    public NewSale(data: NewSaleDTO[]): Promise<Object> {
         return new Promise((resolve, reject) => {
             const utility = new Utility();
-
             utility.AppSettingsJson()
-            .then(val => {
-                console.log(val)
-            })
+                .then(async (val: any) => {
+                    const apiKey = val.Parameters.APIKEYSTRIPE;
+                    const stripe = new Stripe(apiKey, {
+                        apiVersion: '2020-08-27'
+                    });
+                    const domain = "http://localhost:4000";
+                    const session = await stripe.checkout.sessions.create({
+                        line_items: [
+                            {
+                                price: 'price_1Ju30wA7sSACybeETYnF4QzF',
+                                quantity: 1,
+                            },
+                        ],
+                        payment_method_types: [
+                            'card',
+                        ],
+                        mode: 'subscription',
+                        success_url: `${domain}/success.html`,
+                        cancel_url: `${domain}/cancel.html`
+                    })
+                    resolve({
+                        paymentUrl: session.url
+                    });
+                });
         })
     }
-    
+
 }

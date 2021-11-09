@@ -1,16 +1,35 @@
-import React, { Component } from 'react';
-
+import React, { Component, useState, useEffect } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import { APIKEYSTRIPE } from './../../../commons/config';
 import { userSession } from './../../../commons/config';
+import { withRouter } from 'react-router-dom';
+import { newSale } from './../../services/services.module';
 
 class BuyButtons extends Component {
     constructor(props) {
         super(props);
+
+        this.stripePromise = loadStripe(APIKEYSTRIPE);
 
         this.product = props.product;
     }
 
     directBuy = () => {
         console.log(this.product);
+        newSale({
+            "products": [
+                {
+                    "product": "Computadora DELL"
+                },
+                {
+                    "product": "Ferrari"
+                }
+            ]
+        })
+        .then(val => {
+            const paymentUrl = val.data.paymentUrl;
+            document.location.href = paymentUrl;
+        })
     }
     render() {
         return (
@@ -38,4 +57,4 @@ class BuyButtons extends Component {
     }
 }
 
-export default BuyButtons;
+export default withRouter(BuyButtons);

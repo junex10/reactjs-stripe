@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import BuyButtons from './BuyButtons';
-
 import { getStore } from './../../services/services.module';
 
 class Products extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             filter: {
                 category: props.actualCategory,

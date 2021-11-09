@@ -18,3 +18,4 @@ export const api =
     axios.create(HTTP_CONFIG)
 
 export const JWTKEY = "7b0705aab296e5f24dc802d440121077";
+export const APIKEYSTRIPE = "pk_test_51Jth11A7sSACybeEimJSFudmKJR6BVtZnpJd301CZcn5U4ND7owmLTVcsiaZj3L9yOw6kbKD8iyQQsSbuzAkvwao00hzepOtU7";

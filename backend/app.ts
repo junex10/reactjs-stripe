@@ -18,6 +18,8 @@ import { router } from './routes/module.route';
 
 const app = express();
 
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = '1';
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
