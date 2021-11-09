@@ -1,10 +1,11 @@
 import Sales from './../context/schemas/SalesSchema';
 import { ISalesBLL } from "../interfaces/BLL/ISalesBLL";
-
 import {
     GetSpentDTO,
     GetCartDTO
 } from './../dtos/dtos.module';
+import Stripe from 'stripe';
+import { Utility } from './../utilitys/Utility';
 
 export class SalesBLL implements ISalesBLL {
     constructor() { }
@@ -94,4 +95,15 @@ export class SalesBLL implements ISalesBLL {
                 })
         });
     }
+    public NewSale(data: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            const utility = new Utility();
+
+            utility.AppSettingsJson()
+            .then(val => {
+                console.log(val)
+            })
+        })
+    }
+    
 }

@@ -10,5 +10,6 @@ const sales = express.Router();
 sales.get('/spent/:date/:email', (req: Object, res: Object) => salesController.GetSpent(req, res));
 sales.get('/getCart/:email', (req: Object, res: Object) => salesController.GetCart(req, res));
 sales.get('/getCart/no-image/:email', (req: Object, res: Object) => salesController.GetCartNotImage(req, res));
+sales.post('/newSale', (req: Object, res: Object) => salesController.NewSale(req, res));
 
 export { sales };

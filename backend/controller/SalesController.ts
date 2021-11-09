@@ -57,4 +57,16 @@ export class SalesController implements ISalesController {
             res.send({ message: err.message })
         }
     }
+    public async NewSale(req: any, res: any): Promise<void> {
+        try {
+            await this.salesBusiness.NewSale(req.body)
+                .then(x => {
+                    res.status(200);
+                    res.send(x);
+                })
+        } catch (err) {
+            res.status(err.status);
+            res.send({ message: err.message })
+        }
+    }
 }

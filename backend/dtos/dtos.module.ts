@@ -33,3 +33,6 @@ export {
 export {
     GetCartDTO
 } from './resources/GetCart.dto';
+export {
+    NewSaleDTO
+} from './resources/Sales.dto'
