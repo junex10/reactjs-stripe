@@ -104,21 +104,25 @@ export class SalesBLL implements ISalesBLL {
                     const apiKey = val.Parameters.APIKEYSTRIPE;
                     const stripe = new Stripe(apiKey, {
                         apiVersion: '2020-08-27'
-                    });
+                    }); //price_1Ju30wA7sSACybeETYnF4QzF
                     const domain = "http://localhost:4000";
                     const session = await stripe.checkout.sessions.create({
+                        payment_method_types: ['card'],
                         line_items: [
                             {
-                                price: 'price_1Ju30wA7sSACybeETYnF4QzF',
+                                price_data: {
+                                    currency: 'usd',
+                                    product_data: {
+                                        name: 'Computadora DELL',
+                                    },
+                                    unit_amount: 2000,
+                                },
                                 quantity: 1,
                             },
                         ],
-                        payment_method_types: [
-                            'card',
-                        ],
-                        mode: 'subscription',
-                        success_url: `${domain}/success.html`,
-                        cancel_url: `${domain}/cancel.html`
+                        mode: 'payment',
+                        success_url: 'https://example.com/success',
+                        cancel_url: 'https://example.com/cancel',
                     })
                     resolve({
                         paymentUrl: session.url
