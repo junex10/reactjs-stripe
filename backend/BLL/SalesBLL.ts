@@ -158,6 +158,8 @@ export class SalesBLL implements ISalesBLL {
                                     });
                                 })
                                 .catch(() => reject({ status: 500, message: 'No se pudo procesar la compra' }))
+
+                            // Confirmar pago es requerido mediante un demonio
                         })
                         .catch((y) => {
                             reject({ status: 500, message: 'No se pudo procesar la compra' })
