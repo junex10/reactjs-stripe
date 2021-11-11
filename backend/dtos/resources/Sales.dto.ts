@@ -1,3 +1,8 @@
 export class NewSaleDTO{
-    name: string;
+    email?: string;
+    products: NewSaleProductDTO[]
+}
+export class NewSaleProductDTO{
+    product: string;
+    many: number;
 }

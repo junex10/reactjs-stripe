@@ -1,4 +1,5 @@
 import Sales from './../context/schemas/SalesSchema';
+import Shopping from './../context/schemas/ShoppingSchema';
 import { ISalesBLL } from "../interfaces/BLL/ISalesBLL";
 import {
     GetSpentDTO,
@@ -96,16 +97,61 @@ export class SalesBLL implements ISalesBLL {
                 })
         });
     }
-    public NewSale(data: NewSaleDTO[]): Promise<Object> {
+    public NewSale(data: NewSaleDTO): Promise<Object> {
         return new Promise((resolve, reject) => {
             const utility = new Utility();
             utility.AppSettingsJson()
                 .then(async (val: any) => {
+                    console.log(data);
+                    // Obtener primero los productos que se estan comprando en base de datos
+                    await Shopping.schema
+                        .find()
+                        .then(resultFetch => {
+                            let productsTmp = [];
+                            resultFetch.map(products => {
+                                const fetchingProduct = data.products.find(z => z.product === products.product)
+                                const actualProduct = fetchingProduct !== undefined ? fetchingProduct.product : null;
+                                if (products.product === actualProduct) {
+                                    productsTmp.push({
+                                        product: products.product,
+                                        price: products.price,
+                                        many: data.products.find(x => x.product === products.product).many,
+                                        category: products.category,
+                                        image: products.image
+                                    });
+                                }
+                            });
+                            const productsSales = {
+                                buyerEmail: data.email === undefined ? 'unknow' : data.email,
+                                sale: productsTmp,
+                                confirm: false
+                            };
+                            Sales.schema
+                                .collection
+                                .insertOne(productsSales)
+                                .then(() => console.log('Listo'))
+                                .catch(() => reject({ status: 500, message: 'No se pudo procesar la compra' }))
+                        })
+                        .catch((y) => {
+                            reject({ status: 500, message: 'No se pudo procesar la compra' })
+                        })
+
+                    /* 
+                     const productsSales = {
+                         buyerEmail: data.email === undefined ? 'unknow' : data.email,
+                         sale: productsTmp,
+                         confirm: false
+                     };*/
+                    // Registrar la venta con correo desconocido
+                    /*Sales.schema
+                        .collection
+                        .insertOne(productsSales)
+                        .then(() => console.log('Listo'))*/
                     const apiKey = val.Parameters.APIKEYSTRIPE;
                     const stripe = new Stripe(apiKey, {
                         apiVersion: '2020-08-27'
-                    }); //price_1Ju30wA7sSACybeETYnF4QzF
-                    const domain = "http://localhost:4000";
+                    });
+                    const domain = "http://localhost:4000/";
                     const session = await stripe.checkout.sessions.create({
                         payment_method_types: ['card'],
                         line_items: [
@@ -121,7 +167,7 @@ export class SalesBLL implements ISalesBLL {
                             },
                         ],
                         mode: 'payment',
-                        success_url: 'https://example.com/success',
+                        success_url: `${domain}accepted-payment`,
                         cancel_url: 'https://example.com/cancel',
                     })
                     resolve({

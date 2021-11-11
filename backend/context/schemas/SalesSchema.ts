@@ -11,7 +11,8 @@ const SalesSchema = new Schema<Sales>({
         many: { type: Number, required: true },
         category: { type: String, required: true },
         image: { type: String }
-    }, { _id: false })]
+    }, { _id: false })],
+    confirm: { type: Boolean, default: false }
 }, { collection: seeder.config.collection})
 .add(EntitySchema.EntitySchema);
 

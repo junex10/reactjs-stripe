@@ -8,24 +8,20 @@ import { newSale } from './../../services/services.module';
 class BuyButtons extends Component {
     constructor(props) {
         super(props);
-
         this.stripePromise = loadStripe(APIKEYSTRIPE);
-
         this.product = props.product;
     }
 
     directBuy = () => {
         console.log(this.product);
-        newSale({
-            "products": [
-                {
-                    "product": "Computadora DELL"
-                },
-                {
-                    "product": "Ferrari"
-                }
-            ]
-        })
+        newSale([
+            {
+                "product": "Computadora DELL"
+            },
+            {
+                "product": "Ferrari"
+            }
+        ])
         .then(val => {
             const paymentUrl = val.data.paymentUrl;
             document.location.href = paymentUrl;
