@@ -108,6 +108,7 @@ export class SalesBLL implements ISalesBLL {
                         .find()
                         .then(resultFetch => {
                             let productsTmp = [];
+                            let lineItems = [];
                             resultFetch.map(products => {
                                 const fetchingProduct = data.products.find(z => z.product === products.product)
                                 const actualProduct = fetchingProduct !== undefined ? fetchingProduct.product : null;
@@ -119,6 +120,16 @@ export class SalesBLL implements ISalesBLL {
                                         category: products.category,
                                         image: products.image
                                     });
+                                    lineItems.push({
+                                        price_data: {
+                                            currency: 'usd',
+                                            product_data: {
+                                                name: products.product,
+                                            },
+                                            unit_amount: products.price * 100
+                                        },
+                                        quantity: data.products.find(x => x.product === products.product).many
+                                    });
                                 }
                             });
                             const productsSales = {
@@ -129,50 +140,28 @@ export class SalesBLL implements ISalesBLL {
                             Sales.schema
                                 .collection
                                 .insertOne(productsSales)
-                                .then(() => console.log('Listo'))
+                                .then(async () => {
+                                    const apiKey = val.Parameters.APIKEYSTRIPE;
+                                    const stripe = new Stripe(apiKey, {
+                                        apiVersion: '2020-08-27'
+                                    });
+                                    const domain = "http://localhost:4000/";
+                                    const session = await stripe.checkout.sessions.create({
+                                        payment_method_types: ['card'],
+                                        line_items: lineItems,
+                                        mode: 'payment',
+                                        success_url: `${domain}accepted-payment`,
+                                        cancel_url: 'https://example.com/cancel',
+                                    })
+                                    resolve({
+                                        paymentUrl: session.url
+                                    });
+                                })
                                 .catch(() => reject({ status: 500, message: 'No se pudo procesar la compra' }))
                         })
                         .catch((y) => {
                             reject({ status: 500, message: 'No se pudo procesar la compra' })
                         })
-
-                    /* 
-                     const productsSales = {
-                         buyerEmail: data.email === undefined ? 'unknow' : data.email,
-                         sale: productsTmp,
-                         confirm: false
-                     };*/
-                    // Registrar la venta con correo desconocido
-                    /*Sales.schema
-                        .collection
-                        .insertOne(productsSales)
-                        .then(() => console.log('Listo'))*/
-                    const apiKey = val.Parameters.APIKEYSTRIPE;
-                    const stripe = new Stripe(apiKey, {
-                        apiVersion: '2020-08-27'
-                    });
-                    const domain = "http://localhost:4000/";
-                    const session = await stripe.checkout.sessions.create({
-                        payment_method_types: ['card'],
-                        line_items: [
-                            {
-                                price_data: {
-                                    currency: 'usd',
-                                    product_data: {
-                                        name: 'Computadora DELL',
-                                    },
-                                    unit_amount: 2000,
-                                },
-                                quantity: 1,
-                            },
-                        ],
-                        mode: 'payment',
-                        success_url: `${domain}accepted-payment`,
-                        cancel_url: 'https://example.com/cancel',
-                    })
-                    resolve({
-                        paymentUrl: session.url
-                    });
                 });
         })
     }
