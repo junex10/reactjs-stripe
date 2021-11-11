@@ -140,7 +140,8 @@ export class SalesBLL implements ISalesBLL {
                             Sales.schema
                                 .collection
                                 .insertOne(productsSales)
-                                .then(async () => {
+                                .then(async salePushed => {
+                                    const insertedId = salePushed.insertedId;
                                     const apiKey = val.Parameters.APIKEYSTRIPE;
                                     const stripe = new Stripe(apiKey, {
                                         apiVersion: '2020-08-27'
@@ -150,8 +151,8 @@ export class SalesBLL implements ISalesBLL {
                                         payment_method_types: ['card'],
                                         line_items: lineItems,
                                         mode: 'payment',
-                                        success_url: `${domain}accepted-payment`,
-                                        cancel_url: 'https://example.com/cancel',
+                                        success_url: `${domain}accepted-payment/${insertedId}`,
+                                        cancel_url: `${domain}rejected-payment/${insertedId}`,
                                     })
                                     resolve({
                                         paymentUrl: session.url
