@@ -152,7 +152,7 @@ export class SalesBLL implements ISalesBLL {
                                         line_items: lineItems,
                                         mode: 'payment',
                                         success_url: `${domain}accepted-payment/${insertedId}`,
-                                        cancel_url: `${domain}rejected-payment/${insertedId}`,
+                                        cancel_url: `${domain}cancelled-payment/${insertedId}`,
                                     })
                                     resolve({
                                         paymentUrl: session.url

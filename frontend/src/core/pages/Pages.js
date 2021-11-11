@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import Index from './index/Index';
 import Tienda from './tienda/Tienda';
 import Login from './login/Login';
+import AcceptedPayment from './payment-process/AcceptedPayment';
+import CancelledPayment from './payment-process/CancelledPayment';
 
 import Dashboard from '../dashboard/Dashboard';
 
@@ -39,6 +41,8 @@ class Pages extends Component {
                 }} />
                 <Route path='/login/:register' component={Login}/>
                 <Route exact path='/login' component={Login} />
+                <Route path='/accepted-payment/:id' component={AcceptedPayment} />
+                <Route path='/cancelled-payment/:id' component={CancelledPayment} />
 
                 <Route path='/dashboard' component={Dashboard}/>
             </BrowserRouter>
