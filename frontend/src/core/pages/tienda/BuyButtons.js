@@ -14,14 +14,7 @@ class BuyButtons extends Component {
 
     directBuy = () => {
         console.log(this.product);
-        newSale([
-            {
-                "product": "Computadora DELL"
-            },
-            {
-                "product": "Ferrari"
-            }
-        ])
+        newSale([{"product": this.product, "many": 1}])
         .then(val => {
             const paymentUrl = val.data.paymentUrl;
             document.location.href = paymentUrl;

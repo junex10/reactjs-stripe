@@ -146,7 +146,7 @@ export class SalesBLL implements ISalesBLL {
                                     const stripe = new Stripe(apiKey, {
                                         apiVersion: '2020-08-27'
                                     });
-                                    const domain = "http://localhost:4000/";
+                                    const domain = "http://localhost:3000/";
                                     const session = await stripe.checkout.sessions.create({
                                         payment_method_types: ['card'],
                                         line_items: lineItems,
@@ -158,9 +158,13 @@ export class SalesBLL implements ISalesBLL {
                                         paymentUrl: session.url
                                     });
                                 })
-                                .catch(() => reject({ status: 500, message: 'No se pudo procesar la compra' }))
+                                .catch((y) => {
+                                    console.log(y)
+                                    reject({ status: 500, message: 'No se pudo procesar la compra' })
+                                })
 
                             // Confirmar pago es requerido mediante un demonio
+                            // Hacer modulo de devolucion
                         })
                         .catch((y) => {
                             reject({ status: 500, message: 'No se pudo procesar la compra' })
