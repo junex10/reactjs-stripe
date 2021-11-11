@@ -159,7 +159,6 @@ export class SalesBLL implements ISalesBLL {
                                     });
                                 })
                                 .catch((y) => {
-                                    console.log(y)
                                     reject({ status: 500, message: 'No se pudo procesar la compra' })
                                 })
 
