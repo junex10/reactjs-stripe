@@ -2,7 +2,8 @@ import { Entity } from './../entities/Entity';
 export interface Sales extends Entity{
     buyerEmail: string,
     sale: SaleInfo[],
-    confirm: boolean
+    confirm: boolean,
+    paymentIntent?: string
 }
 export interface SaleInfo {
     product: string,

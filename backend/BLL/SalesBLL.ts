@@ -102,7 +102,6 @@ export class SalesBLL implements ISalesBLL {
             const utility = new Utility();
             utility.AppSettingsJson()
                 .then(async (val: any) => {
-                    console.log(data);
                     // Obtener primero los productos que se estan comprando en base de datos
                     await Shopping.schema
                         .find()
@@ -135,7 +134,8 @@ export class SalesBLL implements ISalesBLL {
                             const productsSales = {
                                 buyerEmail: data.email === undefined ? 'unknow' : data.email,
                                 sale: productsTmp,
-                                confirm: false
+                                confirm: false,
+                                paymentIntent: ''
                             };
                             Sales.schema
                                 .collection
@@ -147,16 +147,22 @@ export class SalesBLL implements ISalesBLL {
                                         apiVersion: '2020-08-27'
                                     });
                                     const domain = "http://localhost:3000/";
-                                    const session = await stripe.checkout.sessions.create({
+                                    await stripe.checkout.sessions.create({
                                         payment_method_types: ['card'],
                                         line_items: lineItems,
                                         mode: 'payment',
                                         success_url: `${domain}accepted-payment/${insertedId}`,
                                         cancel_url: `${domain}cancelled-payment/${insertedId}`,
                                     })
-                                    resolve({
-                                        paymentUrl: session.url
-                                    });
+                                    .then(async payment => {
+                                        await Sales.schema
+                                            .updateOne({ _id: insertedId }, {
+                                                paymentIntent: payment.payment_intent.toString()
+                                            })
+                                        resolve({
+                                            paymentUrl: payment.url
+                                        });
+                                    })
                                 })
                                 .catch((y) => {
                                     reject({ status: 500, message: 'No se pudo procesar la compra' })

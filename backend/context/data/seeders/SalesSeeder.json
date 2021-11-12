@@ -22,6 +22,7 @@
                 }
             ],
             "confirm": true,
+            "paymentIntent": "pi_3Juli4A7sSACybeE0656BJOG",
             "apply": true
         }
     ]
