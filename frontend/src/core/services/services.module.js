@@ -22,3 +22,6 @@ export {
     getStore,
     getCategory
 } from './shopping.service'
+export {
+    confirmPaid
+} from './stripe.service'
