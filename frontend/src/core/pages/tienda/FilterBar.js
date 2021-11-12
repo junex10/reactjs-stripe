@@ -5,9 +5,6 @@ import CategoryFilterBar from './CategoryFilterBar';
 import './../../../css/filterbar.css';
 
 class FilterBar extends Component {
-    constructor(props){
-        super(props);
-    }
     hideFilter() {
         const filters = document.getElementById('filters');
         if (filters.dataset.control === '1') {

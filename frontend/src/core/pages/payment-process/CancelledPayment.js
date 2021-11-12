@@ -7,9 +7,6 @@ import './../../../App.css';
 import './../../../css/payment.css';
 
 class CancelledPayment extends Component{
-    constructor(props){
-        super(props);
-    }
     onRedirect = () => setTimeout(() => this.props.history.push('/tienda/Sin filtros'), 5000)
     render(){
         return(

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import DataTable from 'react-data-table-component';
-
-import { Loader } from './../../shared/shared.module';
+//import { Loader } from './../../shared/shared.module';
 
 class Cart extends Component{
     constructor(props){
