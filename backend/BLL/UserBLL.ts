@@ -44,7 +44,8 @@ export class UserBLL implements IUserBLL {
                                     permits: val[0].permits,
                                     person: val[0].person,
                                     cards: val[0].cards,
-                                    id: val[0].id
+                                    id: val[0].id,
+                                    client: val[0].client
                                 };
                                 new JWTAuthManager().buildToken(dataFinded)
                                     .then((value: AuthUserSavedDTO) => {
@@ -80,7 +81,8 @@ export class UserBLL implements IUserBLL {
                                 password: value.password,
                                 profile: value.profile,
                                 person: value.person,
-                                permits: value.permits
+                                permits: value.permits,
+                                client: value.client
                             });
                             resolve(datos);
                         });
@@ -108,7 +110,8 @@ export class UserBLL implements IUserBLL {
                         password: val.password,
                         profile: val.profile,
                         permits: val.permits,
-                        person: val.person
+                        person: val.person,
+                        client: val.client
                     };
                     resolve(data);
                 })
@@ -358,7 +361,8 @@ export class UserBLL implements IUserBLL {
                                                     email: z.email,
                                                     profile: z.profile,
                                                     permits: z.permits,
-                                                    id: z.id
+                                                    id: z.id,
+                                                    client: z.client
                                                 };
                                                 new JWTAuthManager().buildToken(dataFinded)
                                                     .then((value: AuthUserSavedDTO) => {
@@ -389,7 +393,8 @@ export class UserBLL implements IUserBLL {
                             profile: val.profile,
                             permits: val.permits,
                             person: val.person,
-                            cards: val.cards
+                            cards: val.cards,
+                            client: val.client
                         };
                         if (way === 'auth') {
                             new JWTAuthManager().buildToken(data)

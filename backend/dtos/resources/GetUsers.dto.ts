@@ -8,6 +8,7 @@ export class GetUsersDTO{
     person?: Person;
     permits: Permits;
     cards?: Cards;
+    client: string;
 }
 export class GetUserByIdDTO{
     email: string;
@@ -17,6 +18,7 @@ export class GetUserByIdDTO{
     permits: Permits;
     person?: Person;
     cards?: Cards;
+    client: string;
 }
 export class GetUserByEmailDTO{
     email: string;
@@ -26,4 +28,5 @@ export class GetUserByEmailDTO{
     permits: Permits;
     person?: Person;
     cards?: Cards;
+    client: string;
 }
