@@ -152,7 +152,7 @@ export class SalesBLL implements ISalesBLL {
                                         line_items: lineItems,
                                         mode: 'payment',
                                         success_url: `${domain}accepted-payment/${insertedId}`,
-                                        cancel_url: `${domain}cancelled-payment/${insertedId}`,
+                                        cancel_url: `${domain}cancelled-payment`,
                                     })
                                     .then(async payment => {
                                         await Sales.schema

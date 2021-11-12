@@ -19,10 +19,10 @@ class AcceptedPayment extends Component{
     }
     onConfirm = () => {
         confirmPaid(this.id)
-        .then(value => {
+        .then(() => {
             this.setState({ confirmSuccess: true, confirmError: false, confirmLoading: false })
         })
-        .catch((y) => {
+        .catch(() => {
             this.setState({ confirmSuccess: false, confirmError: true, confirmLoading: false })
         })
     }

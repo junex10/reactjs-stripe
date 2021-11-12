@@ -42,7 +42,7 @@ class Pages extends Component {
                 <Route path='/login/:register' component={Login}/>
                 <Route exact path='/login' component={Login} />
                 <Route path='/accepted-payment/:id' component={AcceptedPayment} />
-                <Route path='/cancelled-payment/:id' component={CancelledPayment} />
+                <Route path='/cancelled-payment/:id?' component={CancelledPayment} />
 
                 <Route path='/dashboard' component={Dashboard}/>
             </BrowserRouter>
