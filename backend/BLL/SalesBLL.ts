@@ -8,8 +8,10 @@ import {
     NewSaleDTO
 } from './../dtos/dtos.module';
 import { Stripe } from 'stripe';
-import { Utility } from './../utilitys/Utility';
-
+import {
+    APIKEYSTRIPE,
+    APIVERSIONSTRIPE
+} from './../commons/config';
 export class SalesBLL implements ISalesBLL {
     constructor() { }
 
@@ -99,85 +101,81 @@ export class SalesBLL implements ISalesBLL {
         });
     }
     public NewSale(data: NewSaleDTO): Promise<Object> {
-        return new Promise((resolve, reject) => {
-            const utility = new Utility();
-            utility.AppSettingsJson()
-                .then(async (val: any) => {
-                    // Obtener primero los productos que se estan comprando en base de datos
-                    await Shopping.schema
-                        .find()
-                        .then(resultFetch => {
-                            let productsTmp = [];
-                            let lineItems = [];
-                            resultFetch.map(products => {
-                                const fetchingProduct = data.products.find(z => z.product === products.product)
-                                const actualProduct = fetchingProduct !== undefined ? fetchingProduct.product : null;
-                                if (products.product === actualProduct) {
-                                    productsTmp.push({
-                                        product: products.product,
-                                        price: products.price,
-                                        many: data.products.find(x => x.product === products.product).many,
-                                        category: products.category,
-                                        image: products.image
-                                    });
-                                    lineItems.push({
-                                        price_data: {
-                                            currency: 'usd',
-                                            product_data: {
-                                                name: products.product,
-                                            },
-                                            unit_amount: products.price * 100
-                                        },
-                                        quantity: data.products.find(x => x.product === products.product).many
-                                    });
-                                }
+        return new Promise(async (resolve, reject) => {
+            // Obtener primero los productos que se estan comprando en base de datos
+            await Shopping.schema
+                .find()
+                .then(resultFetch => {
+                    let productsTmp = [];
+                    let lineItems = [];
+                    resultFetch.map(products => {
+                        const fetchingProduct = data.products.find(z => z.product === products.product)
+                        const actualProduct = fetchingProduct !== undefined ? fetchingProduct.product : null;
+                        if (products.product === actualProduct) {
+                            productsTmp.push({
+                                product: products.product,
+                                price: products.price,
+                                many: data.products.find(x => x.product === products.product).many,
+                                category: products.category,
+                                image: products.image
                             });
-                            const productsSales = {
-                                buyerEmail: data.email,
-                                sale: productsTmp,
-                                confirm: false,
-                                paymentIntent: ''
-                            };
-                            Sales.schema
-                                .collection
-                                .insertOne(productsSales)
-                                .then(async salePushed => {
-                                    const insertedId = salePushed.insertedId;
-                                    const apiKey = val.Parameters.APIKEYSTRIPE;
-                                    const stripe = new Stripe(apiKey, {
-                                        apiVersion: '2020-08-27'
+                            lineItems.push({
+                                price_data: {
+                                    currency: 'usd',
+                                    product_data: {
+                                        name: products.product,
+                                    },
+                                    unit_amount: products.price * 100
+                                },
+                                quantity: data.products.find(x => x.product === products.product).many
+                            });
+                        }
+                    });
+                    const productsSales = {
+                        buyerEmail: data.email,
+                        sale: productsTmp,
+                        confirm: false,
+                        paymentIntent: ''
+                    };
+                    Sales.schema
+                        .collection
+                        .insertOne(productsSales)
+                        .then(async salePushed => {
+                            const insertedId = salePushed.insertedId;
+                            const apiKey = APIKEYSTRIPE;
+                            const stripe = new Stripe(apiKey, {
+                                apiVersion: APIVERSIONSTRIPE
+                            });
+                            const domain = "http://localhost:3000/";
+                            const client = (await User.schema.findOne({ email: data.email })).client;
+                            await stripe.checkout.sessions.create({
+                                payment_method_types: ['card'],
+                                line_items: lineItems,
+                                mode: 'payment',
+                                success_url: `${domain}accepted-payment/${insertedId}`,
+                                cancel_url: `${domain}cancelled-payment/`,
+                                customer: client
+                            })
+                                .then(async payment => {
+                                    await Sales.schema
+                                        .updateOne({ _id: insertedId }, {
+                                            paymentIntent: payment.payment_intent.toString()
+                                        })
+                                    resolve({
+                                        paymentUrl: payment.url
                                     });
-                                    const domain = "http://localhost:3000/";
-                                    const client = (await User.schema.findOne({ email: data.email })).client;
-                                    await stripe.checkout.sessions.create({
-                                        payment_method_types: ['card'],
-                                        line_items: lineItems,
-                                        mode: 'payment',
-                                        success_url: `${domain}accepted-payment/${insertedId}`,
-                                        cancel_url: `${domain}cancelled-payment/`,
-                                        customer: client
-                                    })
-                                    .then(async payment => {
-                                        await Sales.schema
-                                            .updateOne({ _id: insertedId }, {
-                                                paymentIntent: payment.payment_intent.toString()
-                                            })
-                                        resolve({
-                                            paymentUrl: payment.url
-                                        });
-                                    })
                                 })
-                                .catch((y) => {
-                                    reject({ status: 500, message: 'No se pudo procesar la compra' })
-                                })
-
-                            // Confirmar pago es requerido mediante un demonio
-                            // Hacer modulo de devolucion
                         })
                         .catch((y) => {
                             reject({ status: 500, message: 'No se pudo procesar la compra' })
                         })
-                });
+
+                    // Confirmar pago es requerido mediante un demonio
+                    // Hacer modulo de devolucion
+                })
+                .catch((y) => {
+                    reject({ status: 500, message: 'No se pudo procesar la compra' })
+                })
         })
     }
 
