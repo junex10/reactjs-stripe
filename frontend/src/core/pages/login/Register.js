@@ -53,7 +53,7 @@ class Register extends Component {
     }
     onConfirmAuth = () => {
         this.setState({ authSuccess: false });
-        setTimeout(() => this.props.history.push('/dashboard/user/profile'), 1000)
+        setTimeout(() => document.location.href = '/dashboard/user/profile', 1000)
     }
     render() {
         return (
