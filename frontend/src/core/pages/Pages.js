@@ -6,6 +6,7 @@ import Tienda from './tienda/Tienda';
 import Login from './login/Login';
 import AcceptedPayment from './payment-process/AcceptedPayment';
 import CancelledPayment from './payment-process/CancelledPayment';
+import Cart from './cart/Cart';
 
 import Dashboard from '../dashboard/Dashboard';
 
@@ -43,6 +44,7 @@ class Pages extends Component {
                 <Route exact path='/login' component={Login} />
                 <Route path='/accepted-payment/:id' component={AcceptedPayment} />
                 <Route path='/cancelled-payment/:id?' component={CancelledPayment} />
+                <Route path='/cart/:id?' component={Cart} />
 
                 <Route path='/dashboard' component={Dashboard}/>
             </BrowserRouter>
