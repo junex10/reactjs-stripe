@@ -7,6 +7,6 @@ const stripeController = new StripeController(
 );
 const stripe = express.Router();
 
-stripe.get('/getPayments', (req: Object, res: Object) => stripeController.GetPayments(req, res));
+stripe.get('/getPayments/:id?', (req: Object, res: Object) => stripeController.GetPayments(req, res));
 
 export { stripe };

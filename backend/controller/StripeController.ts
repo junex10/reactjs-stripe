@@ -11,7 +11,7 @@ export class StripeController implements IStripeController {
 
     public async GetPayments(req: any, res: any): Promise<void> {
         try {
-            await this.stripeBusiness.GetPayments()
+            await this.stripeBusiness.GetPayments(req.params.id)
                 .then(x => {
                     res.status(200);
                     res.send(x);

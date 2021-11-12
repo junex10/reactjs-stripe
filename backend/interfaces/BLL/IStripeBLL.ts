@@ -1,3 +1,3 @@
 export interface IStripeBLL{
-    GetPayments(): Promise<any>;
+    GetPayments(id?: string): Promise<Object>;
 }
