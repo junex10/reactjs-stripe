@@ -21,8 +21,8 @@ export class StripeBLL implements IStripeBLL {
                             .then(async sale => {
                                 const pi = sale.paymentIntent;
                                 await stripe.paymentIntents.retrieve(pi)
-                                    .then(async stripe => {
-                                        const charges = stripe.charges;
+                                    .then(async stripeVal => {
+                                        const charges = stripeVal.charges;
                                         if (charges.data.length > 0) {
                                             const { paid } = charges.data[0];
                                             if (paid) {

@@ -1,5 +1,5 @@
 export class NewSaleDTO{
-    email?: string;
+    email: string;
     products: NewSaleProductDTO[]
 }
 export class NewSaleProductDTO{

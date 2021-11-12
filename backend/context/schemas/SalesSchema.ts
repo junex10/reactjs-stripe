@@ -13,7 +13,8 @@ const SalesSchema = new Schema<Sales>({
         image: { type: String }
     }, { _id: false })],
     confirm: { type: Boolean, default: false },
-    paymentIntent: { type: String }
+    paymentIntent: { type: String },
+    client: { type: String }
 }, { collection: seeder.config.collection})
 .add(EntitySchema.EntitySchema);
 

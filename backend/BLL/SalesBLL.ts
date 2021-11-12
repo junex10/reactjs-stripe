@@ -1,5 +1,6 @@
 import Sales from './../context/schemas/SalesSchema';
 import Shopping from './../context/schemas/ShoppingSchema';
+import User from './../context/schemas/UsersSchema';
 import { ISalesBLL } from "../interfaces/BLL/ISalesBLL";
 import {
     GetSpentDTO,
@@ -132,7 +133,7 @@ export class SalesBLL implements ISalesBLL {
                                 }
                             });
                             const productsSales = {
-                                buyerEmail: data.email === undefined ? 'unknow' : data.email,
+                                buyerEmail: data.email,
                                 sale: productsTmp,
                                 confirm: false,
                                 paymentIntent: ''
@@ -147,12 +148,14 @@ export class SalesBLL implements ISalesBLL {
                                         apiVersion: '2020-08-27'
                                     });
                                     const domain = "http://localhost:3000/";
+                                    const client = (await User.schema.findOne({ email: data.email })).client;
                                     await stripe.checkout.sessions.create({
                                         payment_method_types: ['card'],
                                         line_items: lineItems,
                                         mode: 'payment',
                                         success_url: `${domain}accepted-payment/${insertedId}`,
-                                        cancel_url: `${domain}cancelled-payment`,
+                                        cancel_url: `${domain}cancelled-payment/`,
+                                        customer: client
                                     })
                                     .then(async payment => {
                                         await Sales.schema

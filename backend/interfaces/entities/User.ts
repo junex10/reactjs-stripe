@@ -8,7 +8,8 @@ export interface User extends Entity{
     cards?: Cards[],
     person?: Person,
     permits: Permits,
-    cart?: Cart[]
+    cart?: Cart[],
+    client?: string
 }
 export interface Profile{
     role: string,

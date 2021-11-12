@@ -36,7 +36,8 @@ const Users = new Schema<User>({
         product: { type: String },
         price: { type: Number },
         many: { type: Number}
-    }, { _id: false })]
+    }, { _id: false })],
+    client: { type: String }
 })
 .add(EntitySchema.EntitySchema);
 const schema = model<User>(seeder.config.collection, Users);

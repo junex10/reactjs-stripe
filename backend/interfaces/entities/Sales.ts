@@ -3,7 +3,8 @@ export interface Sales extends Entity{
     buyerEmail: string,
     sale: SaleInfo[],
     confirm: boolean,
-    paymentIntent?: string
+    paymentIntent?: string,
+    client: string
 }
 export interface SaleInfo {
     product: string,
