@@ -14,8 +14,8 @@ import Footer from '../shared/footer/Footer';
 
 class Pages extends Component {
     componentDidMount() {
-        const loader = document.getElementById('preloader');
-        loader.style.display = 'none';
+        /*const loader = document.getElementById('preloader');
+        loader.style.display = 'none';*/
     }
     render() {
         return (
