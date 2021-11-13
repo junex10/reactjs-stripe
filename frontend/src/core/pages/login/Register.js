@@ -41,7 +41,6 @@ class Register extends Component {
     }
 
     handleSubmit(form) {
-        console.log(form);
         newUser(form.email, form.password, form.repeat_password)
             .then(value => {
                 this.setState({ authSuccess: true });

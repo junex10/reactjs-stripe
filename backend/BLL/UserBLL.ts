@@ -22,10 +22,9 @@ import {
 
 import { JWTAuthManager } from "../auth/JWTAuthManager";
 import { User } from '../interfaces/entities/User';
-import { ACCESS, ACCESS_KEY } from '../commons/config';
-
+import { ACCESS, ACCESS_KEY, APIKEYSTRIPE, APIVERSIONSTRIPE } from '../commons/config';
+import { Stripe } from 'stripe';
 import { BcryptEnum } from './../commons/enum/index.enum';
-import { user } from '../routes/user.route';
 
 export class UserBLL implements IUserBLL {
 
@@ -130,6 +129,10 @@ export class UserBLL implements IUserBLL {
                     .then(async founded => {
                         if (founded.length > 0) reject({ status: 500, message: 'El usuario ya existe' })
                         else {
+                            const apiKey = APIKEYSTRIPE;
+                            const stripe = new Stripe(apiKey, {
+                                apiVersion: APIVERSIONSTRIPE
+                            });
                             let hashPassword: string = '';
                             const userProfile = (data.userType !== undefined) ? data.userType : 'Usuario';
                             await bcrypt.hash(data.password, BcryptEnum.saltRound)
@@ -138,28 +141,37 @@ export class UserBLL implements IUserBLL {
                             const userKeys = ACCESS_KEY.find(val => val.name == userProfile);
                             if (userAccess === undefined || userKeys === undefined) reject({ status: 400, message: 'No se existe el perfil de usuario ' })
                             else {
-                                const newUser: User = {
-                                    email: data.email,
-                                    password: hashPassword,
-                                    profile: {
-                                        role: userProfile,
-                                        access: userAccess.views
-                                    },
-                                    permits: {
-                                        name: 'Usuario',
-                                        keys: userKeys.keys
-                                    },
-                                    online: false
-                                };
-                                Users.schema
-                                    .collection
-                                    .insertOne(newUser)
-                                    .then((x: any) => {
-                                        resolve({
-                                            message: 'Usuario registrado sastifactoriamente'
-                                        });
+                                stripe.customers.create({
+                                    description: 'Normal user',
+                                    email: data.email
+                                })
+                                    .then(stripeData => {
+                                        const newUser: User = {
+                                            email: data.email,
+                                            password: hashPassword,
+                                            profile: {
+                                                role: userProfile,
+                                                access: userAccess.views
+                                            },
+                                            permits: {
+                                                name: 'Usuario',
+                                                keys: userKeys.keys
+                                            },
+                                            client: stripeData.id,
+                                            online: false
+                                        };
+                                        Users.schema
+                                            .collection
+                                            .insertOne(newUser)
+                                            .then((x: any) => {
+                                                resolve({
+                                                    message: 'Usuario registrado sastifactoriamente'
+                                                });
+                                            })
+                                            .catch(y => reject({ status: 500, message: 'No se pudo registrar el usuario' }))
                                     })
-                                    .catch(y => reject({ status: 500, message: 'No se pudo registrar el usuario' }))
+                                    .catch(() => reject({ status: 500, message: 'Ha ocurrido un error de conexión' }))
+
                             }
                         }
                     })
@@ -331,6 +343,10 @@ export class UserBLL implements IUserBLL {
                     .then(async founded => {
                         if (founded.length > 0) reject({ status: 400, message: 'El usuario ya existe' })
                         else {
+                            const apiKey = APIKEYSTRIPE;
+                            const stripe = new Stripe(apiKey, {
+                                apiVersion: APIVERSIONSTRIPE
+                            });
                             let hashPassword: string = '';
                             const userProfile = (data.userType !== undefined) ? data.userType : 'Usuario';
                             await bcrypt.hash(data.password, BcryptEnum.saltRound)
@@ -339,40 +355,48 @@ export class UserBLL implements IUserBLL {
                             const userKeys = ACCESS_KEY.find(val => val.name == userProfile);
                             if (userAccess === undefined || userKeys === undefined) reject({ status: 400, message: 'No se existe el perfil de usuario ' })
                             else {
-                                const newUser: User = {
-                                    email: data.email,
-                                    password: hashPassword,
-                                    profile: {
-                                        role: userProfile,
-                                        access: userAccess.views
-                                    },
-                                    permits: {
-                                        name: 'Usuario',
-                                        keys: userKeys.keys
-                                    },
-                                    online: false
-                                };
-                                Users.schema
-                                    .collection
-                                    .insertOne(newUser)
-                                    .then((x: any) => {
+                                stripe.customers.create({
+                                    description: 'Normal user into the store stripe',
+                                    email: data.email
+                                })
+                                    .then(stripeData => {
+                                        const newUser: User = {
+                                            email: data.email,
+                                            password: hashPassword,
+                                            profile: {
+                                                role: userProfile,
+                                                access: userAccess.views
+                                            },
+                                            permits: {
+                                                name: 'Usuario',
+                                                keys: userKeys.keys
+                                            },
+                                            client: stripeData.id,
+                                            online: false
+                                        };
                                         Users.schema
-                                            .findOne({ email: data.email })
-                                            .then((z: any) => {
-                                                dataFinded = {
-                                                    email: z.email,
-                                                    profile: z.profile,
-                                                    permits: z.permits,
-                                                    id: z.id,
-                                                    client: z.client
-                                                };
-                                                new JWTAuthManager().buildToken(dataFinded)
-                                                    .then((value: AuthUserSavedDTO) => {
-                                                        resolve(value);
-                                                    });
+                                            .collection
+                                            .insertOne(newUser)
+                                            .then((x: any) => {
+                                                Users.schema
+                                                    .findOne({ email: data.email })
+                                                    .then((z: any) => {
+                                                        dataFinded = {
+                                                            email: z.email,
+                                                            profile: z.profile,
+                                                            permits: z.permits,
+                                                            id: z.id,
+                                                            client: z.client
+                                                        };
+                                                        new JWTAuthManager().buildToken(dataFinded)
+                                                            .then((value: AuthUserSavedDTO) => {
+                                                                resolve(value);
+                                                            });
+                                                    })
                                             })
+                                            .catch(y => reject({ status: 400, message: 'No se pudo registrar el usuario' }))
                                     })
-                                    .catch(y => reject({ status: 400, message: 'No se pudo registrar el usuario' }))
+                                    .catch(() => reject({ status: 500, message: 'Ha ocurrido un error de conexión' }))
                             }
                         }
                     })
@@ -459,7 +483,7 @@ export class UserBLL implements IUserBLL {
                             cart: data.cart
                         };
                         resolve(actualCart)
-                    } else reject ({ status: 400, message: 'No se encontrón al usuario' })
+                    } else reject({ status: 400, message: 'No se encontrón al usuario' })
                 })
                 .catch(() => reject({ status: 500, message: 'Error de conexión, no se pudo guardar el carrito de compras' }))
         })
