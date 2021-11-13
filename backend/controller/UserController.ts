@@ -228,4 +228,17 @@ export class UserController implements IUserController {
                 res.send({ message: err.message });
             });
     }
+    public async AddCart(req: any, res: any): Promise<void> {
+        try {
+            await this.userBusiness.AddCart(req.body)
+                .then(x => {
+                    res.status(200);
+                    res.send(x);
+                })
+        }
+        catch (err) {
+            res.status(err.status);
+            res.send({ message: err.message });
+        }
+    }
 }

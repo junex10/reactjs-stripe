@@ -31,7 +31,8 @@ export {
     GetSpentDTO
 } from './resources/GetSpent.dto';
 export {
-    GetCartDTO
+    GetCartDTO,
+    AddCartDTO
 } from './resources/GetCart.dto';
 export {
     NewSaleDTO

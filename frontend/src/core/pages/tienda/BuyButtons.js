@@ -29,7 +29,7 @@ class BuyButtons extends Component {
         } else this.setState({ requiredSession: true })
     }
     directCart = () => {
-        addItemToCart({
+        addItemToCart(userSession.user, {
             product: 'Ferrari',
             price: 200000,
             many: 1

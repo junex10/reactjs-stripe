@@ -16,7 +16,8 @@ import {
     UpdateNamesDTO,
     UpdateCreditCard,
     GetUserByEmailDTO,
-    AddCardDTO
+    AddCardDTO,
+    AddCartDTO
 } from './../dtos/dtos.module';
 
 import { JWTAuthManager } from "../auth/JWTAuthManager";
@@ -24,6 +25,7 @@ import { User } from '../interfaces/entities/User';
 import { ACCESS, ACCESS_KEY } from '../commons/config';
 
 import { BcryptEnum } from './../commons/enum/index.enum';
+import { user } from '../routes/user.route';
 
 export class UserBLL implements IUserBLL {
 
@@ -443,5 +445,23 @@ export class UserBLL implements IUserBLL {
                     }
                 })
         });
+    }
+    public AddCart(data: AddCartDTO): Promise<AddCartDTO> {
+        return new Promise((resolve, reject) => {
+            Users.schema
+                .findOneAndUpdate({ email: data.email }, {
+                    cart: data.cart
+                })
+                .then(value => {
+                    if (value !== null) {
+                        const actualCart: AddCartDTO = {
+                            email: data.email,
+                            cart: data.cart
+                        };
+                        resolve(actualCart)
+                    } else reject ({ status: 400, message: 'No se encontrón al usuario' })
+                })
+                .catch(() => reject({ status: 500, message: 'Error de conexión, no se pudo guardar el carrito de compras' }))
+        })
     }
 }
