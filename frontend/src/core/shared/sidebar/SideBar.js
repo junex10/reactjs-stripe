@@ -8,7 +8,8 @@ class SideBar extends Component {
         this.state = {
             profile: authSection('profile'),
             log: true,
-            configAccount: authSection('account')
+            configAccount: authSection('account'),
+            management: authSection('management')
         }
     }
     render() {
@@ -62,6 +63,24 @@ class SideBar extends Component {
                             </Link>
                         </li>
                         : ''
+                }
+                {
+                    this.state.management ?
+                        <>
+                            <li className="nav-item mt-4 side">
+                                <Link to='/dashboard/clients'>
+                                    <i className="fas fa-users"></i>
+                                    <span className='ml-2'>Clientes</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item mt-4 side">
+                                <Link to='/dashboard/store'>
+                                    <i className="fas fa-store"></i>
+                                    <span className='ml-2'>Tienda</span>
+                                </Link>
+                            </li>
+                        </>
+                    : ''
                 }
                 <li className='nav-item mt-4 side' onClick={logout}>
                     <i className="fas fa-sign-out-alt"></i>

@@ -146,6 +146,9 @@
                     },
                     {
                         "view": "account"
+                    },
+                    {
+                        "view": "management"
                     }
                 ]
             },
