@@ -11,10 +11,10 @@ class Clients extends Component {
         return(
             <>
                 <div className="container-fluid">
-                    <SectionTitleWindow title='Historial' />
+                    <SectionTitleWindow title='Clientes' />
                     <div className='row'>
                         <div className='col-12'>
-                            <BasicWindow title='Compras'>
+                            <BasicWindow title='Listado de clientes'>
                                 <ClientsList />
                             </BasicWindow>
                         </div>
