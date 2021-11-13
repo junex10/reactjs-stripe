@@ -158,6 +158,7 @@ export class UserBLL implements IUserBLL {
                                                 keys: userKeys.keys
                                             },
                                             client: stripeData.id,
+                                            createDate: new Date(),
                                             online: false
                                         };
                                         Users.schema
@@ -372,6 +373,7 @@ export class UserBLL implements IUserBLL {
                                                 keys: userKeys.keys
                                             },
                                             client: stripeData.id,
+                                            createDate: new Date(),
                                             online: false
                                         };
                                         Users.schema

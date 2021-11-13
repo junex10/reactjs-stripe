@@ -107,6 +107,13 @@ export const ACCESS_KEY = [
                     'updateStock',
                     'deleteStock'
                 ]
+            },
+            {
+                name: 'management',
+                control: [
+                    'store',
+                    'clients'
+                ]
             }
         ]
     }
