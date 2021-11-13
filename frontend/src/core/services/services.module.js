@@ -20,7 +20,9 @@ export {
 } from './sales.service'
 export {
     getStore,
-    getCategory
+    getCategory,
+    getItemsCart,
+    addItemToCart
 } from './shopping.service'
 export {
     confirmPaid

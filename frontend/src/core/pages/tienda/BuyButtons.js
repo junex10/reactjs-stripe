@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { newSale } from './../../services/services.module';
 import { Typography } from '@mui/material';
 import SweetAlert from 'react-bootstrap-sweetalert';
+import { addItemToCart } from './../../services/services.module';
 
 class BuyButtons extends Component {
     constructor(props) {
@@ -27,6 +28,13 @@ class BuyButtons extends Component {
                 })
         } else this.setState({ requiredSession: true })
     }
+    directCart = () => {
+        addItemToCart({
+            product: 'Ferrari',
+            price: 200000,
+            many: 1
+        })
+    }
     render() {
         return (
             <>
@@ -47,7 +55,7 @@ class BuyButtons extends Component {
                     {
                         userSession !== null ?
                             <div className='col-12 col-sm-12 col-lg-6 col-md-6'>
-                                <button className='btn btn-success btn-block' id='addCart'><i className="fas fa-shopping-basket"></i></button>
+                                <button className='btn btn-success btn-block' id='addCart' onClick={this.directCart}><i className="fas fa-shopping-basket"></i></button>
                             </div>
                             : ''
                     }
