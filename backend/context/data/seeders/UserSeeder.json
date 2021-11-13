@@ -203,6 +203,13 @@
                             "updateStock",
                             "deleteStock"
                         ]
+                    },
+                    {
+                        "name": "management",
+                        "control": [
+                            "store",
+                            "clients"
+                        ]
                     }
                 ]
             },

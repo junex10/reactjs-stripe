@@ -38,7 +38,7 @@ export const ACCESS = [
                 view: 'account'
             },
             {
-                view: 'manager'
+                view: 'management'
             }
         ]
     }
