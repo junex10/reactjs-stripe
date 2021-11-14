@@ -3,6 +3,10 @@ export {
     MailFilesDTO,
     MailNotificationServiceDTO
 } from './requests/Mail.dto';
+export {
+    GetClientsDTO
+} from './requests/GetClients.dto';
+
 export { 
     AuthUsersDTO,
     AuthUserSavedDTO,

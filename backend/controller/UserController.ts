@@ -27,7 +27,11 @@ export class UserController implements IUserController {
     }
     public async GetUsers(req, res): Promise<void> {
         try {
-            await this.userBusiness.GetUsers()
+            const headers = req.headers;
+            const rules = {
+                limit: headers.limit === undefined ? 500 : Number(headers.limit)
+            };
+            await this.userBusiness.GetUsers(rules)
                 .then(x => {
                     res.status(200);
                     res.send(x);

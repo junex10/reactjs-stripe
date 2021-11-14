@@ -17,7 +17,8 @@ import {
     UpdateCreditCard,
     GetUserByEmailDTO,
     AddCardDTO,
-    AddCartDTO
+    AddCartDTO,
+    GetClientsDTO
 } from './../dtos/dtos.module';
 
 import { JWTAuthManager } from "../auth/JWTAuthManager";
@@ -46,7 +47,8 @@ export class UserBLL implements IUserBLL {
                                     person: val[0].person,
                                     cards: val[0].cards,
                                     id: val[0].id,
-                                    client: val[0].client
+                                    client: val[0].client,
+                                    created: val[0].createData
                                 };
                                 new JWTAuthManager().buildToken(dataFinded)
                                     .then((value: AuthUserSavedDTO) => {
@@ -68,25 +70,28 @@ export class UserBLL implements IUserBLL {
                 });
         });
     }
-    public async GetUsers(): Promise<GetUsersDTO[]> {
+    public async GetUsers(data: GetClientsDTO): Promise<GetUsersDTO[]> {
         return await new Promise((resolve, reject) => {
             let datos: GetUsersDTO[] = [];
             Users.schema
                 .find()
                 .then((x: any) => {
                     if (x.length > 0) {
-                        x.forEach(value => {
-                            datos.push({
-                                id: value._id,
-                                email: value.email,
-                                password: value.password,
-                                profile: value.profile,
-                                person: value.person,
-                                permits: value.permits,
-                                client: value.client
-                            });
-                            resolve(datos);
+                        x.forEach((value, index) => {
+                            if (index < data.limit) {
+                                datos.push({
+                                    id: value._id,
+                                    email: value.email,
+                                    password: value.password,
+                                    profile: value.profile,
+                                    person: value.person,
+                                    permits: value.permits,
+                                    client: value.client,
+                                    created: value.createData
+                                });
+                            }
                         });
+                        resolve(datos);
                     } else {
                         reject({
                             status: 500,
@@ -94,7 +99,9 @@ export class UserBLL implements IUserBLL {
                         })
                     }
                 })
-                .catch(y => reject({ status: 500, message: 'No hay usuarios registrados' }))
+                .catch(y => {
+                    reject({ status: 500, message: 'No hay usuarios registrados' })
+                })
         });
     }
     public async GetUserById(id: string): Promise<GetUserByIdDTO> {
@@ -112,7 +119,8 @@ export class UserBLL implements IUserBLL {
                         profile: val.profile,
                         permits: val.permits,
                         person: val.person,
-                        client: val.client
+                        client: val.client,
+                        created: val.createData
                     };
                     resolve(data);
                 })
@@ -388,7 +396,8 @@ export class UserBLL implements IUserBLL {
                                                             profile: z.profile,
                                                             permits: z.permits,
                                                             id: z.id,
-                                                            client: z.client
+                                                            client: z.client,
+                                                            created: z.createData
                                                         };
                                                         new JWTAuthManager().buildToken(dataFinded)
                                                             .then((value: AuthUserSavedDTO) => {
@@ -422,7 +431,8 @@ export class UserBLL implements IUserBLL {
                             permits: val.permits,
                             person: val.person,
                             cards: val.cards,
-                            client: val.client
+                            client: val.client,
+                            created: val[0].createData
                         };
                         if (way === 'auth') {
                             new JWTAuthManager().buildToken(data)
@@ -444,7 +454,6 @@ export class UserBLL implements IUserBLL {
             Users.schema
                 .findOne({ email: data.email })
                 .then(val => {
-                    console.log(val.cards)
                     const findCard = val.cards.find(card => card.creditCardNumber === data.creditCardNumber);
                     if (findCard !== undefined) reject({ status: 400, message: 'La tarjeta ya está registrada' });
                     else {
