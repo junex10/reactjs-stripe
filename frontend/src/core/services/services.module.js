@@ -29,5 +29,6 @@ export {
 } from './stripe.service'
 export {
     getUsers,
-    getUserById
+    getUserById,
+    registerUser
 } from './users.service'

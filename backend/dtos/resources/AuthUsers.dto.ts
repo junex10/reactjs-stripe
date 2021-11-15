@@ -1,3 +1,5 @@
+import { Person } from "../../interfaces/entities/User";
+
 export class AuthUsersDTO{
     email: string;
     password: string;
@@ -11,6 +13,7 @@ export class RegisterUserDTO{
     password: string;
     repeat_password: string;
     userType?: string;
+    person: Person;
 }
 export class EditUserEmailDTO{
     email: string;

@@ -3,12 +3,16 @@ import DataTable from 'react-data-table-component';
 import { getUsers } from './../../services/services.module';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
+import SweetAlert from 'react-bootstrap-sweetalert';
+import { Typography } from '@mui/material';
+import AddNewClient from './form/AddNewClient';
 
 class ClientsList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            clients: []
+            clients: [],
+            newClient: false
         }
         this.columns = [
             {
@@ -49,9 +53,22 @@ class ClientsList extends Component {
     render() {
         return (
             <>
+                <SweetAlert
+                    show={this.state.newClient}
+                    title={<Typography component={'div'} className="headingModal mt-2 mb-4" variant={'h5'}>Agregar nuevo cliente</Typography>}
+                    showCloseButton
+                    closeBtnStyle={{ boxShadow: 'none' }}
+                    showConfirm={false}
+                    onConfirm={() => this.setState({ newClient: false })}
+                    onCancel={() => this.setState({ newClient: false })}
+                >
+                    <div className="bodyModal">
+                        <AddNewClient />
+                    </div>
+                </SweetAlert>
                 <div className='row'>
                     <div className='col-10'>
-                        <button className='btn btn-success btn-add'><span style={{ fontWeight: 'bold' }}>NUEVO CLIENTE</span> <i className="fas fa-plus"></i></button>
+                        <button className='btn btn-success btn-add' onClick={() => this.setState({ newClient: true })}><span style={{ fontWeight: 'bold' }}>NUEVO CLIENTE</span> <i className="fas fa-plus"></i></button>
                     </div>
                 </div>
                 <DataTable

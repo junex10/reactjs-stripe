@@ -166,6 +166,13 @@ export class UserBLL implements IUserBLL {
                                                 name: 'Usuario',
                                                 keys: userKeys.keys
                                             },
+                                            person: {
+                                                name: data.person.name,
+                                                lastname: data.person.lastname,
+                                                areaCode: data.person.areaCode,
+                                                phone: data.person.phone,
+                                                active: true  
+                                            },
                                             client: stripeData.id,
                                             createDate: new Date(),
                                             online: false
