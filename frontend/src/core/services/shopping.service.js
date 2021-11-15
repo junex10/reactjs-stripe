@@ -5,7 +5,7 @@ export const addItemToCart = (email, item) => {
     let newCart = [];
     const actualItemsCart = JSON.parse(window.localStorage.getItem('cart'));
     if (actualItemsCart !== null) {
-        actualItemsCart.map(value => {
+        actualItemsCart.forEach(value => {
             if (value.product === item.product) value.many += 1;
         })
         newCart = [...actualItemsCart];

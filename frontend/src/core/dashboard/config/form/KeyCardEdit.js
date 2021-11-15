@@ -49,6 +49,7 @@ class KeyCardEdit extends Component {
     }
     onConfirm = () => {
         this.setState({creditCardSuccess : false });
+        document.location.href = document.location;
         const { show } = this.props;
         show(false);
     }

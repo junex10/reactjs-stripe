@@ -87,7 +87,7 @@ export class UserBLL implements IUserBLL {
                                     person: value.person,
                                     permits: value.permits,
                                     client: value.client,
-                                    created: value.createData
+                                    created: value.createDate
                                 });
                             }
                         });
@@ -120,7 +120,8 @@ export class UserBLL implements IUserBLL {
                         permits: val.permits,
                         person: val.person,
                         client: val.client,
-                        created: val.createData
+                        cards: val.cards,
+                        created: val.createDate
                     };
                     resolve(data);
                 })
@@ -303,6 +304,7 @@ export class UserBLL implements IUserBLL {
         })
     }
     public async UpdateCreditCard(data: UpdateCreditCard): Promise<Object> {
+        console.log(data, ' aqui')
         return await new Promise((resolve, reject) => {
             Users.schema
                 .findOne({ email: data.email })
@@ -316,7 +318,7 @@ export class UserBLL implements IUserBLL {
                             expirationDate: data.expirationDate
                         };
                         let autoIncrement = 0;
-                        cards.find((value, index) => {
+                        cards.map((value, index) => {
                             if (value.creditCardNumber === data.creditCardNumber) {
                                 cards.splice(index, 1);
                                 autoIncrement++;
@@ -338,7 +340,10 @@ export class UserBLL implements IUserBLL {
                         }
                     }
                 })
-                .catch(y => reject({ status: 400, message: 'No se encontró al usuario' }));
+                .catch(y => {
+                    console.log(y, ' error')
+                    reject({ status: 400, message: 'No se encontró al usuario' })
+                });
         });
     }
     public async NewUser(data: RegisterUserDTO): Promise<AuthUserSavedDTO> {
@@ -432,7 +437,7 @@ export class UserBLL implements IUserBLL {
                             person: val.person,
                             cards: val.cards,
                             client: val.client,
-                            created: val[0].createData
+                            created: val.createDate
                         };
                         if (way === 'auth') {
                             new JWTAuthManager().buildToken(data)

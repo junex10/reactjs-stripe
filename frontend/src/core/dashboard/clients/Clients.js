@@ -1,27 +1,41 @@
 import React, { Component } from 'react';
-
+import { withRouter } from 'react-router-dom';
 import {
     BasicWindow,
     SectionTitleWindow
 } from './../../shared/shared.module';
 import ClientsList from './ClientsList';
+import ClientDetail from './ClientDetail';
 
 class Clients extends Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
-        return(
+        return (
             <>
                 <div className="container-fluid">
-                    <SectionTitleWindow title='Clientes' />
-                    <div className='row'>
-                        <div className='col-12'>
-                            <BasicWindow title='Listado de clientes'>
-                                <ClientsList />
-                            </BasicWindow>
-                        </div>
-                    </div>
+                    {
+                        this.props.match.params.id === undefined ?
+                            <>
+                                <SectionTitleWindow title='Clientes' />
+                                <div className='row'>
+                                    <div className='col-12'>
+                                        <BasicWindow title='Listado de clientes'>
+                                            <ClientsList />
+                                        </BasicWindow>
+                                    </div>
+                                </div>
+                            </>
+                            :
+                            <>
+                                <SectionTitleWindow title='Detalles del cliente' />
+                                <ClientDetail />
+                            </>
+                    }
                 </div>
             </>
         )
     }
 }
-export default Clients;
+export default withRouter(Clients);

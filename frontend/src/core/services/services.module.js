@@ -27,3 +27,7 @@ export {
 export {
     confirmPaid
 } from './stripe.service'
+export {
+    getUsers,
+    getUserById
+} from './users.service'
