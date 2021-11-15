@@ -5,13 +5,15 @@ import { ISalesBLL } from "../interfaces/BLL/ISalesBLL";
 import {
     GetSpentDTO,
     GetCartDTO,
-    NewSaleDTO
+    NewSaleDTO,
+    GetSaleDTO
 } from './../dtos/dtos.module';
 import { Stripe } from 'stripe';
 import {
     APIKEYSTRIPE,
     APIVERSIONSTRIPE
 } from './../commons/config';
+import { SaleInfo } from './../interfaces/entities/Index';
 export class SalesBLL implements ISalesBLL {
     constructor() { }
 
@@ -177,6 +179,52 @@ export class SalesBLL implements ISalesBLL {
                     reject({ status: 500, message: 'No se pudo procesar la compra' })
                 })
         })
+    }
+    public GetSale(email: string): Promise<GetSaleDTO[] | GetSaleDTO> {
+        return new Promise((resolve, reject) => {
+            if (email !== undefined) {
+                let data: GetSaleDTO;
+                Sales.schema
+                    .findOne({ email: email })
+                    .then(value => {
+                        data = {
+                            id: value.id,
+                            sale: value.sale,
+                            createDate: value.createDate
+                        };
+                        resolve(data)
+                    })
+                    .catch((y) => {
+                        reject({ status: 500, message: 'Error de conexión' })
+                    })
+            } else {
+                let data: GetSaleDTO[] = [];
+                Sales.schema
+                    .find()
+                    .then(value => {
+                        value.map(salesValue => {
+                            let saleFormat: SaleInfo[] = [];
+                            salesValue.sale.map(salesProduct => {
+                                saleFormat.push({
+                                    product: salesProduct.product,
+                                    price: salesProduct.price,
+                                    many: salesProduct.many,
+                                    category: salesProduct.category
+                                })
+                            });
+                            data.push({
+                                id: salesValue.id,
+                                sale: saleFormat,
+                                createDate: salesValue.createDate
+                            })
+                        })
+                        resolve(data);
+                    })
+                    .catch((y) => {
+                        reject({ status: 500, message: 'Error de conexión' })
+                    })
+            }
+        });
     }
 
 }

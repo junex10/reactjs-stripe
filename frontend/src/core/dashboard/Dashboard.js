@@ -100,6 +100,19 @@ class Dashboard extends Component {
                         </div>
                     );
                 }} />
+                <Route path='/dashboard/sales/:sale?' render={() => {
+                    return (
+                        <div id='wrapper'>
+                            <SideBar />
+                            <div id="content-wrapper" className="d-flex flex-column">
+                                <div id="content">
+                                    <Navbar site="dashboard" />
+                                    <Store />
+                                </div>
+                            </div>
+                        </div>
+                    );
+                }} />
             </BrowserRouter>
         );
     }

@@ -5,6 +5,7 @@ import {
 } from './../../shared/shared.module';
 import userSVG from './../../../img/dashboard/undraw_profile.svg';
 import Card from '../config/Card';
+import Shopping from '../logs/Shopping';
 
 class ClientDetail extends Component {
     constructor(props) {
@@ -64,6 +65,11 @@ class ClientDetail extends Component {
                     <div className='col-12'>
                         <BasicWindow title='Tarjetas asociadas'>
                             <Card id={this.id} userData={this.onUserData} />
+                        </BasicWindow>
+                    </div>
+                    <div className='col-12'>
+                        <BasicWindow title='Compras'>
+                            <Shopping />
                         </BasicWindow>
                     </div>
                 </div>

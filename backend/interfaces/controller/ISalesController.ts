@@ -3,4 +3,5 @@ export interface ISalesController{
     GetCart(req, res): Promise<void>
     GetCartNotImage(req, res): Promise<void>
     NewSale(req, res): Promise<void>
+    GetSale(req, res): Promise<void>
 }

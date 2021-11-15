@@ -69,4 +69,25 @@ export class SalesController implements ISalesController {
             res.send({ message: err.message })
         }
     }
+    public async GetSale(req: any, res: any): Promise<void> {
+        await JWTAUTH
+            .authToken(req.headers.authorization, { module: 'management', control: 'store' })
+            .then(async () => {
+                try {
+                    const email = req.params.email;
+                    await this.salesBusiness.GetSale(email)
+                        .then(x => {
+                            res.status(200);
+                            res.send(x);
+                        })
+                } catch (err) {
+                    res.status(err.status);
+                    res.send({ message: err.message })
+                }
+            })
+            .catch(err => {
+                res.status(err.status);
+                res.send({ message: err.message });
+            });
+    }
 }

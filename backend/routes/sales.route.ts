@@ -11,5 +11,6 @@ sales.get('/spent/:date/:email', (req: Object, res: Object) => salesController.G
 sales.get('/getCart/:email', (req: Object, res: Object) => salesController.GetCart(req, res));
 sales.get('/getCart/no-image/:email', (req: Object, res: Object) => salesController.GetCartNotImage(req, res));
 sales.post('/newSale', (req: Object, res: Object) => salesController.NewSale(req, res));
+sales.get('/getSales/:email?', (req: Object, res: Object) => salesController.GetSale(req, res));
 
 export { sales };

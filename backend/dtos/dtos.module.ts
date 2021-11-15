@@ -39,5 +39,6 @@ export {
     AddCartDTO
 } from './resources/GetCart.dto';
 export {
-    NewSaleDTO
+    NewSaleDTO,
+    GetSaleDTO
 } from './resources/Sales.dto'

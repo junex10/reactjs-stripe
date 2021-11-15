@@ -16,7 +16,9 @@ export {
 } from './account.service'
 export {
     spent,
-    newSale
+    newSale,
+    getSaleByEmail,
+    getSales
 } from './sales.service'
 export {
     getStore,
