@@ -74,8 +74,9 @@ export class SalesController implements ISalesController {
             .authToken(req.headers.authorization, { module: 'management', control: 'store' })
             .then(async () => {
                 try {
+                    const image = req.params.image;
                     const email = req.params.email;
-                    await this.salesBusiness.GetSale(email)
+                    await this.salesBusiness.GetSale(email, image)
                         .then(x => {
                             res.status(200);
                             res.send(x);

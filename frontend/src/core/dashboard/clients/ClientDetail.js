@@ -68,9 +68,14 @@ class ClientDetail extends Component {
                         </BasicWindow>
                     </div>
                     <div className='col-12'>
-                        <BasicWindow title='Compras'>
-                            <Shopping />
-                        </BasicWindow>
+                        <div className="card shadow mb-4">
+                            <div className="card-header py-3">
+                                <h6 className="m-0 font-weight-bold text-primary">Compras</h6>
+                            </div>
+                            <div className="card-body">
+                                <Shopping id={this.id} />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </>

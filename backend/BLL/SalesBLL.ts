@@ -180,18 +180,39 @@ export class SalesBLL implements ISalesBLL {
                 })
         })
     }
-    public GetSale(email: string): Promise<GetSaleDTO[] | GetSaleDTO> {
+    public GetSale(email: string, image?: string): Promise<GetSaleDTO[] | GetSaleDTO> {
         return new Promise((resolve, reject) => {
             if (email !== undefined) {
-                let data: GetSaleDTO;
+                let data: GetSaleDTO[] = [];
                 Sales.schema
-                    .findOne({ email: email })
+                    .find({ buyerEmail: email })
                     .then(value => {
-                        data = {
-                            id: value.id,
-                            sale: value.sale,
-                            createDate: value.createDate
-                        };
+                        if (value.length > 0) {
+                            value.map(x => {
+                                if (image === undefined || image === 'true') {
+                                    data.push({
+                                        id: x.id,
+                                        sale: x.sale,
+                                        createDate: x.createDate
+                                    })
+                                } else {
+                                    let newSale = [];
+                                    x.sale.map(saleProducts => {
+                                        newSale.push({
+                                            product: saleProducts.product,
+                                            price: saleProducts.price,
+                                            many: saleProducts.many,
+                                            category: saleProducts.category
+                                        });
+                                    });
+                                    data.push({
+                                        id: x.id,
+                                        sale: newSale,
+                                        createDate: x.createDate
+                                    });
+                                }
+                            })
+                        }
                         resolve(data)
                     })
                     .catch((y) => {
