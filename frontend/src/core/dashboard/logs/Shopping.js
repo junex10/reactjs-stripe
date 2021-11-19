@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import DataTable from 'react-data-table-component';
 import { getSaleByEmail, getUserById } from './../../services/services.module';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
 
 class Shopping extends Component {
     constructor(props) {

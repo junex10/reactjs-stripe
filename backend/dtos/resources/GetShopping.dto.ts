@@ -4,13 +4,15 @@ export class GetStock {
     category: string;
     image?: string;
     price: number;
+    createDate?: Date;
 }
 export class RegisterStock {
     product: string;
     price: number;
     stock: number;
     category: string;
-    image?: string
+    image?: string;
+    createDate?: Date;
 }
 export class UpdateStock {
     id: string;

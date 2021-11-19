@@ -1,12 +1,39 @@
 import React, { Component } from 'react';
+import {
+    BasicWindow,
+    SectionTitleWindow
+} from './../../shared/shared.module';
+import { withRouter } from 'react-router-dom';
+import ProductsList from './ProductsList';
 
 class Store extends Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
-        return(
+        return (
             <>
-                <h1>Hola desde tienda</h1>
+                <div className="container-fluid">
+                    {
+                        this.props.match.params.product === undefined ?
+                            <>
+                                <SectionTitleWindow title='Productos' />
+                                <div className='row'>
+                                    <div className='col-12'>
+                                        <BasicWindow title='Listado de productos'>
+                                            <ProductsList />
+                                        </BasicWindow>
+                                    </div>
+                                </div>
+                            </>
+                            :
+                            <>
+
+                            </>
+                    }
+                </div>
             </>
         )
     }
 }
-export default Store;
+export default withRouter(Store);

@@ -24,7 +24,9 @@ export {
     getStore,
     getCategory,
     getItemsCart,
-    addItemToCart
+    addItemToCart,
+    getAllStore,
+    registerStock
 } from './shopping.service'
 export {
     confirmPaid

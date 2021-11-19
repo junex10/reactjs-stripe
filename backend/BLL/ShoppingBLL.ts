@@ -20,13 +20,14 @@ export class ShoppingBLL implements IShoppingBLL {
                 await Shopping.schema
                     .find()
                     .then(products => {
-                        products.forEach((val: any) => {
+                        products.map((val: any) => {
                             stock.push({
                                 product: val.product,
                                 stock: val.stock,
                                 category: val.category,
                                 image: (val.image !== undefined) ? val.image : null,
-                                price: val.price
+                                price: val.price,
+                                createDate: val.createDate
                             })
                         });
                         resolve(stock);
@@ -42,7 +43,8 @@ export class ShoppingBLL implements IShoppingBLL {
                             stock: product.stock,
                             category: product.category,
                             image: (product.image !== undefined) ? product.image : null,
-                            price: product.price
+                            price: product.price,
+                            createDate: product.createDate
                         };
                         resolve(stock);
                     })
@@ -65,7 +67,9 @@ export class ShoppingBLL implements IShoppingBLL {
                                     product: data.product,
                                     price: data.price,
                                     stock: data.stock,
-                                    category: data.category
+                                    category: data.category,
+                                    image: data.image,
+                                    createDate: new Date()
                                 };
                                 resolve(registeredStock)
                             })

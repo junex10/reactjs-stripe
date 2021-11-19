@@ -1,4 +1,4 @@
-import { api } from '../../commons/config';
+import { api, HTTP_OPTIONS } from '../../commons/config';
 
 export const getItemsCart = JSON.parse(window.localStorage.getItem('cart'));
 export const addItemToCart = (email, item) => {
@@ -20,3 +20,17 @@ export const addItemToCart = (email, item) => {
 }
 export const getStore = category => api.get(`store/getStock/category/${category}`)
 export const getCategory = () => api.get('store/getCategory')
+export const getAllStore = () => api.get(`store/getStock`)
+export const registerStock = (
+    product,
+    price,
+    stock,
+    category,
+    image
+) => api.post(`store/registerStock`, {
+    product: product,
+    price: price,
+    stock: stock,
+    category: category,
+    image: image
+}, HTTP_OPTIONS)
