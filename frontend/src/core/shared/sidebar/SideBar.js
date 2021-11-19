@@ -80,9 +80,17 @@ class SideBar extends Component {
                                 </Link>
                             </li>
                         </>
-                    : ''
+                        : ''
                 }
-                <li style={{cursor: 'pointer'}} className='nav-item mt-4 side' onClick={logout}>
+                <hr className="sidebar-divider mt-4" />
+                <div className="sidebar-heading">
+                    Tienda
+                </div>
+                <li style={{ cursor: 'pointer' }} className='nav-item mt-4 side' onClick={() => document.location.href = '/tienda/Sin filtros'}>
+                    <i className="fas fa-store"></i>
+                    <span className='ml-2'>Ir a la tienda</span>
+                </li>
+                <li style={{ cursor: 'pointer' }} className='nav-item mt-4 side' onClick={logout}>
                     <i className="fas fa-sign-out-alt"></i>
                     <span className='ml-2'>Cerrar sesión</span>
                 </li>
