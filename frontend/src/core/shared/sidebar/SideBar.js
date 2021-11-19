@@ -82,7 +82,7 @@ class SideBar extends Component {
                         </>
                     : ''
                 }
-                <li className='nav-item mt-4 side' onClick={logout}>
+                <li style={{cursor: 'pointer'}} className='nav-item mt-4 side' onClick={logout}>
                     <i className="fas fa-sign-out-alt"></i>
                     <span className='ml-2'>Cerrar sesión</span>
                 </li>
