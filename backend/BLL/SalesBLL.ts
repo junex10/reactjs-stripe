@@ -163,9 +163,20 @@ export class SalesBLL implements ISalesBLL {
                                         .updateOne({ _id: insertedId }, {
                                             paymentIntent: payment.payment_intent.toString()
                                         })
-                                    resolve({
-                                        paymentUrl: payment.url
-                                    });
+                                        productsTmp.map(async products => {
+                                            const product = products.product;
+                                            const stock = (await Shopping.schema.findOne({ product: product })).stock;
+                                            const newStock = stock - products.many;
+                                            Shopping.schema
+                                                .updateOne({ product: product }, {
+                                                    stock: newStock
+                                                })
+                                                .then(() => {
+                                                    resolve({
+                                                        paymentUrl: payment.url
+                                                    });
+                                                })
+                                        })
                                 })
                         })
                         .catch((y) => {

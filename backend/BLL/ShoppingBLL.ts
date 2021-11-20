@@ -69,7 +69,7 @@ export class ShoppingBLL implements IShoppingBLL {
                                     stock: data.stock,
                                     category: data.category,
                                     image: data.image,
-                                    createDate: new Date()
+                                    createDate: new Date() // Revisar que no se esta registrando la fecha de stock
                                 };
                                 resolve(registeredStock)
                             })
