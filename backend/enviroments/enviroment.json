@@ -6,7 +6,7 @@
             "settings": "appsettings.development.json"
         },
         "production": {
-            "url": "miweb.com",
+            "url": "https://tienda-stripe.herokuapp.com/",
             "port": 4000,
             "settings": "appsettings.json"
         }
