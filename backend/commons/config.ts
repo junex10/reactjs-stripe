@@ -112,7 +112,8 @@ export const ACCESS_KEY = [
                 name: 'management',
                 control: [
                     'store',
-                    'clients'
+                    'clients',
+                    'decodeToken'
                 ]
             }
         ]

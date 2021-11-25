@@ -211,7 +211,8 @@
                         "name": "management",
                         "control": [
                             "store",
-                            "clients"
+                            "clients",
+                            "decodeToken"
                         ]
                     }
                 ]
