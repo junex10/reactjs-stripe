@@ -13,7 +13,8 @@ export {
     RegisterUserDTO,
     EditUserEmailDTO,
     EditUserPasswordDTO,
-    AddCardDTO
+    AddCardDTO,
+    DecodeTokenDTO
 } from './resources/AuthUsers.dto';
 export {
     GetUsersDTO,

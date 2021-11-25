@@ -12,7 +12,8 @@ import {
     GetUserByEmailDTO,
     AddCardDTO,
     AddCartDTO,
-    GetClientsDTO
+    GetClientsDTO,
+    DecodeTokenDTO
 } from "../../dtos/dtos.module";
 
 export interface IUserBLL {
@@ -29,5 +30,5 @@ export interface IUserBLL {
     GetUserByEmail(data: string, way: string): Promise<GetUserByEmailDTO | AuthUserSavedDTO>;
     AddCard(data: AddCardDTO): Promise<AddCardDTO>;
     AddCart(data: AddCartDTO): Promise<AddCartDTO>;
-    DecodeToken(token: string): Promise<any>;
+    DecodeToken(token: string): Promise<DecodeTokenDTO>;
 }

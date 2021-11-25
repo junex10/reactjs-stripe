@@ -18,7 +18,8 @@ import {
     GetUserByEmailDTO,
     AddCardDTO,
     AddCartDTO,
-    GetClientsDTO
+    GetClientsDTO,
+    DecodeTokenDTO
 } from './../dtos/dtos.module';
 
 import { JWTAuthManager } from "../auth/JWTAuthManager";
@@ -514,7 +515,7 @@ export class UserBLL implements IUserBLL {
                 .catch(() => reject({ status: 500, message: 'Error de conexión, no se pudo guardar el carrito de compras' }))
         })
     }
-    public DecodeToken(token: string): Promise<any> {
+    public DecodeToken(token: string): Promise<DecodeTokenDTO> {
         return new Promise((resolve, reject) => {
             new Utility().AppSettingsJson()
             .then((settings: IAPPSettings) => {

@@ -1,4 +1,4 @@
-import { Person } from "../../interfaces/entities/User";
+import { Cards, Permits, Person, Profile } from "../../interfaces/entities/User";
 
 export class AuthUsersDTO{
     email: string;
@@ -28,4 +28,15 @@ export class AddCardDTO{
     creditCardNumber: string;
     cvc: number;
     expirationDate: string;
+}
+export class DecodeTokenDTO{
+    email: string;
+    profile: Profile;
+    permits: Permits;
+    person: Person;
+    cards?: Cards;
+    id: string;
+    client: string;
+    iat: number;
+    exp: number;
 }
