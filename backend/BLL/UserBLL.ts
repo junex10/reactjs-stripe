@@ -26,6 +26,9 @@ import { User } from '../interfaces/entities/User';
 import { ACCESS, ACCESS_KEY, APIKEYSTRIPE, APIVERSIONSTRIPE } from '../commons/config';
 import { Stripe } from 'stripe';
 import { BcryptEnum } from './../commons/enum/index.enum';
+import * as jwt from 'jsonwebtoken';
+import { Utility } from '../utilitys/Utility';
+import { IAPPSettings } from '../interfaces/IAPPSettings';
 
 export class UserBLL implements IUserBLL {
 
@@ -509,6 +512,16 @@ export class UserBLL implements IUserBLL {
                     } else reject({ status: 400, message: 'No se encontrón al usuario' })
                 })
                 .catch(() => reject({ status: 500, message: 'Error de conexión, no se pudo guardar el carrito de compras' }))
+        })
+    }
+    public DecodeToken(token: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            new Utility().AppSettingsJson()
+            .then((settings: IAPPSettings) => {
+                const decodeToken = jwt.verify(token, settings.Jwt.Key);
+                resolve(decodeToken);
+            })
+            .catch(() => reject({ status: 500, message: 'Error de conexión, no se pudo decodificar el token' }))
         })
     }
 }

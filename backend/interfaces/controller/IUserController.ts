@@ -12,4 +12,5 @@ export interface IUserController {
     NewUser(req, res): Promise<void>;
     AddCard(req, res): Promise<void>;
     AddCart(req, res): Promise<void>;
+    DecodeToken(req, res): Promise<void>;
 }

@@ -245,4 +245,18 @@ export class UserController implements IUserController {
             res.send({ message: err.message });
         }
     }
+    public async DecodeToken(req: any, res: any): Promise<void> {
+        try{
+            const token = req.body.token;
+            await this.userBusiness.DecodeToken(token)
+                .then(x => {
+                    res.status(200);
+                    res.send(x);
+                })
+        }
+        catch(err) {
+            res.status(err.status);
+            res.send({ message: err.message });
+        }
+    }
 }

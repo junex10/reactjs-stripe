@@ -21,5 +21,6 @@ user.put('/update/creditcard', (req: Object, res: Object) => userController.Upda
 user.post('/newUser', (req: Object, res: Object) => userController.NewUser(req, res));
 user.post('/addCard', (req: Object, res: Object) => userController.AddCard(req, res));
 user.post('/addCart', (req: Object, res: Object) => userController.AddCart(req, res));
+user.post('/getDecodeToken', (req: Object, res: Object) => userController.DecodeToken(req, res));
 
 export { user };
