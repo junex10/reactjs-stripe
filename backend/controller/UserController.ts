@@ -246,17 +246,25 @@ export class UserController implements IUserController {
         }
     }
     public async DecodeToken(req: any, res: any): Promise<void> {
-        try{
-            const token = req.body.token;
-            await this.userBusiness.DecodeToken(token)
-                .then(x => {
-                    res.status(200);
-                    res.send(x);
-                })
-        }
-        catch(err) {
-            res.status(err.status);
-            res.send({ message: err.message });
-        }
+        await JWTAUTH
+            .authToken(req.headers.authorization, { module: 'management', control: 'decodeToken' })
+            .then(async () => {
+                try {
+                    const token = req.body.token;
+                    await this.userBusiness.DecodeToken(token)
+                        .then(x => {
+                            res.status(200);
+                            res.send(x);
+                        })
+                }
+                catch (err) {
+                    res.status(err.status);
+                    res.send({ message: err.message });
+                }
+            })
+            .catch(err => {
+                res.status(err.status);
+                res.send({ message: err.message });
+            });
     }
 }
