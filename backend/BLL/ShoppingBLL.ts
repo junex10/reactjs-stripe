@@ -138,6 +138,7 @@ export class ShoppingBLL implements IShoppingBLL {
                         if (value.length > 0) {
                             value.map(valProduct => {
                                 tmpData.push({
+                                    id: valProduct._id,
                                     product: valProduct.product,
                                     stock: valProduct.stock,
                                     category: valProduct.category,
@@ -159,6 +160,7 @@ export class ShoppingBLL implements IShoppingBLL {
                         if (value.length > 0) {
                             value.map(valProduct => {
                                 tmpData.push({
+                                    id: valProduct._id,
                                     product: valProduct.product,
                                     stock: valProduct.stock,
                                     category: valProduct.category,

@@ -1,4 +1,5 @@
 export class GetStock {
+    id?: string;
     product: string;
     stock: number;
     category: string;
