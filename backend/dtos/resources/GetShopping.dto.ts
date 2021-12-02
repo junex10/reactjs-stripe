@@ -26,3 +26,6 @@ export class UpdateStock {
 export class GetCategory{
     name: string;
 }
+export class NewCategoryDTO{
+    name: string;
+}

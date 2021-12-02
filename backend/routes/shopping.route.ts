@@ -14,5 +14,6 @@ shopping.put('/updateStock', (req: Object, res: Object) => shoppingController.Up
 shopping.delete('/deleteStock/:productId?', (req: Object, res: Object) => shoppingController.DeleteStock(req, res));
 shopping.get('/getStock/category/:category?', (req: Object, res: Object) => shoppingController.GetStockByCategory(req, res));
 shopping.get('/getCategory', (req: Object, res: Object) => shoppingController.GetCategory(req, res));
+shopping.post('/newCategory', (req: Object, res: Object) => shoppingController.NewCategory(req, res));
 
 export { shopping };

@@ -6,7 +6,8 @@ import {
     GetStock,
     RegisterStock,
     UpdateStock,
-    GetCategory
+    GetCategory,
+    NewCategoryDTO
 } from '../dtos/dtos.module';
 
 export class ShoppingBLL implements IShoppingBLL {
@@ -191,6 +192,19 @@ export class ShoppingBLL implements IShoppingBLL {
                 })
                 .catch(y => reject({ status: 500, message: 'No se pudo encontrar el producto' }))
         });
+    }
+    public NewCategory(data: NewCategoryDTO): Promise<NewCategoryDTO> {
+        return new Promise((resolve, reject) => {
+            Category.schema.collection
+                .insertOne(data)
+                .then(() => {
+                    const newReturn: NewCategoryDTO = {
+                        name: data.name
+                    };
+                    resolve(newReturn)
+                })
+                .catch(y => reject({ status: 500, message: 'No se pudo crear la categoria' }))
+        })
     }
     
 }

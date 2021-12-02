@@ -30,7 +30,8 @@ export {
     GetStock,
     RegisterStock,
     UpdateStock,
-    GetCategory
+    GetCategory,
+    NewCategoryDTO
 } from './resources/GetShopping.dto';
 export {
     GetSpentDTO

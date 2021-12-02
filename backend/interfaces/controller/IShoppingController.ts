@@ -5,4 +5,5 @@ export interface IShoppingController{
     DeleteStock(req, res): Promise<void>;
     GetStockByCategory(req, res): Promise<void>;
     GetCategory(req, res): Promise<void>;
+    NewCategory(req, res): Promise<void>;
 }

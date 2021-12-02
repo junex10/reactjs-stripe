@@ -2,7 +2,8 @@ import {
     GetStock,
     RegisterStock,
     UpdateStock,
-    GetCategory
+    GetCategory,
+    NewCategoryDTO
 } from "../../dtos/dtos.module";
 
 export interface IShoppingBLL{
@@ -12,4 +13,5 @@ export interface IShoppingBLL{
     DeleteStock(data: string): Promise<Object>;
     GetStockByCategory(category: string): Promise<GetStock[]>;
     GetCategory(): Promise<GetCategory[]>;
+    NewCategory(data: NewCategoryDTO): Promise<NewCategoryDTO>;
 }
