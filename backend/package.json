@@ -34,10 +34,10 @@
     "swagger-ui-express": "^4.1.6",
     "ts-node": "^10.2.1",
     "uuid": "^8.3.2",
-    "validator": "^13.6.0"
+    "validator": "^13.6.0",
+    "@babel/runtime": "^7.15.4"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.15.4",
     "@babel/cli": "^7.15.7",
     "@babel/core": "^7.15.5",
     "@babel/node": "^7.15.4",

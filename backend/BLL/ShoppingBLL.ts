@@ -45,7 +45,8 @@ export class ShoppingBLL implements IShoppingBLL {
                             category: product.category,
                             image: (product.image !== undefined) ? product.image : null,
                             price: product.price,
-                            createDate: product.createDate
+                            createDate: product.createDate,
+                            id: product._id
                         };
                         resolve(stock);
                     })
