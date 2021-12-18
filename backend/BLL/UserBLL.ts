@@ -233,7 +233,6 @@ export class UserBLL implements IUserBLL {
                     resolve(changedPhone);
                 })
                 .catch(y => {
-                    console.log(y)
                     reject({ status: 500, message: 'No se pudo cambiar el número de teléfono' })
                 });
         });
@@ -315,7 +314,6 @@ export class UserBLL implements IUserBLL {
         })
     }
     public async UpdateCreditCard(data: UpdateCreditCard): Promise<Object> {
-        console.log(data, ' aqui')
         return await new Promise((resolve, reject) => {
             Users.schema
                 .findOne({ email: data.email })
@@ -352,7 +350,6 @@ export class UserBLL implements IUserBLL {
                     }
                 })
                 .catch(y => {
-                    console.log(y, ' error')
                     reject({ status: 400, message: 'No se encontró al usuario' })
                 });
         });
@@ -459,7 +456,6 @@ export class UserBLL implements IUserBLL {
                     } else reject({ status: 500, message: 'No se encontró al usuario' })
                 })
                 .catch(y => {
-                    console.log(y)
                     reject({ status: 500, message: 'No se encontró al usuario' })
                 })
         });

@@ -61,7 +61,8 @@ export class UserController implements IUserController {
             .authToken(req.headers.authorization, { module: 'user', control: 'registerUser' })
             .then(async () => {
                 try {
-                    await this.userBusiness.RegisterUser(req.body)
+                    const data = !req.headers.descrypt ? req.body : JSON.parse(req.headers.descrypt);
+                    await this.userBusiness.RegisterUser(data)
                         .then(x => {
                             res.status(200);
                             res.send(x);
@@ -78,12 +79,12 @@ export class UserController implements IUserController {
             });
     }
     public async UpdatePhone(req, res): Promise<void> {
-        console.log(req.headers, req.body, ' aqui ');
         await JWTAUTH
             .authToken(req.headers.authorization, { module: 'profile', control: 'phone' })
             .then(async () => {
                 try {
-                    await this.userBusiness.UpdatePhone(req.body)
+                    const data = !req.headers.descrypt ? req.body : JSON.parse(req.headers.descrypt);
+                    await this.userBusiness.UpdatePhone(data)
                         .then(x => {
                             res.status(200);
                             res.send(x);
@@ -104,7 +105,8 @@ export class UserController implements IUserController {
             .authToken(req.headers.authorization, { module: 'profile', control: 'names' })
             .then(async () => {
                 try {
-                    await this.userBusiness.UpdateNames(req.body)
+                    const data = !req.headers.descrypt ? req.body : JSON.parse(req.headers.descrypt);
+                    await this.userBusiness.UpdateNames(data)
                         .then(x => {
                             res.status(200);
                             res.send(x);
@@ -125,7 +127,8 @@ export class UserController implements IUserController {
             .authToken(req.headers.authorization, { module: 'account', control: 'accountEmail' })
             .then(async () => {
                 try {
-                    await this.userBusiness.UpdateEmail(req.body)
+                    const data = !req.headers.descrypt ? req.body : JSON.parse(req.headers.descrypt);
+                    await this.userBusiness.UpdateEmail(data)
                         .then(x => {
                             res.status(200);
                             res.send(x);
@@ -146,7 +149,8 @@ export class UserController implements IUserController {
             .authToken(req.headers.authorization, { module: 'account', control: 'accountPassword' })
             .then(async () => {
                 try {
-                    await this.userBusiness.UpdatePassword(req.body)
+                    const data = !req.headers.descrypt ? req.body : JSON.parse(req.headers.descrypt);
+                    await this.userBusiness.UpdatePassword(data)
                         .then(x => {
                             res.status(200);
                             res.send(x);
@@ -167,7 +171,8 @@ export class UserController implements IUserController {
             .authToken(req.headers.authorization, { module: 'account', control: 'creditCard' })
             .then(async () => {
                 try {
-                    await this.userBusiness.UpdateCreditCard(req.body)
+                    const data = !req.headers.descrypt ? req.body : JSON.parse(req.headers.descrypt);
+                    await this.userBusiness.UpdateCreditCard(data)
                         .then(x => {
                             res.status(200);
                             res.send(x);

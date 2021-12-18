@@ -29,7 +29,8 @@ export class ShoppingController implements IShoppingController {
             .authToken(req.headers.authorization, { module: 'store', control: 'registerStock' })
             .then(async () => {
                 try {
-                    await this.shoppingBusiness.RegisterStock(req.body)
+                    const data = !req.headers.descrypt ? req.body : JSON.parse(req.headers.descrypt);
+                    await this.shoppingBusiness.RegisterStock(data)
                         .then(x => {
                             res.status(200);
                             res.send(x);
@@ -51,7 +52,8 @@ export class ShoppingController implements IShoppingController {
             .authToken(req.headers.authorization, { module: 'store', control: 'updateStock' })
             .then(async () => {
                 try {
-                    await this.shoppingBusiness.UpdateStock(req.body)
+                    const data = !req.headers.descrypt ? req.body : JSON.parse(req.headers.descrypt);
+                    await this.shoppingBusiness.UpdateStock(data)
                         .then(x => {
                             res.status(200);
                             res.send(x);
@@ -120,7 +122,8 @@ export class ShoppingController implements IShoppingController {
             .authToken(req.headers.authorization, { module: 'management', control: 'store' })
             .then(async () => {
                 try {
-                    await this.shoppingBusiness.NewCategory(req.body)
+                    const data = !req.headers.descrypt ? req.body : JSON.parse(req.headers.descrypt);
+                    await this.shoppingBusiness.NewCategory(data)
                         .then(x => {
                             res.status(200);
                             res.send(x);
