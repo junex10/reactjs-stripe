@@ -7,9 +7,6 @@ import { withRouter } from 'react-router-dom';
 import ProductsList from './ProductsList';
 
 class Store extends Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         return (
             <>

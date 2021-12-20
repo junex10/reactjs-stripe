@@ -45,6 +45,7 @@ class ProductList extends Component {
                 value.data.map(x => {
                     x.createDate = moment(x.createDate).format('DD/MM/YYYY hh:mm A')
                     x.image = <img src={x.image} alt={x.product} width={50} />
+                    return x;
                 });
                 this.setState({ products: value.data })
             })

@@ -38,7 +38,7 @@ class Shopping extends Component {
                             sales.map(salesValue => {
                                 let cont = 0;
                                 salesValue.sale.map(salesProducts => cont += salesProducts.price)
-                                getSales.push({
+                                return getSales.push({
                                     id: salesValue.id,
                                     price: cont,
                                     createDate: moment(salesValue.createDate).format('DD/MM/YYYY hh:mm A')

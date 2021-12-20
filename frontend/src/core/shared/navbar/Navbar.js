@@ -39,16 +39,20 @@ class Navbar extends Component {
                         }
                         {
                             userSession !== null ?
-                                <li className='nav-link scrollto'>
-                                    <div className="dropdown">
-                                        <button className="btn btn-success dropdown-toggle" type="button" id="dropdownCart" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i className="fas fa-shopping-cart" style={{ fontSize: '20px', cursor: 'pointer' }}></i> Carrito
-                                        </button>
-                                        <div className="dropdown-menu" aria-labelledby="dropdownCart">
-                                            <Link to='/tienda/carrito' className="dropdown-item">Ferrari - 20</Link>
+                                <>
+                                    {/* 
+                                        <li className='nav-link scrollto'>
+                                        <div className="dropdown">
+                                            <button className="btn btn-success dropdown-toggle" type="button" id="dropdownCart" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i className="fas fa-shopping-cart" style={{ fontSize: '20px', cursor: 'pointer' }}></i> Carrito
+                                            </button>
+                                            <div className="dropdown-menu" aria-labelledby="dropdownCart">
+                                                <Link to='/tienda/carrito' className="dropdown-item">Ferrari - 20</Link>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                    */}
+                                </>
                             : ''
                         }
 

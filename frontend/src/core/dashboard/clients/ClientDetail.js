@@ -39,7 +39,7 @@ class ClientDetail extends Component {
                             <div className="card-body">
                                 <div className='row'>
                                     <div className='col-12 mb-4'>
-                                        <img width='100' className='mt-4 mb-4 d-block m-auto' style={{ borderRadius: '50%' }} src={userSVG} />
+                                        <img width='100' className='mt-4 mb-4 d-block m-auto' alt='user' style={{ borderRadius: '50%' }} src={userSVG} />
                                         <p className='text-center mb-4 mt-4'>
                                             Email: <b>{this.state.email}</b>
                                         </p>

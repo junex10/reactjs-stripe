@@ -54,14 +54,18 @@ class BuyButtons extends Component {
                 <div className='row bodyItemCard mt-4'>
                     {
                         userSession !== null ?
-                            <div className='col-12 col-sm-12 col-lg-6 col-md-6'>
-                                <button className='btn btn-success btn-block' id='addCart' onClick={this.directCart}><i className="fas fa-shopping-basket"></i></button>
-                            </div>
+                            <>
+                                {/*
+                                    <div className='col-12 col-sm-12 col-lg-6 col-md-6'>
+                                        <button className='btn btn-success btn-block' id='addCart' onClick={this.directCart}><i className="fas fa-shopping-basket"></i></button>
+                                    </div>
+                                */}
+                            </>
                             : ''
                     }
                     {
                         userSession !== null ?
-                            <div className='col-12 col-sm-12 col-lg-6 col-md-6'>
+                            <div className='col-12 col-sm-12 col-lg-12 col-md-12'>
                                 <button className='btn btn-success btn-block' id='buy' onClick={this.directBuy}><i className="fas fa-money-check"></i></button>
                             </div>
                             :
